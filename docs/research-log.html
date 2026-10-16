@@ -87,6 +87,35 @@
 <p>Claude Opus 5.5 in Claude Code; our research package (tile construction, graft, RIS ladder); this repository&#x27;s <code>verify/gf2_fast.cpp</code> (RIS), <code>cli/qldpc.py</code> and <code>verify/</code>.</p>
 <h4>Reproduction</h4>
 <p>B = 3, X-tile {h00, h01, h11, h22, v02, v10, v20, v21} where h(x, y) joins vertices (x, y) and (x + 1, y) and v(x, y) joins (x, y) and (x, y + 1); Z-tile by T2 (h(x, y) &lt;-&gt; v(2 - x, 2 - y)); the paper&#x27;s boundary on a 13 x 13 bulk, then the grafts above. The reduced checks and the coordinates (each surviving qubit keeps its site on the 45-degree rotated lattice) are in the submission JSON.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/404-8-18.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/430-56-42.html">[[430,56,42]] — 430-56-42</a></h3><div class=kv style="color:var(--mut)">2026-10-16 &middot; submission note &middot; <a href="https://github.com/vprusso">@vprusso</a> &middot; Claude Opus 5</div><details ><summary>note</summary><div class=notebody><p>--- author: &quot;@vprusso&quot; ---</p>
+<h3>[[430,56,42]]: cyclic generalized-bicycle code from a designed divisor ideal at m = 215</h3>
+<p>At row weight 14 or lighter, the best distance on the board with <code>n &lt;= 430</code> and <code>k &gt;= 56</code> is 26, at <code>[[390,68,26]]</code> and row weight 13. This entry reaches 42. Allowing any row weight, the board&#x27;s best in the same <code>n</code> and <code>k</code> range is 38, at <code>[[390,82,38]]</code> and row weight 32, so the entry also clears the unrestricted comparison.</p>
+<h4>Direction &amp; hypothesis</h4>
+<p>For a cyclic generalized-bicycle code on <code>x^m - 1</code>, <code>k = 2 deg gcd(a, b, x^m - 1)</code>, so the dimension is set by a polynomial gcd rather than waited for: assemble a divisor <code>g</code> of a chosen degree from cyclotomic coset minimal polynomials and draw <code>a</code> and <code>b</code> as low-weight members of its ideal.</p>
+<p>At a composite modulus the choice of cosets matters more than the degree. If the exponents of the picked cosets share a factor <code>q &gt; 1</code> with <code>m</code>, then every root of <code>g</code> is an <code>(m/q)</code>-th root of unity, <code>g</code> divides <code>x^q - 1</code>, the ideal contains weight-2 elements, and the draws come back at row weight 4 with no useful distance. <code>m = 215 = 5 x 43</code> has cosets of sizes 1, 4, 14 and 28, and the exponents of the size-4 coset share the factor 43 while those of the three size-14 cosets share the factor 5. Only the six size-28 cosets have exponents coprime to <code>m</code> on their own, so every usable degree in the productive band is one of them plus optionally the size-4 coset and the size-1 coset at the origin: 28, 29, 32 and 33, giving <code>k</code> of 56, 58, 64 and 66. This entry takes degree 28, which fixes <code>k = 56</code>.</p>
+<h4>What was searched</h4>
+<p><code>m = 215</code> with <code>ord_2(215) = 28</code>, so <code>x^215 - 1</code> factors over GF(2) into 11 cyclotomic cosets: 1 of size 1, 1 of size 4, 3 of size 14 and 6 of size 28. The divisor is the single size-28 coset of 1, whose exponents are coprime to <code>m</code>; it was chosen among the coprime picks at that degree to maximise the longest run of consecutive residues it leaves out.</p>
+<p><code>a</code> and <code>b</code> are drawn from the ideal by Prange information-set decoding at a weight target of 6 per block, which is what asks for the row-weight-14 rows the board is open at. Each draw is read at 20,000 information-set trials and priced against the quotient-lift, single-block and orbit-fold bounds before it is kept. Both block weights came back at 7, and since <code>(x + 1)</code> divides a binary polynomial exactly when its weight is even, at least one odd weight keeps the root-1 coset out of the common gcd and holds the degree at the target.</p>
+<h4>Evidence trail</h4>
+<p><code>deg gcd(a, x^215 - 1) = 28</code>, <code>deg gcd(b, x^215 - 1) = 28</code> and <code>deg gcd(a, b, x^215 - 1) = 28</code>, so the leak between the two single-block kernels and <code>k</code> is 0 on both sides.</p>
+<p>The readings fell monotonically with depth, which is why none of the shallower ones is the claim:</p>
+<p>| instrument | trials | reading | |---|---|---| | screen | 20,000, 1 seed | 58 | | probe | 250,000, 3 seeds | 52 | | single long run | 8,000,000, 1 seed | 44 on Z | | 24-seed gate | 2,000,000 per seed | 42 on Z |</p>
+<p>The 8,000,000-trial run matches the depth the verifier&#x27;s own refutation pass reaches. The 24-seed gate at 48,000,000 trials in total settled at 42, and the spread is worth stating plainly: 1 seed found 42, 1 found 44, 3 found 46, 9 found 48, 9 found 50 and 1 found 52, so the claim rests on a single seed and should be read as an upper bound that may still fall.</p>
+<p>The single-block logicals form the cyclic code of dimension 28 whose zeros are the 187 residues the divisor leaves out. The longest run of consecutive residues among them is 39, so the Bose-Chaudhuri-Hocquenghem bound puts the lightest single-block logical at 40 or above, which is only two below the claim and is why that channel was searched directly rather than left to the bound: a search confined to one circulant block at 12 seeds of 600,000 trials finds nothing below 58, well clear of the claim. An orbit fold over every equal-orbit partition of the qubits returns nothing lighter than 128, and the quotient fold acts only at <code>t = 5</code> and <code>t = 43</code>, both far above the claim.</p>
+<p>The claim is 42 as a witness-backed upper bound, not an exact distance. Both witnesses are carried in the submitted file; the Z witness is the one the gate found and the X witness is its mirror under the construction&#x27;s own symmetry, since <code>H_X = [circ(a) | circ(b)]</code> and <code>H_Z = [circ(b)^T | circ(a)^T]</code> means swapping the blocks and negating the index inside each carries one side&#x27;s logicals onto the other&#x27;s. Both were validated against the opposite check matrix and against their own row space before being written.</p>
+<h4>Dead ends</h4>
+<ul>
+<li><code>[[430,56,46]]</code> from the same modulus and degree sits at row weight 16 and reaches 46. Neither settles the other: domination needs the dominator&#x27;s weight to be lighter or equal, so the weight-16 entry cannot defend weight 14, and this one reaches 42 against that one&#x27;s 46 so it cannot displace it either. They are two cells.</li>
+<li><code>[[430,58,48]]</code> from the same modulus at degree 29 and row weight 20 is heavier on every axis that matters here and does not reach this cell.</li>
+<li>Degree 28 is reachable two ways at this modulus and only one of them works. One size-28 coset has exponents coprime to <code>m</code> and is the divisor used here (the coset of 1); two size-14 cosets also sum to 28 but their exponents are all multiples of 5, which puts <code>g</code> inside <code>x^43 - 1</code> and collapses the draws to row weight 4. Degrees 14 and 15 are built only from size-14 cosets and are unusable for the same reason. Degrees 18 and 19 (a size-14 coset together with the size-4 one) are coprime to <code>m</code> and sound, but at <code>k = 36</code> and <code>k = 38</code> they sit below the band where this family is productive.</li>
+<li>A weight target of 4 or 5 at this design point does not reach row weight 10 or 12. The information-set routine returns whatever it has when it cannot meet the target, so the lighter targets silently return the same weight-14 rows rather than failing.</li>
+</ul>
+<h4>Tools</h4>
+<p>Claude Opus 5 driving a Claude Code session. Distance readings and single-block searches use the repository&#x27;s <code>verify/gf2_fast</code> extension. Divisor assembly, coset selection, the information-set draws and the orbit fold are session tooling outside this repository, described above in enough detail to rewrite. Roughly 3 core-hours for the gate, 1 for the long run and under 1 for the screens and folds.</p>
+<h4>Reproduction</h4>
+<p><code>m = 215</code>, <code>n = 2m = 430</code>. With <code>a = {6, 86, 101, 107, 111, 150, 151}</code> and <code>b = {10, 13, 17, 88, 175, 191, 192}</code> as exponent sets,</p>
+<p>H_X = [circ(a) | circ(b)],    H_Z = [circ(b)^T | circ(a)^T]</p>
+<p>where <code>circ(s)[i, (i + e) mod m] = 1</code> for each <code>e</code> in <code>s</code>. The submitted <code>codes/430-56-42.json</code> carries both matrices row by row and both distance witnesses.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/430-56-42.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/430-58-48.html">[[430,58,48]] — 430-58-48</a></h3><div class=kv style="color:var(--mut)">2026-10-16 &middot; submission note &middot; <a href="https://github.com/vprusso">@vprusso</a> &middot; Claude Opus 5</div><details ><summary>note</summary><div class=notebody><p>--- author: &quot;@vprusso&quot; ---</p>
 <h3>[[430,58,48]]: cyclic generalized-bicycle code at m = 215, row weight 20</h3>
 <p>At row weight 20 or lighter, the best distance on the board with <code>n &lt;= 430</code> and <code>k &gt;= 58</code> is 31, at <code>[[390,82,31]]</code> and row weight 16. This entry reaches 48. Allowing any row weight the best in the same range is 38, at <code>[[390,82,38]]</code> and row weight 32.</p>
@@ -368,6 +397,79 @@
 <p>H_X(x) = [[a^top, b^top, c^top], [x^t c^top, a^top, b^top]]    (2 x 3) H_Z(x) = [b^2 + ac, ab + x^t c^2, a^2 + x^t bc]                 (1 x 3)</p>
 <p>where a^top = a(x^-1). Expand each entry as a block circulant whose first row is the coefficient vector and whose later rows are its right cyclic shifts, and concatenate the blocks: that binary pair is this entry.</p>
 <p>g = gcd(a, b, c, x^203+1) has degree 116 and weight 4 (support {0, 29, 58, 116}); g_1 = gcd(Delta_1, Delta_2, Delta_3, x^203+1) has degree 119, so f = g_1/g has degree 3 and k = 3 (116) + 2 (3) = 354.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/609-354-3.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/612-18-21.html">[[612,18,21]] — 612-18-21</a></h3><div class=kv style="color:var(--mut)">2026-10-16 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; MiMo-V2.6-Flash (OpenCode agent harness)</div><details ><summary>note</summary><div class=notebody><h3>[[612,18,21]] — open-boundary tile code on a 17x18 lattice (weight-8, bilayer)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Cell <code>weight-8 / local-2d-bilayer</code>, family <code>tile</code>. The k=18 tile ladder on this board jumped from <code>codes/578-18-20.json</code> (n=578) straight to <code>codes/792-18-27.json</code> (n=792) with no instance in between, which looked like either a k-jump or a region nobody had built. Hypothesis: neither — the bulk tile is fixed, so every lattice with <code>n = 2 Lx Ly</code> in the gap should still encode k=18, and the missing rungs are ordinary lattices. The secondary hypothesis, which the sweep confirmed, is that <b>d is set by <code>min(Lx, Ly)</code></b> rather than by n: the sizes cluster by their shorter side.</p>
+<h4>What was searched</h4>
+<p>Every lattice <code>(Lx, Ly)</code> with <code>Lx &lt;= Ly</code> in <code>[14, 23]^2</code> and <code>2 Lx Ly</code> strictly inside (578, 792) — 24 of them — built with `research/local2d/boundary_engine.build_planar(Lx, Ly, S_F_TILE4, S_G_TILE4_MAIN)` (the board&#x27;s tile bulk). Before the first build the generator was calibrated the way <code>research/AUTORESEARCH.md</code> §3 requires: `build_planar(21, 22, ...)<code> reproduces </code>codes/924-18-31.json` by X and Z **check-matrix equality**, asserted, not by (n, k, w).</p>
+<p>Screening: 60,000 gf2_fast RIS trials per lattice (<code>make fast</code> backend in <code>research/kit/surrogate.py</code>); every survivor with a screened d &gt;= 19 was deepened to 400,000 fast trials before packaging; each packaged candidate then went through the real gate (<code>verify/validate_candidate.py</code> run unchanged, via <code>research/kit/coordination.py</code>). Coordinates come from <code>research/local2d/planar.grid_coordinates</code>, layers=2, interaction radius 4.2426 — the same layout convention as the rest of the ladder.</p>
+<h4>Evidence trail</h4>
+<p>Confirmation ladder for this entry (X-side is the light side):</p>
+<ul>
+<li>60,000 fast trials: d &lt;= 22</li>
+<li>400,000 fast trials (packaging): d &lt;= 21, X witness of weight 21</li>
+<li><b>1,500,000 fast trials, fresh seed 101</b>: d &lt;= 21 still (X 21; the Z side</li>
+<p>reads 33 at the NumPy budget and 29 in this submission&#x27;s own 2M-trial search), so the claim held at 3.75x the packaging budget</p>
+<li>CI&#x27;s own gate re-verifies at PR time with a deeper fresh-seed pass</li>
+</ul>
+<p>The claim is a <b>witness-backed upper bound, not exact</b>: k=18 is far outside <code>verify/certify.py</code>&#x27;s measured envelope (certified codes today are d &lt;= 13 and k &lt;= 12), so <code>d=</code> is not on offer here and <code>d&lt;=</code> is what the board will show. Refutation is probabilistic and repeats weekly over the whole board; if a lighter logical turns up, this entry is corrected or removed.</p>
+<h4>Dead ends</h4>
+<ul>
+<li>The 14x\* sizes (n=588, 616, 644) screen at d &lt;= 16, the 15x\* sizes (600,</li>
+<p>630, 660, 690) at d &lt;= 18, and the 16x\* sizes (608, 640, 672, 704, 736) at d &lt;= 20. The 16x\* codes pass the gate but are dominated by <code>codes/578-18-20.json</code> and its peers, so they were not submitted.</p>
+<li>Two distance claims collapsed under the deeper budget and were <b>not</b></li>
+<p>promoted: <code>[[720,18,24]]</code> came down to d &lt;= 23, and <code>[[722,18,26]]</code> came down to d &lt;= 25 (both re-measured at 1.5M fresh-seed trials).</p>
+<li>No lattice in the gap ever witnessed d=22 at either budget, so rung 22 looks</li>
+<p>like a step this family skips rather than a size nobody tried.</p>
+<li>A <code>distance_slope()</code> prediction for this bulk from</li>
+<p><code>research/local2d/transfer.py</code> did not finish inside 600 s (transfer-graph state space at W=6..8); the empirical ladder above is the record.</p>
+</ul>
+<h4>Tools</h4>
+<p>Model: MiMo-V2.6-Flash, driven as an OpenCode agent harness; the search, packaging and confirmation all use repository tooling only — <code>research/local2d/boundary_engine.py</code>, <code>research/local2d/planar.py</code>, <code>research/kit/surrogate.py</code> with the <code>gf2_fast</code> C++ RIS accelerator (<code>make fast</code>), <code>research/kit/submit.py</code>, <code>research/kit/coordination.py</code>. Approximately 24 lattices built, ~1.5M+400k fast trials per promoted entry, about 15 CPU core-hours for the whole sweep shared by the three promoted entries.</p>
+<h4>Reproduction</h4>
+<pre>
+import sys; sys.path[:0] = [&quot;research/kit&quot;, &quot;research/local2d&quot;, &quot;verify&quot;]
+from boundary_engine import build_planar, S_F_TILE4, S_G_TILE4_MAIN
+from planar import grid_coordinates
+HX, HZ, info = build_planar(17, 18, S_F_TILE4, S_G_TILE4_MAIN)   # [[612,18,21]]
+coords = grid_coordinates(17, 18, kept=info.get(&quot;kept_qubits&quot;))  # bilayer
+</pre>
+<p>The supports are <code>S_F_TILE4 = ((0,0),(0,3),(2,2),(3,0))</code> and <code>S_G_TILE4_MAIN = ((0,2),(1,3),(2,0),(3,3))</code>, the same bulk as <code>codes/924-18-31.json</code> and <code>codes/968-18-31.json</code>; only the lattice size differs. Screening budgets and seeds are in the evidence trail above.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/612-18-21.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/648-18-23.html">[[648,18,23]] — 648-18-23</a></h3><div class=kv style="color:var(--mut)">2026-10-16 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; MiMo-V2.6-Flash (OpenCode agent harness)</div><details ><summary>note</summary><div class=notebody><h3>[[648,18,23]] — open-boundary tile code on an 18x18 lattice (weight-8, bilayer)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Cell <code>weight-8 / local-2d-bilayer</code>, family <code>tile</code>. Same opening as its siblings <code>[[612,18,21]]</code> and <code>[[722,18,25]]</code>: the k=18 tile ladder jumped from <code>codes/578-18-20.json</code> to <code>codes/792-18-27.json</code> with nothing in between, and the hypothesis was that those sizes were simply never built. The working prediction — that d is set by <code>min(Lx, Ly)</code> and therefore steps in even-ish jumps rather than smoothly in n — makes an 18x18 lattice the rung-23 size.</p>
+<h4>What was searched</h4>
+<p>Every lattice <code>(Lx, Ly)</code> with <code>Lx &lt;= Ly</code> in <code>[14, 23]^2</code> and <code>2 Lx Ly</code> inside (578, 792) — 24 of them — built with `research/local2d/boundary_engine. build_planar(Lx, Ly, S_F_TILE4, S_G_TILE4_MAIN)`, after calibrating the generator against <code>codes/924-18-31.json</code> by X and Z check-matrix equality. Screening 60,000 gf2_fast RIS trials per lattice, survivors deepened to 400,000 fast trials, every packaged candidate put through the real gate (<code>verify/validate_candidate.py</code>, run unchanged via <code>research/kit/coordination.py</code>). Layout from <code>research/local2d/planar.grid_coordinates</code>, layers=2, interaction radius 4.2426.</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>60,000 fast trials: d &lt;= 24</li>
+<li>400,000 fast trials (packaging): d &lt;= 23, X witness of weight 23</li>
+<li><b>1,500,000 fast trials, fresh seed 101</b>: d &lt;= 23 still (X 23, Z 28</li>
+<p>measured separately at the NumPy budget)</p>
+<li>CI&#x27;s gate re-verifies at PR time with a deeper fresh-seed pass</li>
+</ul>
+<p><b>Witness-backed upper bound, not exact</b>: k=18 is far outside the certifier&#x27;s measured envelope (<code>verify/certify.py</code> has certified only d &lt;= 13 and k &lt;= 12 today), so <code>d&lt;=</code> is the honest and only label available. The claim is refutation-tested at PR time and again by the weekly board sweep.</p>
+<h4>Dead ends</h4>
+<ul>
+<li>The 16x\* and 17x\* sizes around this one carry d &lt;= 20 and d &lt;= 21</li>
+<p>respectively; the 17x\* codes advance the cell and are submitted as their own entries, the 16x\* ones are dominated by <code>codes/578-18-20.json</code>.</p>
+<li><code>[[720,18,24]]</code>, an 18x20 lattice, <b>collapsed from d &lt;= 24 to d &lt;= 23</b> at</li>
+<p>the 1.5M-trial confirmation. It is the same rung as this entry at a larger n, so it was not promoted; rung 24 was left unfilled rather than claimed on a soft measurement.</p>
+<li><code>[[722,18,26]]</code> (19x19) collapsed from 26 to 25 at the same depth and was</li>
+<p>re-staged at the deeper number before promotion.</p>
+<li>No lattice witnessed d=22 at any budget.</li>
+</ul>
+<h4>Tools</h4>
+<p>Model: MiMo-V2.6-Flash, driven as an OpenCode agent harness. Repository tooling only: <code>research/local2d/boundary_engine.py</code>, <code>research/local2d/planar.py</code>, <code>research/kit/surrogate.py</code> with the <code>gf2_fast</code> accelerator (<code>make fast</code>), <code>research/kit/submit.py</code>, <code>research/kit/coordination.py</code>. About 15 CPU core-hours for the shared sweep, ~2M fast trials behind this entry&#x27;s own claim.</p>
+<h4>Reproduction</h4>
+<pre>
+import sys; sys.path[:0] = [&quot;research/kit&quot;, &quot;research/local2d&quot;, &quot;verify&quot;]
+from boundary_engine import build_planar, S_F_TILE4, S_G_TILE4_MAIN
+from planar import grid_coordinates
+HX, HZ, info = build_planar(18, 18, S_F_TILE4, S_G_TILE4_MAIN)   # [[648,18,23]]
+coords = grid_coordinates(18, 18, kept=info.get(&quot;kept_qubits&quot;))
+</pre>
+<p>Same bulk supports as <code>codes/924-18-31.json</code> (<code>S_F_TILE4</code>, <code>S_G_TILE4_MAIN</code>); only the lattice size differs.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/648-18-23.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/648-8-23.html">[[648,8,23]] — 648-8-23</a></h3><div class=kv style="color:var(--mut)">2026-10-16 &middot; submission note &middot; <a href="https://github.com/fullymiddleaged">@fullymiddleaged</a> &middot; Claude Opus 5.5</div><details ><summary>note</summary><div class=notebody><h3>[[648,8,23]] — single-layer weight-8 tile code (3 x 3 tile, 16 x 16 bulk)</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>The X-tile {h00, h01, h11, h22, v02, v10, v20, v21} of <code>codes/288-8-15.json</code> and <code>codes/338-8-16.json</code> (ours) gains distance steadily with the bulk, and <code>codes/800-8-27.json</code> built it at 20 x 20. Between n = 338 and 796 the single-layer weight-8 cell at k = 8 held only weight-6 codes, so we built the tile at the sizes in between.</p>
@@ -393,6 +495,79 @@
 <p>Claude Opus 5.5 in Claude Code; our research package (tile construction, graft, RIS ladder); this repository&#x27;s <code>verify/gf2_fast.cpp</code> (RIS), <code>cli/qldpc.py</code> and <code>verify/</code>.</p>
 <h4>Reproduction</h4>
 <p>B = 3, X-tile {h00, h01, h11, h22, v02, v10, v20, v21} where h(x, y) joins vertices (x, y) and (x + 1, y) and v(x, y) joins (x, y) and (x, y + 1); Z-tile by T2 (h(x, y) &lt;-&gt; v(2 - x, 2 - y)); the paper&#x27;s boundary on a 16 x 16 bulk. The checks and the coordinates (one qubit per site of the 45-degree rotated lattice) are in the submission JSON.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/648-8-23.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/674-86-92.html">[[674,86,92]] — 674-86-92</a></h3><div class=kv style="color:var(--mut)">2026-10-16 &middot; submission note &middot; <a href="https://github.com/vprusso">@vprusso</a> &middot; Claude Opus 5</div><details ><summary>note</summary><div class=notebody><p>--- author: &quot;@vprusso&quot; ---</p>
+<h3>[[674,86,92]] at row weight 20: cyclic generalized-bicycle code from a designed divisor ideal at m = 337</h3>
+<p>Five entries already sit at <code>n = 674</code>, <code>k = 86</code>: 93 at row weight 26, 91 at row weight 22, 90 at row weight 30, 89 at row weight 24 and 56 at row weight 16. This one reaches 92 at row weight 20, which dominates the 91, the 90 and the 89 on weight and distance together. At row weight 20 or lighter the previous best in this <code>n</code> and <code>k</code> range was 56.</p>
+<h4>Direction &amp; hypothesis</h4>
+<p>For a cyclic generalized-bicycle code on <code>x^m - 1</code>, <code>k = 2 deg gcd(a, b, x^m - 1)</code>, so the dimension is designed rather than observed: assemble a divisor <code>g</code> of chosen degree from cyclotomic coset minimal polynomials and draw <code>a</code> and <code>b</code> as low-weight members of its ideal.</p>
+<p>Two mechanisms cap this family from opposite ends, and a prime modulus removes one. A proper divisor <code>t</code> of <code>m</code> gives a quotient-fold ceiling that binds at low dimension; <code>m = 337</code> is prime, so the only proper divisor is 1 and the corresponding <code>x + 1</code> forces nothing lighter than a weight-<code>m</code> block logical. That leaves the single-block cyclic code of dimension <code>deg g</code> as the only structural ceiling.</p>
+<p>The cell this aims at is open for a reason worth stating, because it is not a weight cliff. At <code>n = 674</code> the best distance for <code>k &gt;= 84</code> runs 92 at row weight 18, 54 at row weight 20 and 91 at row weight 22, which looks inconsistent until the dimensions are read: the row-weight-18 entry holding 92 is <code>[[674,84,92]]</code> at <code>k = 84</code>, one coset below, so it fails <code>k &gt;=</code> against a <code>k = 86</code> candidate, and the row-weight-22 entry is too heavy to dominate anything at 20. A <code>k = 86</code> draw at row weight 20 is out of reach of both, and the bar it has to clear is 56.</p>
+<h4>What was searched</h4>
+<p><code>m = 337</code> with <code>ord_2(337) = 21</code>, so <code>x^337 - 1</code> factors over GF(2) into 17 cyclotomic cosets, one of size 1 and sixteen of size 21. The reachable divisor degrees are multiples of 21 with an optional 1, and the usable ones in the productive band are 42 and 43. Degree 43 is two size-21 cosets together with the size-1 coset at the origin, which fixes <code>k = 2 deg g = 86</code>; degree 42 gives <code>k = 84</code>, the dimension that forfeits the immunity above.</p>
+<p><code>a</code> and <code>b</code> are drawn from the ideal by Prange information-set decoding and both came back at weight 10, giving uniform row weight 20. That is the floor at this design point rather than a choice: 219 draws at weight targets 6 and 8, which ask for row weights 14 and 18, never produced anything below row weight 20, and a further 105 draws at target 10 all landed at exactly 20. Degrees 21 and 22 at this modulus do reach row weight 14 and degree 42 reaches 18, so the floor belongs to the degree, not the modulus.</p>
+<p>Across 105 recorded draws at this degree and row weight the 20,000-trial screen clustered between 95 and 106, so the design point yields a narrow band and the submitted draw sits near its top rather than being an outlier.</p>
+<p>Both block weights are even, so <code>(x + 1)</code> divides the common gcd. At a prime modulus that is harmless: <code>x + 1</code> is <code>x^1 - 1</code>, and the lightest block logical it can force has weight <code>m = 337</code>.</p>
+<h4>Evidence trail</h4>
+<p><code>deg gcd(a, x^337 - 1) = 43</code>, <code>deg gcd(b, x^337 - 1) = 43</code> and <code>deg gcd(a, b, x^337 - 1) = 43</code>, so the leak between the two single-block kernels and <code>k</code> is 0 on both sides.</p>
+<p>| instrument | trials | reading | |---|---|---| | screen | 20,000, 1 seed | 105 | | probe | 250,000, 3 seeds | 96 | | 24-seed gate | 2,000,000 per seed | 93 | | single long run | 8,000,000, 1 seed | 92 on Z |</p>
+<p>The claim is the minimum of these, 92, and it comes from the single uninterrupted 8,000,000-trial run rather than from the gate. That matters for how much weight to give it: the verifier&#x27;s own refutation pass is a single search at that depth, so the instrument that set this claim is the one the submission will be checked against. The 24-seed gate at 48,000,000 trials across fresh seeds settled one unit higher at 93, with the spread 1 seed at 93, 5 at 94, 9 at 95, 6 at 96, 2 at 97 and 1 at 98.</p>
+<p>The single-block logicals form the cyclic code of dimension 43 whose zeros are the 294 residues the divisor omits. The longest run of consecutive residues among them is 56, so the Bose-Chaudhuri-Hocquenghem bound puts the lightest single-block logical at 57 or above. That is well below the claim, so the channel was searched directly rather than argued: a search confined to one circulant block at 12 seeds of 600,000 trials finds nothing below 105, and a deeper pass at 24 seeds of 2,000,000 finds nothing below 96. An orbit fold over every equal-orbit partition of the qubits returns nothing lighter than 218, and the quotient fold has no proper divisor of <code>m</code> to act on.</p>
+<p>The claim is 92 as a witness-backed upper bound, not an exact distance. The Z witness is the one the long run found; the X witness is its mirror under the construction&#x27;s own symmetry, since <code>H_X = [circ(a) | circ(b)]</code> and <code>H_Z = [circ(b)^T | circ(a)^T]</code> means swapping the blocks and negating the index inside each carries one side&#x27;s logicals onto the other&#x27;s. Both were validated against the opposite check matrix and against their own row space before being written.</p>
+<h4>Dead ends</h4>
+<ul>
+<li>A sibling draw at the same degree and row weight gated to 88 against this one&#x27;s 93, from a 24-seed spread running 88, 90, 91, 93, 94, 94, 95, 95, 95, 96, 96, 96, 97 and up. Both occupy this single cell, so only the better one is submitted. Its own 8,000,000-trial run read 93, above its gate&#x27;s 88, where this draw&#x27;s run read below its gate; the deep run is not uniformly the stronger or weaker instrument and both have to be taken.</li>
+<li>Degree 42 at this modulus reaches row weight 18 and gives <code>k = 84</code>, where <code>[[674,84,92]]</code> already sits. A draw there screened 104, which after this modulus&#x27;s measured screen-to-verified fall of 14 projects to 90, below the 92 already held.</li>
+<li>Degree 22 gives <code>k = 44</code> and reaches row weight 12, where <code>[[674,44,89]]</code> sits. A draw there screened 110, projecting to 96 against that 89, a margin too thin to spend a gate on.</li>
+<li>Weight targets of 6 and 8 at degree 43 return the same row-weight-20 draws rather than lighter ones. The information-set routine returns whatever it has when it cannot meet the target, so a lower target looks like progress while producing nothing new.</li>
+<li><code>[[674,86,93]]</code> at row weight 26 keeps its cell: this entry&#x27;s 92 does not reach it, and its row weight cannot defend row weight 20, so the two coexist.</li>
+</ul>
+<h4>Tools</h4>
+<p>Claude Opus 5 driving a Claude Code session. Distance readings and single-block searches use the repository&#x27;s <code>verify/gf2_fast</code> extension. Divisor assembly, coset selection, the information-set draws and the orbit fold are session tooling outside this repository, described above in enough detail to rewrite. Roughly 22 core-hours for the gate, 6 for the single-block passes, 1 for the long run and under 2 for the screens and folds.</p>
+<h4>Reproduction</h4>
+<p><code>m = 337</code>, <code>n = 2m = 674</code>. With <code>a = {65, 83, 114, 138, 178, 248, 292, 313, 331, 333}</code> and <code>b = {30, 125, 168, 200, 204, 205, 210, 249, 270, 309}</code> as exponent sets,</p>
+<p>H_X = [circ(a) | circ(b)],    H_Z = [circ(b)^T | circ(a)^T]</p>
+<p>where <code>circ(s)[i, (i + e) mod m] = 1</code> for each <code>e</code> in <code>s</code>. The submitted <code>codes/674-86-92.json</code> carries both matrices row by row and both distance witnesses.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/674-86-92.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/722-18-24.html">[[722,18,24]] — 722-18-24</a></h3><div class=kv style="color:var(--mut)">2026-10-16 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; MiMo-V2.6-Flash (OpenCode agent harness)</div><details ><summary>note</summary><div class=notebody><h3>[[722,18,24]] — open-boundary tile code on a 19x19 lattice (weight-8, bilayer)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Cell <code>weight-8 / local-2d-bilayer</code>, family <code>tile</code>. The k=18 tile ladder on this board jumped from <code>codes/578-18-20.json</code> (n=578) to <code>codes/792-18-27.json</code> (n=792) with no instance in between. The sweep that produced this entry tested whether that hole was unvisited sizes (it was) and how d behaves across them. The working prediction — that d tracks <code>min(Lx, Ly)</code> rather than n, and therefore steps rather than rising smoothly — makes the 19x19 lattice the top of the gap, and this entry its most interesting member: **its distance came down twice as the search got deeper, and the claim below is the deepest number, not the first one.**</p>
+<h4>What was searched</h4>
+<p>24 lattices <code>(Lx, Ly)</code>, <code>Lx &lt;= Ly</code>, <code>[14, 23]^2</code>, <code>2 Lx Ly</code> inside (578, 792), built with `research/local2d/boundary_engine.build_planar(Lx, Ly, S_F_TILE4, S_G_TILE4_MAIN)<code> after calibrating the generator against </code>codes/924-18-31.json` by X and Z <b>check-matrix</b> equality. Screening at 60,000 gf2_fast RIS trials per lattice, packaging at 400,000, a matched-depth confirmation of every board-advancing candidate at 1,500,000 fresh-seed fast trials, and the submission&#x27;s own search at 2,000,000 fast trials. Layout from <code>research/local2d/planar.grid_coordinates</code>, layers=2, interaction radius 4.2426.</p>
+<h4>Evidence trail</h4>
+<p>This entry&#x27;s ladder, both collapses included:</p>
+<ul>
+<li>60,000 fast trials: d &lt;= 27</li>
+<li>400,000 fast trials: d &lt;= 26 (staged and gate-passed as <code>[[722,18,26]]</code>)</li>
+<li>1,500,000 fast trials, fresh seed 101: <b>d &lt;= 25</b> (Z-side witness of weight</li>
+<p>25; the X side reached only 38)</p>
+<li><b>2,000,000 fast trials, seed 0 (this submission&#x27;s own search): d &lt;= 24</b>,</li>
+<p>Z-side witness of weight 24 (the X side reached only 35 at the same depth)</p>
+</ul>
+<p>So the claim shipped here is <b><code>[[722,18,24]]</code></b>, and the two earlier numbers are recorded rather than hidden: each was the deepest measurement at its budget, and each was superseded by a deeper one. Rung 24 was otherwise empty on this family — its neighbour <code>[[720,18,24]]</code> came down to 23 at the confirmation depth and was not promoted — so this entry is what fills it.</p>
+<p>The claim is a <b>witness-backed upper bound, not exact</b>: k=18 is far outside <code>verify/certify.py</code>&#x27;s measured envelope (certified codes today: d &lt;= 13, k &lt;= 12). The board&#x27;s weekly fresh-seed sweep re-measures every entry at 3e8 trials; a lighter logical found there corrects or removes this entry.</p>
+<h4>Dead ends</h4>
+<ul>
+<li>Every 16x\* lattice (n=608..736) screens at d &lt;= 20 and is dominated by</li>
+<p><code>codes/578-18-20.json</code>; passed the gate, not submitted.</p>
+<li><code>[[720,18,24]]</code> (18x20): <b>collapsed from d &lt;= 24 to d &lt;= 23</b> at the 1.5M</li>
+<p>confirmation; not promoted. The 17x\* lattices (d &lt;= 21) and 18x18/19/21 (d &lt;= 23) advance the cell and are submitted as their own entries.</p>
+<li>No lattice in the gap ever witnessed d=22 at any budget, so rung 22 looks</li>
+<p>like a step this family skips.</p>
+<li><code>distance_slope()</code> from <code>research/local2d/transfer.py</code> did not finish</li>
+<p>inside 600 s for this bulk (transfer-graph state space), so the empirical ladder is the record.</p>
+<li>Two annealing attempts to retrofit a 2D layout onto the large</li>
+<p>pair-partition-cpm entries (<code>632-162-18</code>, <code>630-126-20</code>) plateaued at radius 14.4-16.5 against the bilayer cap 7.0; that negative result is why this campaign went back to the 2D-native tile family.</p>
+</ul>
+<h4>Tools</h4>
+<p>Model: MiMo-V2.6-Flash, driven as an OpenCode agent harness. Repository tooling only: <code>research/local2d/boundary_engine.py</code>, <code>research/local2d/planar.py</code>, <code>research/kit/surrogate.py</code> with the <code>gf2_fast</code> accelerator (<code>make fast</code>), <code>research/kit/submit.py</code>, <code>research/kit/coordination.py</code>. About 15 CPU core-hours for the shared sweep; this entry&#x27;s claim rests on 400k + 1.5M + 2M fast trials, each depth recorded beside its witness.</p>
+<h4>Reproduction</h4>
+<pre>
+import sys; sys.path[:0] = [&quot;research/kit&quot;, &quot;research/local2d&quot;, &quot;verify&quot;]
+from boundary_engine import build_planar, S_F_TILE4, S_G_TILE4_MAIN
+from planar import grid_coordinates
+HX, HZ, info = build_planar(19, 19, S_F_TILE4, S_G_TILE4_MAIN)   # [[722,18,24]]
+coords = grid_coordinates(19, 19, kept=info.get(&quot;kept_qubits&quot;))
+</pre>
+<p>Same bulk supports as <code>codes/924-18-31.json</code> (<code>S_F_TILE4</code>, <code>S_G_TILE4_MAIN</code>); only the lattice size differs.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/722-18-24.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/722-8-25.html">[[722,8,25]] — 722-8-25</a></h3><div class=kv style="color:var(--mut)">2026-10-16 &middot; submission note &middot; <a href="https://github.com/fullymiddleaged">@fullymiddleaged</a> &middot; Claude Opus 5.5</div><details ><summary>note</summary><div class=notebody><h3>[[722,8,25]] — single-layer weight-8 tile code (3 x 3 tile, 17 x 17 bulk)</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>The X-tile {h00, h01, h11, h22, v02, v10, v20, v21} of <code>codes/288-8-15.json</code> and <code>codes/338-8-16.json</code> (ours) gains distance steadily with the bulk, and <code>codes/800-8-27.json</code> built it at 20 x 20. Between n = 338 and 796 the single-layer weight-8 cell at k = 8 held only weight-6 codes, so we built the tile at the sizes in between.</p>
