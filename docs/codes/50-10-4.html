@@ -90,7 +90,7 @@
 <h4>Direction &amp; hypothesis</h4>
 <p>Aiming at the weight-6 track&#x27;s frontier: find low-check-weight CSS codes that strictly dominate an existing board entry on (n, k, d). The candidate pool is the qecdb.org database (36,830 records, mirrored and deduped to 2,369 unique CSS records), which is ~140x denser in small-block CSS codes than this board.</p>
 <h4>What was searched</h4>
-<p>Full funnel (see fieldnotes/2026-08-15-qecdb-mine-plan.md and fieldnotes/2026-08-15-qecdb-sourced-submissions.md):</p>
+<p>Full funnel (see fieldnotes/2026-08-15-qecdb-css-funnel.md):</p>
 <ul>
 <li>mirror qecdb.org -&gt; 2,369 unique records (by <code>_id</code>) under research/db_dump/</li>
 <li>parse css=True records into (HX, HZ): X rows then Z rows; require CSS</li>
@@ -116,13 +116,13 @@
 <p>excluded (not importable conservatively).</p>
 <li>2 records ([[85,53,5]], [[89,67,4]]) have check weight 40-44, above the</li>
 <p>schema&#x27;s per-check cap of 32, and cannot be represented.</p>
-<li>19 records pass the gate but &quot;do not advance their board cell&quot;; 4 more</li>
+<li>19 records pass the gate but are dominated on arrival (not board-advancing), so they are recorded here as non-frontier results; 4 more</li>
 <p>share a [[n,k,d]] already occupied on the board and were not submitted.</p>
 </ul>
 <h4>Tools</h4>
-<p>Model: DeepSeek V4 Flash 0731 (provenance.model). Author: @mathysrennela. Repo tooling: research/kit (css, search.fingerprint, surrogate, submit.make_submission), verify/validate_candidate.py (trusted gate). Pipeline scripts: research/db_mirror.py -&gt; db_phase1.py -&gt; db_phase2.py -&gt; db_phase3.py -&gt; db_phase3_witness.py -&gt; db_phase3_backfill.py -&gt; db_phase3_provenance.py.</p>
+<p>Model: DeepSeek V4 Flash 0731 (provenance.model). Author: @mathysrennela. Repo tooling: research/kit (css, search.fingerprint, surrogate, submit.make_submission), verify/validate_candidate.py (trusted gate). Pipeline scripts (local tooling, never committed): db_mirror -&gt; db_phase1 -&gt; db_phase2 -&gt; db_phase3 -&gt; db_phase3_witness -&gt; db_phase3_backfill -&gt; db_phase3_provenance.</p>
 <h4>Reproduction</h4>
-<p>The code is reconstructed from qecdb.org record 67bc8ef5 (https://qecdb.org/codes/67bc8ef538cb83471425e7ac). The record&#x27;s H field holds all X-rows followed by all Z-rows; split them, take the X/Z support matrices, and re-derive k and witnesses with the kit: research/kit/db_phase1.py-style parsing then make_submission. The raw record is preserved under research/db_dump/raw/67bc8ef5.json (gitignored).</p></div></section>
+<p>The code is reconstructed from qecdb.org record 67bc8ef5 (https://qecdb.org/codes/67bc8ef538cb83471425e7ac). The record&#x27;s H field holds all X-rows followed by all Z-rows; split them, take the X/Z support matrices, and re-derive k and witnesses with the kit: db_phase1-style parsing then make_submission. The raw record is qecdb.org record 67bc8ef5, the external source cited above.</p></div></section>
 <section class=blk><h3>Parity checks</h3>
 <div class=kv><b>X-checks</b> 20 (max weight 6) &middot; <b style="min-width:auto">Z-checks</b> 20 (max weight 6)</div>
 <details><summary>H_X (20 checks, sparse supports)</summary><div class=wit>[4, 9, 31, 41, 42, 48]
