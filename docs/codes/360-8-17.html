@@ -111,8 +111,9 @@
 </ul>
 <h4>Evidence trail</h4>
 <ul>
-<li>Fresh-seed RIS ladder on the reduced code with the same engine: 17 at 20,000, 200,000, 1,000,000, 5,000,000 and 20,000,000 trials, each rung on its own seed, nothing lighter. The distance is a witness-backed upper</li>
-<p>bound, not a proof.</p>
+<li>Fresh-seed RIS ladder on the reduced code with the same engine: 17 at 20,000, 200,000, 1,000,000, 5,000,000 and 20,000,000 trials, each rung on its own seed, nothing lighter. The board shows the witness-backed upper bound.</li>
+<li>Exact distance: DistQLDPC (the MaxSAT solver of arXiv:2606.12445), each CSS side posed alone with a complete</li>
+<p>logical basis, returned 17 on both sides (about 2.1 and 2.3 hours). This is our solver&#x27;s result, not a board certificate.</p>
 <li><code>verify/validate_candidate.py</code> passes (<code>passed: true</code>): it advances the weight-8 x local-2d-single board and is not a duplicate of any board entry.</li>
 <li>Not dominated in weight-8 x local-2d-single: the nearest k = 8 entries are <code>codes/316-8-16.json</code> (d 16) and</li>
 <p><code>codes/454-8-17.json</code> (d 17, weight 6).</p>
@@ -123,7 +124,7 @@
 <p>d &lt;= 16 at 200,000 trials: one accepted graft had cost distance. With the 20k + 2 x 200k filter the pass rejects such steps and also reaches a smaller n.</p>
 </ul>
 <h4>Tools</h4>
-<p>Claude Opus 5.5 in Claude Code; our research package (tile construction, graft, RIS ladder); this repository&#x27;s <code>verify/gf2_fast.cpp</code> (RIS), <code>cli/qldpc.py</code> and <code>verify/</code>.</p>
+<p>Claude Opus 5.5 in Claude Code; our research package (tile construction, graft, RIS ladder); this repository&#x27;s <code>verify/gf2_fast.cpp</code> (RIS), <code>cli/qldpc.py</code> and <code>verify/</code>; DistQLDPC (github.com/guluchen/DistQLDPC @ 4498c28, with no flag but its CPU limit; our build adds a <code>-one-z</code> flag that this run did not use).</p>
 <h4>Reproduction</h4>
 <p>B = 3, X-tile {h00, h01, h11, h22, v02, v10, v20, v21} where h(x, y) joins vertices (x, y) and (x + 1, y) and v(x, y) joins (x, y) and (x, y + 1); Z-tile by T2 (h(x, y) &lt;-&gt; v(2 - x, 2 - y)); the paper&#x27;s boundary on a 12 x 12 bulk, then the grafts above. The reduced checks and the coordinates (each surviving qubit keeps its site on the 45-degree rotated lattice) are in the submission JSON.</p></div></section>
 <section class=blk><h3>Parity checks</h3>
