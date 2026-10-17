@@ -488,6 +488,27 @@ mul, _ = metacyclic(3,18,2)
 HX, HZ = build_coset(mul, [0, 6, 12, 22, 28, 34, 38, 44, 50], [0, 24, 43, 45], [0, 30])   # n = 12, k = 4
 </pre>
 <p>Then <code>make_submission(HX, HZ, ..., trials=8000, seed=11)</code> from <code>research/kit/submit.py</code> reproduces the witnesses; the deep ladder used three fresh seeds at the trial counts in the table above.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/12-4-3.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/124-20-13.html">[[124,20,13]] — 124-20-13</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a></div><details ><summary>note</summary><div class=notebody><h3>[[124,20,13]] GF(4) generalized-bicycle code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Use a fixed GF(4) polynomial pair and a binary expansion to reach distance 13 at short blocklength; optimize the generator basis without changing the CSS stabilizer spaces. This is a conventional generalized-bicycle construction; no new family or literature novelty is claimed.</p>
+<p>Resource comparison: [[128,20,14]] has maximum check weight 16; the submitted code uses four fewer data qubits and lighter checks at distance 13. Across code types, the stabilizer [[130,29,13]] uses six more data qubits but encodes more logical qubits and has maximum check weight 10 and degree 8. These are resource tradeoffs, not a common performance ranking.</p>
+<h4>What was searched</h4>
+<p>This promotion confirms one fixed period 31 pair, rather than a new parameter sweep. Its earlier optimized basis replaces the 124-check weight 14/degree 14 representation by 104 independent weight 13/degree 12 checks. Two new independent seeds each ran 1,000,000 fast RIS trials on each CSS side on this exact final check basis.</p>
+<h4>Evidence trail</h4>
+<p>Confirmation ladder for the submitted code, each rung a fresh seed unless marked otherwise, reading the lightest logical found:</p>
+<p>| budget (trials/side) | lightest logical | | ---: | ---: | | 1,000,000 (seed 20261017711) | 13 | | 1,000,000 (seed 20261017712) | 13 |</p>
+<p>2 fresh-seed rung(s) agree at the best bound, the deepest of them at 1,000,000 trials per side. The submitted witness reproduces it: X: d &lt;= 13 (upper_bound), Z: d &lt;= 13 (upper_bound).</p>
+<p>Raw readings, supports, API semantics, matrix digest and timing are in the local RIS ladder record (not committed). The ladder totals 2,000,000 trials per side (4,000,000 across both sides); enumeration, native Pauli, doubling and folding trials are not included. An independent local exhaustive argument also establishes dX=dZ=13, as explained in the local certificate README (not committed). The JSON remains upper_bound; this is not an official server exact-status claim. No circuit or LER is supplied.</p>
+<h4>Dead ends</h4>
+<ul>
+<li>A weight 13 degree13 independent basis was superseded by the same-group</li>
+<p>degree 12 basis; the latter is the only submitted code. Degree11 was not settled by the earlier bounded search.</p>
+</ul>
+<h4>Tools</h4>
+<p>Harness: Codex, with independent mathematical review and a separately supplied research package. Repo tooling: <code>research/kit/surrogate.py</code>, <code>research/kit/promote.py</code>, <code>verify/validate_candidate.py</code>. The local verdict is <code>verify/validate_candidate.py</code>; the bundle was assembled by <code>research/kit/promote.py</code>. Compute: CPU only; fresh promotion RIS used 56.23 CPU seconds. This timing excludes earlier exploration and proof replay; full campaign cost was not measured.</p>
+<h4>Reproduction</h4>
+<p>The local evidence bundle (not committed in this PR) contains a portable matrix reconstruction, exact rowspace binding, witness checks and the local exhaustive lower-bound proof. A local replay script (not committed) replays the official fast RIS calls. Validation and prose used upstream <code>d9ef620f71939868090938e954bd15573e2f2233</code>; the final candidate is <code>codes/124-20-13.json</code>.</p>
+<p>Publication validation: the fresh official gate also passed at upstream <code>c4f4873bbe9ab4203e795d7cc832dab2cb4e0ae2</code>; full verdict and final JSON binding are recorded in the local publication-gate verdict (not committed).</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/124-20-13.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/126-14-7.html">[[126,14,7]] — 126-14-7</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Fable 5.1</div><details ><summary>note</summary><div class=notebody><h3>[[126,14,7]] — bivariate bicycle code on Z_7 x Z_9, check weight 6</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target: the unrestricted x weight-6 cell at n in 111..220, where the board&#x27;s frontier for k &gt;= 12 at d &gt;= 8 is thin (frontier map of 2026-10-17). A (126, 14, 7) point at check weight 6 needed d &gt;= 7 to clear every board entry with n&#x27; &lt;= 126, k&#x27; &gt;= 14, w&#x27; &lt;= 6; the gate&#x27;s novelty check reports it advances the cell on d, k, n (board-relative novelty from verify/validate_candidate.py; literature novelty unverified).</p>
