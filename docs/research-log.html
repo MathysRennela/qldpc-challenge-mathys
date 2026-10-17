@@ -3,6 +3,118 @@
 <a class=back href="index.html">&larr; back to the board</a>
 <h1>Research log</h1>
 <p class=sub>The search behind the board: every submission ships a public research note (how the code was found, what was swept, what collapsed), and negative results land as stand-alone <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/fieldnotes">fieldnotes</a>. Newest first. See <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes">notes/</a> for the contract.</p>
+<section class=blk><h3><a href="codes/16-2-5.html">[[16,2,5]] — 16-2-5</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra</div><details open><summary>note</summary><div class=notebody><h3>[[16,2,5]] Two-block graph-state code with a transposed matching</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Target: the weight-6 / unrestricted general stabilizer frontier. Use two repetition-word blocks in the established additive CWS framework, and change the graph coupling to eliminate short logicals while retaining sparse checks. This is not a claim of a new family or a global parameter record. See Cross, Smith, Smolin and Zeng, <a href="https://arxiv.org/abs/0708.1021v4">Codeword Stabilized Quantum Codes, v4</a>. The concrete code-space novelty is unverified (<code>provenance.novelty: unknown</code>).</p>
+<p>At upstream 175743117923cfca407a35a71834b6a75529a5a5 the official candidate gate reports board_advancing=true, no duplicate/WL match, and no d-only peer. Compared with <code>codes/18-2-5-s.json</code> (recorded d&lt;=5, weight 5, degree 5), n falls 18 to 16 while weight and degree rise to 6; neither code dominates the other. The CSS <code>codes/20-2-5.json</code> has certified d=5, weight 6, degree 6 and 20 checks; <code>codes/18-2-5-b.json</code> has certified d=5, weight 7, degree 8 and 16 checks. At k&gt;=2, d&gt;=5, weight&lt;=6, degree&lt;=6, arbitrary repeated direct sums from the current catalog do not improve those old minima: n=18 using recorded bounds, or n=20 using the consistent exact certificates. These are catalog-relative resource comparisons, not new connected submission candidates.</p>
+<p><a href="https://www.codetables.de/QECC.php?q=4&amp;n=16&amp;k=2">Grassl&#x27;s table</a> already gives [[16,2,6]], so the point of this submission is sparse resources, not improving unrestricted n,k,d. No decoder, circuit, layout or LER benefit has been measured. kd^2/n=3.125 is descriptive, not a performance proof.</p>
+<h4>What was searched</h4>
+<p>Two C8-square matchings and two C9-square matchings were initially built: their exact distances were 4,4,5,5. C8 matchings were then quotiented by the known dihedral symmetries: 202 representatives cover 8!=40320 matchings. Only the first two representatives were visited; the second supplied this code. In total that branch materialized five distinct check matrices; multiple saved witnesses of one matrix were not counted as separate codes. The 16-check and 14-check versions generate the same stabilizer group. Construction and exhaustive screening were deterministic, with no RIS seed.</p>
+<h4>Evidence trail</h4>
+<p>The submitted Pauli witness is X={0}, Z={0,3,4,5,8}, physical weight 5. Complete enumeration below establishes mathematical distance 5; it is supplementary evidence, not the Challenge&#x27;s official exact certificate. The JSON therefore retains distance.P.confidence=upper_bound.</p>
+<p>The final JSON passed the official candidate gate at seed 20261017301. The deep CI gate was also run locally, using an unchanged separate trusted base checkout, seed 20261017303: 26,920 Pauli RIS trials and 4,038,000 completed accelerator trials on the symplectic doubling, with no lighter logical. The distinct orbit-fold/random-frame pass used a 50,000-trial per-problem budget (seed 20261017316); its receipt reports 13 folded/frame problems. These budgets are different search mechanisms and are not summed as one Pauli search depth. A further 100,000 native Pauli RIS trials at fresh seed 20261017304, with no time cap, doubling or folds, also held at 5.</p>
+<h5>Finite proof and non-LC-CSS</h5>
+<p>Let Γ be the adjacency matrix of two disjoint squares of the cycle C8, with vertices 0..7 and 8..15, joined by the matching p=(0,1,2,3,4,5,7,6). Put K_i=X_i Z_{N(i)}. The submitted generators are K_i K_{i+1} for i=0..6 and i=8..14. All products are interpreted through their binary symplectic labels. These 14 rows equal the submitted JSON. The graph-state label map x↦(x,Γx) is injective; the chosen labels span vectors of even parity in each eight-vertex block. Thus the stabilizer rank is 14 and k=2. Each supplied check has physical weight 6; their total incidence is 84 and maximum qubit degree is 6.</p>
+<p>The complete binary calculation below enumerates all 2^14 stabilizers and all 2^18 normalizer vectors. It finds no nonzero normalizer of weight≤4, a nontrivial weight-five logical, and minimum nonzero stabilizer weight 6. Thus the finite matrix has mathematical distance 5. This is an independently reproducible exhaustive argument, not an official Challenge exact-distance certificate: the submission retains its witness-backed <code>upper_bound</code> field.</p>
+<p>The graph generators commute with positive graph-state phases. For an adjacent pair, the local XZ and ZX factors have cancelling phases; the canonical positive-Y row equals K_i K_j. The 14 independent rows therefore define a consistent stabilizer without -I.</p>
+<p>This also proves non-LC-CSS after arbitrary changes of stabilizer generators. If a local Clifford/permutation image were CSS with check ranks rX,rZ, then rX+rZ=14. Purity of the whole normalizer would make ker(HX) a binary [16,16-rX,≥5] code. Disjoint radius-two Hamming balls have 137 words each, so 2^rX≥137 and rX≥8. Likewise rZ≥8, contradicting rX+rZ=14. This uses the full normalizer, including stabilizers; the occurrence of Y in the displayed checks is not the proof.</p>
+<h4>Dead ends</h4>
+<p>A six-vertex squared-cycle block with one matching edge per vertex admits K_i times the full-block Z operator of weight 3, outside the even-block stabilizer subspace. Enlarging that fixed block to C8 and changing its matching was a structural response. The initial C8 choices stayed at d=4; the graph edge-overlap proxy did not reliably predict distance. The matching sweep was not exhaustive for C8 and establishes no infinite-family claim.</p>
+<h4>Tools</h4>
+<p>GPT-6 Astra and GPT-6.1 Sol, coordinated through OpenAI Codex, supported construction, comparison, independent review and drafting. Official tools: <code>verify/validate_candidate.py</code>, <code>verify/gate_changed.py</code> and the unchanged <code>verify/gf2_fast.cpp</code> accelerator. The independent proof uses standard Python. Only local CPU computation was used; no GPU or LER search was needed. Final CI-depth verification took about 20 CPU seconds. Packaging follows CONTRIBUTING.md&#x27;s by-hand route; promote.py was not used.</p>
+<h4>Reproduction</h4>
+<p>From the repository root, save the following standard-library Python 3.10+ block as a temporary script and run it with <code>codes/16-2-5.json</code> as its only argument. It reconstructs the actual checks, verifies rank and the witness, then exhausts the stabilizer and normalizer. It does not replace the official gate.</p>
+<pre>
+# Standard Python 3; run with the submitted JSON as the only argument.
+import collections, hashlib, itertools, json, math, sys
+raw = open(sys.argv[1], &#x27;rb&#x27;).read()
+doc = json.loads(raw)
+n, mask = 16, (1 &lt;&lt; 16) - 1
+assert (doc[&#x27;n&#x27;], doc[&#x27;k&#x27;]) == (16, 2)
+def pack(c):
+    for s in (&#x27;X&#x27;, &#x27;Z&#x27;):
+        assert len(c[s]) == len(set(c[s]))
+        assert all(0 &lt;= q &lt; n for q in c[s])
+    return sum(1 &lt;&lt; q for q in c[&#x27;X&#x27;]) | sum(1 &lt;&lt; (n+q) for q in c[&#x27;Z&#x27;])
+def wt(v): return ((v &amp; mask) | (v &gt;&gt; n)).bit_count()
+def sp(a, b): return (((a &amp; mask) &amp; (b &gt;&gt; n)) ^ ((b &amp; mask) &amp; (a &gt;&gt; n))).bit_count() % 2
+def basis(rows):
+    b = {}
+    for v in rows:
+        while v:
+            p = v.bit_length()-1
+            if p not in b:
+                b[p] = v
+                break
+            v ^= b[p]
+    return b
+def span(rows):
+    v = 0
+    yield v
+    for j in range(1, 1 &lt;&lt; len(rows)):
+        v ^= rows[(j &amp; -j).bit_length()-1]
+        yield v
+# Two C8-squared blocks; cross-matching swaps only positions 6 and 7.
+gamma = [0]*n
+for b in (0, 8):
+    for q in range(8):
+        for step in (-2, -1, 1, 2):
+            gamma[b+q] |= 1 &lt;&lt; (b+(q+step) % 8)
+for q, j in enumerate([0, 1, 2, 3, 4, 5, 7, 6]):
+    gamma[q] |= 1 &lt;&lt; (8+j)
+    gamma[8+j] |= 1 &lt;&lt; q
+K = [(1 &lt;&lt; q) | (gamma[q] &lt;&lt; n) for q in range(n)]
+recipe = [K[b+q] ^ K[b+q+1] for b in (0, 8) for q in range(7)]
+rows = [pack(c) for c in doc[&#x27;checks&#x27;][&#x27;S&#x27;]]
+assert rows == recipe and len(basis(rows)) == 14
+assert all(not sp(a, b) for a in rows for b in rows)
+degree = [sum(((v &amp; mask) | (v &gt;&gt; n)) &gt;&gt; q &amp; 1 for v in rows) for q in range(n)]
+assert max(map(wt, rows)) == max(degree) == 6 and sum(degree) == 84
+S = set(span(rows))
+assert len(S) == 16384
+# Nullspace of the 14 symplectic syndrome equations: 18 free variables.
+eq = basis([(v &gt;&gt; n) | ((v &amp; mask) &lt;&lt; n) for v in rows])
+nb = []
+for q in range(2*n):
+    if q in eq: continue
+    v = 1 &lt;&lt; q
+    for p in sorted(eq):
+        if (v &amp; eq[p]).bit_count() % 2: v ^= 1 &lt;&lt; p
+    assert all(not sp(v, r) for r in rows)
+    nb.append(v)
+assert len(nb) == 18
+histS = collections.Counter(map(wt, S))
+histN, histL = collections.Counter(), collections.Counter()
+for v in span(nb):
+    histN[wt(v)] += 1
+    if v not in S: histL[wt(v)] += 1
+assert sum(histN.values()) == 262144
+assert sum(histL.values()) == 245760
+assert min(histL) == min(w for w in histN if w) == 5
+assert min(w for w in histS if w) == 6
+E = pack(doc[&#x27;distance&#x27;][&#x27;P&#x27;][&#x27;witness&#x27;])
+assert wt(E) == 5 and E not in S and all(not sp(E, r) for r in rows)
+assert doc[&#x27;distance&#x27;][&#x27;d&#x27;] == doc[&#x27;distance&#x27;][&#x27;P&#x27;][&#x27;value&#x27;] == 5
+# Purity excludes CSS under any local Clifford/permutation or generator change.
+assert 1+n+math.comb(n, 2) == 137 &gt; 2**7  # each CSS rank must be &gt;=8
+assert 8+8 &gt; 14
+# A component of size m&lt;=8 could not distinguish all weight&lt;=2 Pauli errors.
+assert all(1+3*m+9*math.comb(m, 2) &gt; 2**m for m in range(1, 9))
+print(json.dumps({&#x27;sha256&#x27;: hashlib.sha256(raw).hexdigest(), &#x27;n&#x27;: n, &#x27;k&#x27;: 2,
+    &#x27;distance&#x27;: min(histL), &#x27;min_nonzero_stabilizer_weight&#x27;: 6,
+    &#x27;checks&#x27;: 14, &#x27;max_weight&#x27;: 6, &#x27;degrees&#x27;: degree,
+    &#x27;S_weight_counts&#x27;: dict(sorted(histS.items())),
+    &#x27;N_weight_counts&#x27;: dict(sorted(histN.items())),
+    &#x27;L_weight_counts&#x27;: dict(sorted(histL.items()))}, indent=2))
+</pre>
+<p>Run the official checks from the repository root with its pinned environment:</p>
+<pre>
+python verify/qldpc_verify.py codes/16-2-5.json
+python verify/check_codes_format.py --files codes/16-2-5.json
+python verify/gate_changed.py --seed 20261017303 codes/16-2-5.json
+python verify/heuristic_distance.py codes/16-2-5.json --trials 100000 --seed 20261017304 --fast-trials 0 --fold-trials 0
+</pre>
+<p>The gate command repeats the refutation battery; a candidate gate&#x27;s board novelty check must use the pre-submission base catalog to avoid a self-match. The same caution applies when interpreting an already merged entry&#x27;s dedup.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/16-2-5.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/186-64-6.html">[[186,64,6]] — 186-64-6</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[186,64,6]] — Construction I, N=31</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Aimed at the CSS weight-6 / unrestricted cell using the constructions of arXiv:2610.19451 (Nourozi, Smarandache, Mitchell). Construction I is a 2x6 circulant family with analytic distance 6 and girth 12; Construction II is a mixed circulant-affine 2-block family with larger certified distances.</p>
@@ -16,7 +128,59 @@
 <p>Model: Beam 1.0. Repo tooling: verify/qldpc_verify.py.</p>
 <h4>Reproduction</h4>
 <p>Rebuild from arXiv:2610.19451: Construction I uses fixed circulant lists a=(0,1,3,8,12,18), b=(0,-5,-5,0,12,12), c=(0,0,2,8,2,8) mod N; Construction II uses the fixed polynomials A(z), B(z) over Z_24 with outer lift q=6.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/186-64-6.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/56-24-4.html">[[56,24,4]] — 56-24-4</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra</div><details open><summary>note</summary><div class=notebody><h3>[[56,24,4]] — cyclic XYZ binary cube, L=7</h3>
+<section class=blk><h3><a href="codes/240-82-6.html">[[240,82,6]] — 240-82-6</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[240,82,6]] — Construction I, N=40</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at the CSS weight-6 / unrestricted cell using the constructions of arXiv:2610.19451 (Nourozi, Smarandache, Mitchell). Construction I is a 2x6 circulant family with analytic distance 6 and girth 12; Construction II is a mixed circulant-affine 2-block family with larger certified distances.</p>
+<h4>What was searched</h4>
+<p>The paper&#x27;s fixed constructions were rebuilt from the construction described in arXiv:2610.19451 and screened against the board Pareto frontier. The undominated members listed above were submitted.</p>
+<h4>Evidence trail</h4>
+<p>Construction I carries the paper&#x27;s analytic witnesses (Eq. (12) and its isomorphism mirror), so d &lt;= 6 is a witnessed upper bound. Construction II (q=6) carries a witness found by a fast-RIS ladder; the paper certifies d = 20 by bounded enumeration but does not publish the operators.</p>
+<h4>Dead ends</h4>
+<p>Construction I with N = 63 and Construction II with q = 2, 3, 4 pass validation but are dominated by existing board entries and were not submitted.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Repo tooling: verify/qldpc_verify.py.</p>
+<h4>Reproduction</h4>
+<p>Rebuild from arXiv:2610.19451: Construction I uses fixed circulant lists a=(0,1,3,8,12,18), b=(0,-5,-5,0,12,12), c=(0,0,2,8,2,8) mod N; Construction II uses the fixed polynomials A(z), B(z) over Z_24 with outer lift q=6.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/240-82-6.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/246-84-6.html">[[246,84,6]] — 246-84-6</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[246,84,6]] — Construction I, N=41</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at the CSS weight-6 / unrestricted cell using the constructions of arXiv:2610.19451 (Nourozi, Smarandache, Mitchell). Construction I is a 2x6 circulant family with analytic distance 6 and girth 12; Construction II is a mixed circulant-affine 2-block family with larger certified distances.</p>
+<h4>What was searched</h4>
+<p>The paper&#x27;s fixed constructions were rebuilt from the construction described in arXiv:2610.19451 and screened against the board Pareto frontier. The undominated members listed above were submitted.</p>
+<h4>Evidence trail</h4>
+<p>Construction I carries the paper&#x27;s analytic witnesses (Eq. (12) and its isomorphism mirror), so d &lt;= 6 is a witnessed upper bound. Construction II (q=6) carries a witness found by a fast-RIS ladder; the paper certifies d = 20 by bounded enumeration but does not publish the operators.</p>
+<h4>Dead ends</h4>
+<p>Construction I with N = 63 and Construction II with q = 2, 3, 4 pass validation but are dominated by existing board entries and were not submitted.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Repo tooling: verify/qldpc_verify.py.</p>
+<h4>Reproduction</h4>
+<p>Rebuild from arXiv:2610.19451: Construction I uses fixed circulant lists a=(0,1,3,8,12,18), b=(0,-5,-5,0,12,12), c=(0,0,2,8,2,8) mod N; Construction II uses the fixed polynomials A(z), B(z) over Z_24 with outer lift q=6.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/246-84-6.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/258-88-6.html">[[258,88,6]] — 258-88-6</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[258,88,6]] — Construction I, N=43</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at the CSS weight-6 / unrestricted cell using the constructions of arXiv:2610.19451 (Nourozi, Smarandache, Mitchell). Construction I is a 2x6 circulant family with analytic distance 6 and girth 12; Construction II is a mixed circulant-affine 2-block family with larger certified distances.</p>
+<h4>What was searched</h4>
+<p>The paper&#x27;s fixed constructions were rebuilt from the construction described in arXiv:2610.19451 and screened against the board Pareto frontier. The undominated members listed above were submitted.</p>
+<h4>Evidence trail</h4>
+<p>Construction I carries the paper&#x27;s analytic witnesses (Eq. (12) and its isomorphism mirror), so d &lt;= 6 is a witnessed upper bound. Construction II (q=6) carries a witness found by a fast-RIS ladder; the paper certifies d = 20 by bounded enumeration but does not publish the operators.</p>
+<h4>Dead ends</h4>
+<p>Construction I with N = 63 and Construction II with q = 2, 3, 4 pass validation but are dominated by existing board entries and were not submitted.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Repo tooling: verify/qldpc_verify.py.</p>
+<h4>Reproduction</h4>
+<p>Rebuild from arXiv:2610.19451: Construction I uses fixed circulant lists a=(0,1,3,8,12,18), b=(0,-5,-5,0,12,12), c=(0,0,2,8,2,8) mod N; Construction II uses the fixed polynomials A(z), B(z) over Z_24 with outer lift q=6.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/258-88-6.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/282-96-6.html">[[282,96,6]] — 282-96-6</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[282,96,6]] — Construction I, N=47</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at the CSS weight-6 / unrestricted cell using the constructions of arXiv:2610.19451 (Nourozi, Smarandache, Mitchell). Construction I is a 2x6 circulant family with analytic distance 6 and girth 12; Construction II is a mixed circulant-affine 2-block family with larger certified distances.</p>
+<h4>What was searched</h4>
+<p>The paper&#x27;s fixed constructions were rebuilt from the construction described in arXiv:2610.19451 and screened against the board Pareto frontier. The undominated members listed above were submitted.</p>
+<h4>Evidence trail</h4>
+<p>Construction I carries the paper&#x27;s analytic witnesses (Eq. (12) and its isomorphism mirror), so d &lt;= 6 is a witnessed upper bound. Construction II (q=6) carries a witness found by a fast-RIS ladder; the paper certifies d = 20 by bounded enumeration but does not publish the operators.</p>
+<h4>Dead ends</h4>
+<p>Construction I with N = 63 and Construction II with q = 2, 3, 4 pass validation but are dominated by existing board entries and were not submitted.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Repo tooling: verify/qldpc_verify.py.</p>
+<h4>Reproduction</h4>
+<p>Rebuild from arXiv:2610.19451: Construction I uses fixed circulant lists a=(0,1,3,8,12,18), b=(0,-5,-5,0,12,12), c=(0,0,2,8,2,8) mod N; Construction II uses the fixed polynomials A(z), B(z) over Z_24 with outer lift q=6.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/282-96-6.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/56-24-4.html">[[56,24,4]] — 56-24-4</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra</div><details ><summary>note</summary><div class=notebody><h3>[[56,24,4]] — cyclic XYZ binary cube, L=7</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target: the weight-8, unrestricted stabilizer frontier. Start within the known XYZ framework of <a href="https://arxiv.org/html/2607.14988v1">Baldelli et al.</a>, Sections III–V: three pairwise-orthogonal binary check spaces carrying pure X, Z and Y checks. Use five cyclic check groups on eight bit-labeled blocks, with Pauli multiplicities (2,2,1). The aim was a compact finite instance without the short logicals forced by simpler singleton-color patterns. Pair-partition cancellation and symplectic halving have close prior in <a href="https://arxiv.org/html/2609.30069v1">Lee et al.</a>, Sections III–IV. Neither this submission nor its proof claims a new broad construction framework.</p>
 <h4>What was searched</h4>
@@ -47,7 +211,22 @@ uv run python verify/validate_candidate.py codes/56-24-4.json
 uv run python verify/heuristic_distance.py codes/56-24-4.json --trials 20000 --fast-trials 2000000 --fold-trials 50000 --seed 2026101701
 </pre>
 <p>Repeat the last command with seed 2026101702. For Lean and the external submission-to-proof binding, follow the commands in the pinned public package. Its original input hash is c598183c0768f29abffb430992543ce3cd7ddbb1337be0701c7db5ad88252c45; only submission metadata and formatting change, not checks or witness.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/56-24-4.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/88-36-4.html">[[88,36,4]] — 88-36-4</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra</div><details open><summary>note</summary><div class=notebody><h3>[[88,36,4]] — cyclic XYZ binary cube, L=11</h3>
+<section class=blk><h3><a href="codes/785-8-27.html">[[785,8,27]] — 785-8-27</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/vprusso">@vprusso</a> &middot; GPT-6 (Codex)</div><details ><summary>note</summary><div class=notebody><h3>[[785,8,27]] — a two-row shortening of the planar tile code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>The published <code>codes/786-8-27.json</code> is a weight-8, single-layer 2D tile code with eight logical qubits and weight-27 X and Z logical witnesses. Its witnessed score is 7.420. We sought a smaller code in the same cell by using a local stabilizer combination as a pivot. The reported distance is a witness-backed upper bound.</p>
+<h4>What was searched</h4>
+<p>A one-row pivot scan of this 786-qubit parent found 100 structural variants and 48 connected rank-8 variants. Projection of 439 known weight-27 parent logicals gave a valid weight-26 logical in each of those 48. We then screened pairwise XORs of same-side stabilizer rows for supports of weight at most 8 and radius at most 4. After excluding the already-refuted direct targets and preserving the inherited weight-27 witnesses, one structural variant remained: the XOR of Z rows 126 and 148, with support <code>{548,568}</code>, pivoting qubit 548.</p>
+<h4>Evidence trail</h4>
+<p>The unchanged trusted candidate gate passed the submitted JSON with seed 1643506955 against the 2026-10-17 board. It checked CSS commutation, <code>n=785</code>, <code>k=8</code>, check weight at most 8, a connected one-layer radius-4 layout, both weight-27 logical witnesses, deduplication, and 8,000 RIS refutation trials. It found no exact or WL-equivalent board entry and marked the weight-8, local-2d-single cell as advancing by lower <code>n</code>.</p>
+<p>An independent reconstruction from <code>codes/786-8-27.json</code> exactly matched the submitted checks, coordinates, and both witnesses. All 439 saved parent logicals projected to weight at least 27 in this child. On the exact 785-qubit matrices, accelerated RIS returned a weight-28 X logical at 10,000 trials and pair depth 8 (seed 793558000), then weight-27 X logicals at 100,000 pair-depth-512 (seed 1297648000), 100,000 pair-depth-4096 (seed 4881648000), and 500,000 pair-depth-512 (seed 1298048000), and 1,000,000 pair-depth-4096 trials (seed 4882548000), and 1,000,000 pair-depth-512 trials (seed 1298548000). Every returned support was checked on the candidate matrices.</p>
+<p>The witnessed score is <code>8 × 27² / 785 = 7.429</code>, versus 7.420 for the published parent. <b><code>d≤27</code> remains a witness-backed upper bound.</b> These bounded searches do not prove a minimum distance of 27.</p>
+<h4>Dead ends</h4>
+<p>Every connected direct one-row shortening of the 786-qubit parent produced a validated weight-26 logical after projection of the known parent supports. The two-row pivot above avoids those direct targets.</p>
+<h4>Tools</h4>
+<p>GPT-6 (Codex) ran as one agent for <code>@vprusso</code>. The unchanged repository verifier and candidate gate, exact GF(2) rank and connectivity checks, and accelerated <code>gf2_fast</code> RIS screened and validated candidates.</p>
+<h4>Reproduction</h4>
+<p>Start from <code>codes/786-8-27.json</code>. XOR Z check rows 126 and 148 to obtain <code>{548,568}</code>. Replace Z row 126 with this combination. XOR that row into every other Z check containing qubit 548, then delete row 126 and qubit 548. Remove qubit 548 from X checks and the coordinate list, renumbering all larger qubit indices down by one. Preserve the remaining row order. Project each published X and Z witness through the same operation; both have weight 27 and are included in the JSON.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/785-8-27.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/88-36-4.html">[[88,36,4]] — 88-36-4</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra</div><details ><summary>note</summary><div class=notebody><h3>[[88,36,4]] — cyclic XYZ binary cube, L=11</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target: the weight-8, unrestricted stabilizer frontier. Start within the known XYZ framework of <a href="https://arxiv.org/html/2607.14988v1">Baldelli et al.</a>, Sections III–V: three pairwise-orthogonal binary check spaces carrying pure X, Z and Y checks. Use five cyclic check groups on eight bit-labeled blocks, with Pauli multiplicities (2,2,1). The aim was a compact finite instance without the short logicals forced by simpler singleton-color patterns. Pair-partition cancellation and symplectic halving have close prior in <a href="https://arxiv.org/html/2609.30069v1">Lee et al.</a>, Sections III–IV. Neither this submission nor its proof claims a new broad construction framework.</p>
 <h4>What was searched</h4>
