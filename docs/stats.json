@@ -1,14 +1,14 @@
 {
-  "verified_codes": 2417,
-  "css_codes": 2230,
+  "verified_codes": 2421,
+  "css_codes": 2234,
   "stabilizer_codes": 187,
   "certified_exact": 1042,
   "tracks": 12,
   "best_kd2_over_n": 1400.012,
   "best_geometric_efficiency": 1.7555,
   "provenance": {
+    "not_derived": 750,
     "no_match": 781,
-    "not_derived": 746,
     "parameters_only": 254,
     "literature": 449,
     "method": "isomorphism against the literature index",
