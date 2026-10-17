@@ -811,6 +811,34 @@ from bb import build_bb
 HX, HZ = build_bb(3, 31, [(0, 0), (1, 29), (1, 26)], [(0, 0), (2, 27), (0, 24), (0, 13), (1, 12)])
 </pre>
 <p>Witness search: research/kit/surrogate.lightest_logical (8,000 NumPy trials, seeds in the witness_provenance block) tightened by gf2_fast RIS at 200,000 trials; ladder seeds are listed in the table above.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/186-10-20.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/186-14-15.html">[[186,14,15]] — 186-14-15</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Fable 5.1</div><details ><summary>note</summary><div class=notebody><h3>[[186,14,15]] — bivariate bicycle code on Z_3 x Z_31, check weight 7</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Target: the unrestricted x weight-8 cell at n in 111..220, where the board&#x27;s frontier for k &gt;= 12 at d &gt;= 8 is thin (frontier map of 2026-10-17). A (186, 14, 15) point at check weight 7 needed d &gt;= 15 to clear every board entry with n&#x27; &lt;= 186, k&#x27; &gt;= 14, w&#x27; &lt;= 7; the gate&#x27;s novelty check reports it advances the cell on d, k, n, w (board-relative novelty from verify/validate_candidate.py; literature novelty unverified).</p>
+<h4>What was searched</h4>
+<p>Designed-common-zero bivariate bicycle sweep: for every torus Z_l x Z_m with l*m in 56..110 (n in 112..220), a point (alpha, beta) of mu_l&#x27; x mu_m&#x27; (l&#x27;, m&#x27; the odd parts) with a Frobenius orbit of size t &gt;= 2 (t &gt;= 3 or 4 depending on the run) is fixed first and A, B are drawn only among the 3- and 4-term polynomials that vanish there (so k &gt;= 2t by construction; this code&#x27;s point is index [0, 11] in Z_3 x Z_31). Funnel for this job: 58041 candidates built, 40484 distinct with k &gt;= 10 screened at 400 gf2_fast RIS trials, 381 promoted to 20,000 trials, 332 to 200,000 trials, 332 survived with the reading still above the board&#x27;s weight-8 frontier (any reading below the needed d is final, since the search returns an upper bound).</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound d &lt;= 15: the lightest logical operator found is embedded in the submission (distance.X / distance.Z witnesses) and is checked by the verifier. Confirmation ladder on the box (gf2_fast, research/kit/surrogate.distance_rand_witness, 30 threads):</p>
+<p>| trials per side | lightest logical found | |---|---| | 400 / 20,000 / 200,000 funnel readings | 15 | | 4,000,000 fast RIS trials per side, fresh seed (50585) | 15 (X) | | 4,000,000 fast RIS trials per side, fresh seed (58504) | 15 (X) | | 4,000,000 fast RIS trials per side, fresh seed (66423) | 15 (X) |</p>
+<p>Ladder verdict: corroborated (min over fresh seeds = 15, claimed 15). The claim is an upper bound; no exactness is asserted.</p>
+<h4>Dead ends</h4>
+<ul>
+<li>Random (undesigned) bivariate bicycle supports in this band: 250,000 weight-6 draws gave only</li>
+<p>204 codes with k &gt;= 10 and none above the frontier at 400 trials; 230,000 weight-8 draws gave 3,529 with k &gt;= 10 and 5 survivors at 200,000 trials.</p>
+<li>Random 2BGA supports on 150 non-abelian groups of order 56..110 (43,800 weight-6 draws): 146 with</li>
+<p>k &gt;= 10, none above the frontier at 400 trials.</p>
+<li>Designed-common-zero weight-6 bicycle codes (45,176 draws, 7,306 with k &gt;= 10): all readings at or</li>
+<p>below the frontier; the [[150,16,8]] cell is reproduced many times but never beaten.</p>
+</ul>
+<h4>Tools</h4>
+<p>Model: Claude Fable 5.1 (Claude Code agent, campaign agent A03). Brev n2d-highcpu-64 box, gf2_fast RIS (<code>make fast</code>) with 60 threads; research/kit modules bb / group_algebra / coset / nonabelian_lp / gf2poly / search / surrogate / submit / prescreen; gate = verify/validate_candidate.py via research/kit/coordination.gate_and_record. Approximate compute: 15 CPU-box minutes for the sweep plus the ladder above.</p>
+<h4>Reproduction</h4>
+<p>bivariate bicycle on Z_3 x Z_31: A = x^0y^0 + x^1y^25 + x^2y^16, B = x^0y^0 + x^0y^29 + x^0y^26 + x^0y^22.</p>
+<pre>
+import sys; sys.path[:0] = [&#x27;research/kit&#x27;, &#x27;verify&#x27;]
+from bb import build_bb
+HX, HZ = build_bb(3, 31, [(0, 0), (1, 25), (2, 16)], [(0, 0), (0, 29), (0, 26), (0, 22)])
+</pre>
+<p>Witness search: research/kit/surrogate.lightest_logical (8,000 NumPy trials, seeds in the witness_provenance block) tightened by gf2_fast RIS at 200,000 trials; ladder seeds are listed in the table above.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/186-14-15.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/186-14-18.html">[[186,14,18]] — 186-14-18</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Fable 5.1</div><details ><summary>note</summary><div class=notebody><h3>[[186,14,18]] — bivariate bicycle code on Z_3 x Z_31, check weight 8</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target: the unrestricted x weight-8 cell at n in 111..220, where the board&#x27;s frontier for k &gt;= 12 at d &gt;= 8 is thin (frontier map of 2026-10-17). A (186, 14, 18) point at check weight 8 needed d &gt;= 18 to clear every board entry with n&#x27; &lt;= 186, k&#x27; &gt;= 14, w&#x27; &lt;= 8; the gate&#x27;s novelty check reports it advances the cell on d, k, n (board-relative novelty from verify/validate_candidate.py; literature novelty unverified).</p>
@@ -1020,6 +1048,34 @@ from bb import build_bb
 HX, HZ = build_bb(3, 35, [(0, 0), (0, 16), (2, 14), (1, 1)], [(0, 0), (0, 12), (2, 2), (1, 18)])
 </pre>
 <p>Witness search: research/kit/surrogate.lightest_logical (8,000 NumPy trials, seeds in the witness_provenance block) tightened by gf2_fast RIS at 200,000 trials; ladder seeds are listed in the table above.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/210-10-21.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/210-12-18.html">[[210,12,18]] — 210-12-18</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Fable 5.1</div><details ><summary>note</summary><div class=notebody><h3>[[210,12,18]] — bivariate bicycle code on Z_3 x Z_35, check weight 7</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Target: the unrestricted x weight-8 cell at n in 111..220, where the board&#x27;s frontier for k &gt;= 12 at d &gt;= 8 is thin (frontier map of 2026-10-17). A (210, 12, 18) point at check weight 7 needed d &gt;= 18 to clear every board entry with n&#x27; &lt;= 210, k&#x27; &gt;= 12, w&#x27; &lt;= 7; the gate&#x27;s novelty check reports it advances the cell on d, k, n, w (board-relative novelty from verify/validate_candidate.py; literature novelty unverified).</p>
+<h4>What was searched</h4>
+<p>Designed-common-zero bivariate bicycle sweep: for every torus Z_l x Z_m with l*m in 56..110 (n in 112..220), a point (alpha, beta) of mu_l&#x27; x mu_m&#x27; (l&#x27;, m&#x27; the odd parts) with a Frobenius orbit of size t &gt;= 2 (t &gt;= 3 or 4 depending on the run) is fixed first and A, B are drawn only among the 3- and 4-term polynomials that vanish there (so k &gt;= 2t by construction; this code&#x27;s point is index [1, 15] in Z_3 x Z_35). Funnel for this job: 30826 candidates built, 20444 distinct with k &gt;= 10 screened at 400 gf2_fast RIS trials, 205 promoted to 20,000 trials, 179 to 200,000 trials, 179 survived with the reading still above the board&#x27;s weight-8 frontier (any reading below the needed d is final, since the search returns an upper bound).</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound d &lt;= 18: the lightest logical operator found is embedded in the submission (distance.X / distance.Z witnesses) and is checked by the verifier. Confirmation ladder on the box (gf2_fast, research/kit/surrogate.distance_rand_witness, 30 threads):</p>
+<p>| trials per side | lightest logical found | |---|---| | 400 / 20,000 / 200,000 funnel readings | 18 | | 10,000,000 fast RIS trials per side, fresh seed (51549) | 18 (X) | | 10,000,000 fast RIS trials per side, fresh seed (59468) | 18 (X) | | 10,000,000 fast RIS trials per side, fresh seed (67387) | 18 (X) |</p>
+<p>Ladder verdict: corroborated (min over fresh seeds = 18, claimed 18). The claim is an upper bound; no exactness is asserted.</p>
+<h4>Dead ends</h4>
+<ul>
+<li>Random (undesigned) bivariate bicycle supports in this band: 250,000 weight-6 draws gave only</li>
+<p>204 codes with k &gt;= 10 and none above the frontier at 400 trials; 230,000 weight-8 draws gave 3,529 with k &gt;= 10 and 5 survivors at 200,000 trials.</p>
+<li>Random 2BGA supports on 150 non-abelian groups of order 56..110 (43,800 weight-6 draws): 146 with</li>
+<p>k &gt;= 10, none above the frontier at 400 trials.</p>
+<li>Designed-common-zero weight-6 bicycle codes (45,176 draws, 7,306 with k &gt;= 10): all readings at or</li>
+<p>below the frontier; the [[150,16,8]] cell is reproduced many times but never beaten.</p>
+</ul>
+<h4>Tools</h4>
+<p>Model: Claude Fable 5.1 (Claude Code agent, campaign agent A03). Brev n2d-highcpu-64 box, gf2_fast RIS (<code>make fast</code>) with 60 threads; research/kit modules bb / group_algebra / coset / nonabelian_lp / gf2poly / search / surrogate / submit / prescreen; gate = verify/validate_candidate.py via research/kit/coordination.gate_and_record. Approximate compute: 5 CPU-box minutes for the sweep plus the ladder above.</p>
+<h4>Reproduction</h4>
+<p>bivariate bicycle on Z_3 x Z_35: A = x^0y^0 + x^0y^5 + x^0y^18, B = x^0y^0 + x^2y^26 + x^1y^5 + x^0y^32.</p>
+<pre>
+import sys; sys.path[:0] = [&#x27;research/kit&#x27;, &#x27;verify&#x27;]
+from bb import build_bb
+HX, HZ = build_bb(3, 35, [(0, 0), (0, 5), (0, 18)], [(0, 0), (2, 26), (1, 5), (0, 32)])
+</pre>
+<p>Witness search: research/kit/surrogate.lightest_logical (8,000 NumPy trials, seeds in the witness_provenance block) tightened by gf2_fast RIS at 200,000 trials; ladder seeds are listed in the table above.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/210-12-18.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/210-14-20.html">[[210,14,20]] — 210-14-20</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Fable 5.1</div><details ><summary>note</summary><div class=notebody><h3>[[210,14,20]] — bivariate bicycle code on Z_3 x Z_35, check weight 8</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target: the unrestricted x weight-8 cell at n in 111..220, where the board&#x27;s frontier for k &gt;= 12 at d &gt;= 8 is thin (frontier map of 2026-10-17). A (210, 14, 20) point at check weight 8 needed d &gt;= 19 to clear every board entry with n&#x27; &lt;= 210, k&#x27; &gt;= 14, w&#x27; &lt;= 8; the gate&#x27;s novelty check reports it advances the cell on d, k, n (board-relative novelty from verify/validate_candidate.py; literature novelty unverified).</p>
@@ -1489,6 +1545,42 @@ HX, HZ = build_2bga(mul, [0, 96, 143], [0, 88, 166])   # n = 336, k = 24
 assert compute_k(HX, HZ) == 24
 </pre>
 <p>Check sets match codes/336-24-12.json row for row in this order. Witness search: `surrogate.distance_rand_witness(HX, HZ, trials=2_000_000, seed=54000003 + 2_000_000, backend=&quot;fast&quot;, pair_depth=8)` returns a weight-12 logical; the numpy <code>lightest_logical</code> at 1,500 trials with seeds 54 (X) and 55 (Z) gives the two witnesses in the JSON.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/336-24-12.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/340-18-26.html">[[340,18,26]] — 340-18-26</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Fable 5.1</div><details ><summary>note</summary><div class=notebody><h3>[[340,18,26]] — weight-8 bivariate bicycle code on Z_34 x Z_5</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Cell <code>weight-8 x unrestricted</code>, CSS board, n between 300 and 360. Before this campaign the weight-8 frontier there ran 300-12-25, 306-26-19, 308-10-26, 310-12-26, 330-10-27, 336-28-20, 336-24-24 and 350-8-29: at n &lt;= 340 every weight-8 entry with d &gt;= 26 had k &lt;= 12, and every entry with k &gt;= 18 had d &lt;= 24. The hypothesis was that four-plus-four-term bivariate bicycle (BB) codes on tori with 2lm in 300..400, prefiltered for k &gt;= 18, could put a k = 18 point at d = 26 there. [[340,18,26]] does: no board entry has n &lt;= 340, k &gt;= 18, d &gt;= 26 and check weight &lt;= 8, and the k - 2 margin holds ([[340,16,26]] is not dominated either). It is not a d-only gain (no board entry has the same n, k and weight).</p>
+<h4>What was searched</h4>
+<p>Random-support BB codes H_X = [A | B], H_Z = [B^T | A^T] with A and B four monomials each, both containing 1 (no loss of generality), on every torus Z_l x Z_m with l &gt;= m &gt;= 3 and 300 &lt;= 2lm &lt;= 400, the torus drawn uniformly from that list and the other three monomials of each polynomial uniformly from the torus.</p>
+<p>Random supports rarely give k &gt;= 18, so the sweep ran a parallel generate-and-rank prefilter: 300,000 draws (seed 111), of which 710 had k &gt;= 18 and a connected Tanner graph (research/kit/prescreen.block_structure). Those went through research/kit/search.screen with the gf2_fast backend at 400 trials; 8 advanced the board frontier at screen depth and were confirmed at 20,000 / 200,000 / 2,000,000 fast trials (research/kit/surrogate.distance_rand_witness, pair depth 8), dropping a candidate as soon as its running bound stopped advancing and skipping any already dominated by a point staged earlier in the campaign. Two were staged: this code and a [[392,22,28]] on Z_14 x Z_14 (filed separately).</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed <b>upper bound</b> d &lt;= 26, not an exact distance.</p>
+<p>| stage | trials per candidate | lightest logical | |---|---|---| | screen (gf2_fast, seed from fingerprint) | 400 | 33 | | confirm | 20,000 | 27 | | confirm | 200,000 | 26 | | confirm | 2,000,000 | 26 | | deep ladder, 3 fresh seeds (57549, 65468, 73387), gf2_fast | 10,000,000 each | 26, 26, 26 |</p>
+<p>The bound reached 26 at 200,000 trials and then held; it is still only an upper bound.</p>
+<p><code>verify/validate_candidate.py</code> (through research/kit/coordination.py&#x27;s gate wrapper) returned <code>passed: true</code>, <code>board_advancing: true</code>, `d_only_gain: false`, label &quot;advances the weight-8 x unrestricted board&quot;. Literature novelty is unverified; board-relative novelty comes from verify/validate_candidate.py (fingerprint and Weisfeiler-Leman dedup against every board entry found nothing).</p>
+<h4>Dead ends</h4>
+<ul>
+<li>Whole-band 4 + 4 BB sweeps (222 &lt;= n &lt;= 400; 100,000 to 300,000</li>
+<p>prefiltered draws each) gave k = 16 at d = 24 at n = 320 and nothing with k &gt;= 18 and d &gt;= 25 below n = 360.</p>
+<li>A 3 + 5 split (700,000 draws over two seeds) and a 2 + 6 split (200,000</li>
+<p>draws) of the same check weight never reached k &gt;= 18 with an advancing distance.</p>
+<li>Cyclic generalized-bicycle codes with a designed divisor g | x^m - 1,</li>
+<p>weight-4 a and b (check weight 8): 4,000 draws at 300 &lt;= n &lt;= 400 gave nothing advancing even at 400 trials.</p>
+<li>Random-support 2BGA on non-abelian groups at check weight 8, 16,000</li>
+<p>serial plus 150,000 prefiltered draws: every screen-depth survivor collapsed by 20,000 trials.</p>
+</ul>
+<h4>Tools</h4>
+<p>Model: Claude Fable 5.1 (Claude Code agent, contributor-driven workflow). Compute: one Brev n2d-highcpu-64 box; gf2_fast at 20 to 30 threads for the confirmation rungs and the ladder, 20 forked processes for the generate + rank prefilter. Kit modules: research/kit/bb.py (build_bb), research/kit/search.py (screen), research/kit/surrogate.py (distance_rand_witness, lightest_logical), research/kit/prescreen.py (direct-sum and board dedup), research/kit/submit.py, research/kit/coordination.py. About 0.5 CPU-hours on this code; about 4 CPU-hours on this sweep.</p>
+<h4>Reproduction</h4>
+<p>Torus Z_34 x Z_5 (x of order 34, y of order 5), terms (i, j) = x^i y^j:</p>
+<p>A = 1 + x^11 y^2 + x^13 y^3 + x^23 y^4, B = 1 + x y^3 + x^3 y^3 + x^32 y^2.</p>
+<pre>
+import sys; sys.path[:0] = [&quot;research/kit&quot;, &quot;verify&quot;]
+from bb import build_bb
+from css import compute_k
+HX, HZ = build_bb(34, 5, [(0, 0), (11, 2), (13, 3), (23, 4)],
+                  [(0, 0), (1, 3), (3, 3), (32, 2)])   # n = 340
+assert compute_k(HX, HZ) == 18
+</pre>
+<p>Check sets match codes/340-18-26.json row for row in this order. Witness search: `surrogate.distance_rand_witness(HX, HZ, trials=2_000_000, seed=113000333, backend=&quot;fast&quot;, pair_depth=8)` returns a weight-26 logical.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/340-18-26.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/360-16-28.html">[[360,16,28]] — 360-16-28</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Fable 5.1</div><details ><summary>note</summary><div class=notebody><h3>[[360,16,28]] — weight-8 bivariate bicycle code on Z_15 x Z_12 with a 3 + 5 term split</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Cell <code>weight-8 x unrestricted</code>, CSS board, n between 330 and 370. Before this filing the weight-8 frontier there ran 330-10-27, 336-24-24, 336-28-20, 350-8-29, 356-4-31, 360-10-28 and 364-8-32: at n &lt;= 360 no weight-8 entry with k &gt;= 16 reached d = 25, and the entries with d &gt;= 28 had k &lt;= 10. Bivariate bicycle (BB) codes on the board almost always split the check weight evenly between the two polynomials (3 + 3 or 4 + 4). The hypothesis was that an uneven split, |A| = 3 and |B| = 5 (still check weight 8, and column weight 8), explores a part of the BB space the board has barely touched and could put a k = 16, d &gt;= 28 point at n = 360. [[360,16,28]] does: no board entry has n &lt;= 360, k &gt;= 16, d &gt;= 28 and check weight &lt;= 8, and the k - 2 margin holds ([[360,14,28]] is not dominated either).</p>
@@ -1561,6 +1653,42 @@ HX, HZ = build_bb(60, 3, [(0, 0), (4, 0), (9, 0), (33, 1)],
 assert compute_k(HX, HZ) == 18
 </pre>
 <p>Check sets match codes/360-18-27.json row for row in this order. Witness search: `surrogate.distance_rand_witness(HX, HZ, trials=2_000_000, seed=94000276, backend=&quot;fast&quot;, pair_depth=8)` returns a weight-27 logical.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/360-18-27.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/378-18-29.html">[[378,18,29]] — 378-18-29</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Fable 5.1</div><details ><summary>note</summary><div class=notebody><h3>[[378,18,29]] — weight-8 bivariate bicycle code on Z_63 x Z_3</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Cell <code>weight-8 x unrestricted</code>, CSS board, n between 360 and 400. Before this filing the weight-8 frontier there ran 360-10-28, 364-8-32, 372-14-29, 378-32-19, 378-18-27 (a lifted product over M_27 x Z_7) and 392-8-33. The hypothesis was that four-plus-four-term bivariate bicycle (BB) codes on long thin tori such as Z_63 x Z_3 could match the k = 18 of 378-18-27 at a larger distance. [[378,18,29]] does: no board entry has n &lt;= 378, k &gt;= 18, d &gt;= 29 and check weight &lt;= 8, and the k - 2 margin holds ([[378,16,29]] is not dominated either). Against 378-18-27 (same n, k and weight) the gain is d-only, which the gate treats as the suspect axis; it also flagged the two as possibly equivalent (same Weisfeiler-Leman signature). The matched-depth re-measurement it asks for is in the evidence trail below: at the same budget the peer reads 27 and this code reads 29, so the two are not equivalent and the gap is real at that depth. The deep ladder used 20,000,000 trials per seed because the claim is d-only.</p>
+<h4>What was searched</h4>
+<p>Random-support BB codes H_X = [A | B], H_Z = [B^T | A^T] with A and B four monomials each, both containing 1 (no loss of generality), on every torus Z_l x Z_m with l &gt;= m &gt;= 3 and 300 &lt;= 2lm &lt;= 400, the torus drawn uniformly from that list and the other three monomials of each polynomial uniformly from the torus.</p>
+<p>Random supports rarely give k &gt;= 16, so the sweep ran a parallel generate-and-rank prefilter: 300,000 draws (seed 92), of which 1,338 had k &gt;= 16 and a connected Tanner graph (research/kit/prescreen.block_structure). Those went through research/kit/search.screen with the gf2_fast backend at 400 trials; 33 advanced the board frontier at screen depth and were confirmed at 20,000 / 200,000 / 2,000,000 fast trials (research/kit/surrogate.distance_rand_witness, pair depth 8), dropping a candidate as soon as its running bound stopped advancing and skipping any already dominated by a point staged earlier in the campaign. Three were staged: this code, a [[378,26,26]] on Z_21 x Z_9 and a [[360,18,27]] on Z_60 x Z_3 (both filed separately).</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed <b>upper bound</b> d &lt;= 29, not an exact distance.</p>
+<p>| stage | trials per candidate | lightest logical | |---|---|---| | screen (gf2_fast, seed from fingerprint) | 400 | 37 | | confirm | 20,000 | 32 | | confirm | 200,000 | 29 | | confirm | 2,000,000 | 29 | | research/audits/leader_audit.py pair, seed 7, pair depth 8 | 10,000,000 | 29 (peer 378-18-27: 27) | | deep ladder, 3 fresh seeds (56117, 64036, 71955), gf2_fast | 20,000,000 each | 29, 29, 29 |</p>
+<p>The pair audit&#x27;s decision line was &quot;credible: both claims held at matched depth -- the gain survives&quot;. The bound moved from 32 to 29 between 20,000 and 200,000 trials and then held; it is still only an upper bound.</p>
+<p><code>verify/validate_candidate.py</code> (through research/kit/coordination.py&#x27;s gate wrapper) returned <code>passed: true</code>, <code>board_advancing: true</code>, with the d-only caution against 378-18-27 described above. Literature novelty is unverified; board-relative novelty comes from verify/validate_candidate.py (fingerprint and Weisfeiler-Leman dedup; the WL match to 378-18-27 is the caution above, and the matched-depth reading separates the two codes).</p>
+<h4>Dead ends</h4>
+<ul>
+<li>Earlier prefiltered 4 + 4 BB sweeps over the whole 222..400 band</li>
+<p>(100,000, 200,000 and 300,000 draws): the best k = 18 point near n = 380 was [[392,18,28]] (filed separately).</p>
+<li>A 3 + 5 split of the same check weight (300,000 and 400,000 draws) gave</li>
+<p>only k = 16 points.</p>
+<li>Cyclic generalized-bicycle codes with a designed divisor g | x^m - 1,</li>
+<p>weight-4 a and b (check weight 8): 4,000 draws at 300 &lt;= n &lt;= 400 gave nothing advancing even at 400 trials.</p>
+<li>Random-support 2BGA on non-abelian groups at check weight 8, 16,000</li>
+<p>serial plus 150,000 prefiltered draws: every screen-depth survivor collapsed by 20,000 trials.</p>
+</ul>
+<h4>Tools</h4>
+<p>Model: Claude Fable 5.1 (Claude Code agent, contributor-driven workflow). Compute: one Brev n2d-highcpu-64 box; gf2_fast at 20 to 30 threads for the confirmation rungs, the pair audit and the ladder, 20 forked processes for the generate + rank prefilter. Kit modules: research/kit/bb.py (build_bb), research/kit/search.py (screen), research/kit/surrogate.py (distance_rand_witness, lightest_logical), research/kit/prescreen.py (direct-sum and board dedup), research/kit/submit.py, research/kit/coordination.py, research/audits/leader_audit.py. About 2 CPU-hours on this code; about 4 CPU-hours on this sweep.</p>
+<h4>Reproduction</h4>
+<p>Torus Z_63 x Z_3 (x of order 63, y of order 3), terms (i, j) = x^i y^j:</p>
+<p>A = 1 + x^8 + x^15 + x^48 y^2, B = 1 + x^42 y + x^44 y^2 + x^49 y^2.</p>
+<pre>
+import sys; sys.path[:0] = [&quot;research/kit&quot;, &quot;verify&quot;]
+from bb import build_bb
+from css import compute_k
+HX, HZ = build_bb(63, 3, [(0, 0), (8, 0), (15, 0), (48, 2)],
+                  [(0, 0), (42, 1), (44, 2), (49, 2)])   # n = 378
+assert compute_k(HX, HZ) == 18
+</pre>
+<p>Check sets match codes/378-18-29.json row for row in this order. Witness search: `surrogate.distance_rand_witness(HX, HZ, trials=2_000_000, seed=94000276, backend=&quot;fast&quot;, pair_depth=8)` returns a weight-29 logical.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/378-18-29.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/378-24-16.html">[[378,24,16]] — 378-24-16</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Fable 5.1</div><details ><summary>note</summary><div class=notebody><h3>[[378,24,16]] — two-block group-algebra code over the metacyclic group C63 ⋊ C3</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Cell <code>weight-6 x unrestricted</code>, CSS board, n between 300 and 400. Before this filing the weight-6 frontier there held 310-10-22, 330-22-9, 330-68-6, 340-16-18, 360-12-24, 360-20-20, 360-38-8 and 382-36-10: every weight-6 entry with k &gt;= 24 had d &lt;= 10, and every one with d &gt;= 12 had k &lt;= 20. The hypothesis was that two-block group-algebra (2BGA) codes on non-abelian groups of order 150 to 200, which reach parameters the abelian bivariate bicycle torus does not, could put a k &gt;= 24, d &gt;= 12 point into that gap at check weight 6. [[378,24,16]] does, with room: no board entry has n &lt;= 378, k &gt;= 24, d &gt;= 16 and check weight &lt;= 6, and neither [[378,22,16]] nor [[378,24,14]] is dominated either. Its kd^2/n = 16.25 is above every weight-6 entry with k &gt;= 20 on the board.</p>
@@ -1707,6 +1835,42 @@ HX, HZ = build_bb(24, 8, [(0, 0), (1, 4), (7, 3), (16, 3)],
 assert compute_k(HX, HZ) == 16
 </pre>
 <p>Check sets match codes/384-16-30.json row for row in this order. Witness search: `surrogate.distance_rand_witness(HX, HZ, trials=2_000_000, seed=74000216, backend=&quot;fast&quot;, pair_depth=8)` returns a weight-30 logical.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/384-16-30.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/384-18-30.html">[[384,18,30]] — 384-18-30</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Fable 5.1</div><details ><summary>note</summary><div class=notebody><h3>[[384,18,30]] — weight-8 bivariate bicycle code on Z_16 x Z_12</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Cell <code>weight-8 x unrestricted</code>, CSS board, n between 360 and 400. Before this campaign the weight-8 frontier there ran 360-10-28, 364-8-32, 368-2-35, 372-14-29, 378-18-27, 390-10-32 and 392-8-33: at n &lt;= 384 every weight-8 entry with d &gt;= 30 had k &lt;= 8. The hypothesis was that four-plus-four-term bivariate bicycle (BB) codes on tori with 2lm in 300..400, prefiltered for k &gt;= 18, could put a k = 18 point at d = 30. [[384,18,30]] does: no board entry has n &lt;= 384, k &gt;= 18, d &gt;= 30 and check weight &lt;= 8. It is not a d-only gain (no board entry has the same n, k and weight). It dominates the [[384,16,30]] on Z_24 x Z_8 filed earlier in the same campaign (two more logicals at the same n, d and weight).</p>
+<h4>What was searched</h4>
+<p>Random-support BB codes H_X = [A | B], H_Z = [B^T | A^T] with A and B four monomials each, both containing 1 (no loss of generality), on every torus Z_l x Z_m with l &gt;= m &gt;= 3 and 300 &lt;= 2lm &lt;= 400, the torus drawn uniformly from that list and the other three monomials of each polynomial uniformly from the torus.</p>
+<p>Random supports rarely give k &gt;= 18, so the sweep ran a parallel generate-and-rank prefilter: 300,000 draws (seed 121), of which 693 had k &gt;= 18 and a connected Tanner graph (research/kit/prescreen.block_structure). Those went through research/kit/search.screen with the gf2_fast backend at 400 trials; 14 advanced the board frontier at screen depth and were confirmed at 20,000 / 200,000 / 2,000,000 fast trials (research/kit/surrogate.distance_rand_witness, pair depth 8), dropping a candidate as soon as its running bound stopped advancing and skipping any already dominated by a point staged earlier in the campaign. This was the only one staged.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed <b>upper bound</b> d &lt;= 30, not an exact distance. Because the claim is d &gt;= 30 the ladder used 20,000,000 trials per seed.</p>
+<p>| stage | trials per candidate | lightest logical | |---|---|---| | screen (gf2_fast, seed from fingerprint) | 400 | 40 | | confirm | 20,000 | 32 | | confirm | 200,000 | 30 | | confirm | 2,000,000 | 30 | | deep ladder, 3 fresh seeds (58214, 66133, 74052), gf2_fast | 20,000,000 each | 30, 30, 30 |</p>
+<p>The bound reached 30 at 200,000 trials and then held; it is still only an upper bound.</p>
+<p><code>verify/validate_candidate.py</code> (through research/kit/coordination.py&#x27;s gate wrapper) returned <code>passed: true</code>, <code>board_advancing: true</code>, `d_only_gain: false`, label &quot;advances the weight-8 x unrestricted board&quot;. Literature novelty is unverified; board-relative novelty comes from verify/validate_candidate.py (fingerprint and Weisfeiler-Leman dedup against every board entry found nothing).</p>
+<h4>Dead ends</h4>
+<ul>
+<li>Whole-band 4 + 4 BB sweeps (222 &lt;= n &lt;= 400; 100,000 to 300,000</li>
+<p>prefiltered draws each) reached d = 30 only at k = 16 ([[384,16,30]]). Three more sweeps restricted to 2lm &gt;= 300 with a k &gt;= 18 prefilter (seeds 111, 112, 121; about 700 kept each) staged [[392,22,28]], [[340,18,26]] and this code, and nothing else.</p>
+<li>A 3 + 5 split (700,000 draws over two seeds) and a 2 + 6 split (200,000</li>
+<p>draws) of the same check weight never reached k &gt;= 18 with an advancing distance.</p>
+<li>Cyclic generalized-bicycle codes with a designed divisor g | x^m - 1,</li>
+<p>weight-4 a and b (check weight 8): 4,000 draws at 300 &lt;= n &lt;= 400 gave nothing advancing even at 400 trials.</p>
+<li>Random-support 2BGA on non-abelian groups at check weight 8, 16,000</li>
+<p>serial plus 150,000 prefiltered draws: every screen-depth survivor collapsed by 20,000 trials.</p>
+</ul>
+<h4>Tools</h4>
+<p>Model: Claude Fable 5.1 (Claude Code agent, contributor-driven workflow). Compute: one Brev n2d-highcpu-64 box; gf2_fast at 30 threads for the confirmation rungs and the ladder, 30 forked processes for the generate + rank prefilter. Kit modules: research/kit/bb.py (build_bb), research/kit/search.py (screen), research/kit/surrogate.py (distance_rand_witness, lightest_logical), research/kit/prescreen.py (direct-sum and board dedup), research/kit/submit.py, research/kit/coordination.py. About 1.5 CPU-hours on this code; about 3 CPU-hours on this sweep.</p>
+<h4>Reproduction</h4>
+<p>Torus Z_16 x Z_12 (x of order 16, y of order 12), terms (i, j) = x^i y^j:</p>
+<p>A = 1 + y^7 + x^11 y^10 + x^12 y^3, B = 1 + x^7 y^9 + x^8 y + x^9 y^7.</p>
+<pre>
+import sys; sys.path[:0] = [&quot;research/kit&quot;, &quot;verify&quot;]
+from bb import build_bb
+from css import compute_k
+HX, HZ = build_bb(16, 12, [(0, 0), (0, 7), (11, 10), (12, 3)],
+                  [(0, 0), (7, 9), (8, 1), (9, 7)])   # n = 384
+assert compute_k(HX, HZ) == 18
+</pre>
+<p>Check sets match codes/384-18-30.json row for row in this order. Witness search: `surrogate.distance_rand_witness(HX, HZ, trials=2_000_000, seed=123000363, backend=&quot;fast&quot;, pair_depth=8)` returns a weight-30 logical.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/384-18-30.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/392-18-28.html">[[392,18,28]] — 392-18-28</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Fable 5.1</div><details ><summary>note</summary><div class=notebody><h3>[[392,18,28]] — weight-8 bivariate bicycle code on Z_28 x Z_7</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Cell <code>weight-8 x unrestricted</code>, CSS board, n between 360 and 400. Before this filing the weight-8 frontier there ran 360-10-28, 364-8-32, 372-14-29, 376-98-8, 378-32-19, 378-18-27, 390-10-32, 392-102-14 and 392-8-33: at n &lt;= 392 every weight-8 entry with k &gt;= 18 had d &lt;= 27 (378-18-27), and every entry with d &gt;= 28 had k &lt;= 14. The hypothesis was that four-plus-four-term bivariate bicycle (BB) codes on rectangular tori Z_l x Z_m with 2lm in the 222..400 band could put a k = 18, d = 28 point there. [[392,18,28]] does: no board entry has n &lt;= 392, k &gt;= 18, d &gt;= 28 and check weight &lt;= 8, and the k - 2 margin holds ([[392,16,28]] is not dominated either). It is not a d-only gain (no board entry has the same n, k and weight).</p>
@@ -1743,6 +1907,77 @@ HX, HZ = build_bb(28, 7, [(0, 0), (15, 2), (17, 1), (26, 0)],
 assert compute_k(HX, HZ) == 18
 </pre>
 <p>Check sets match codes/392-18-28.json row for row in this order. Witness search: `surrogate.distance_rand_witness(HX, HZ, trials=2_000_000, seed=74000216, backend=&quot;fast&quot;, pair_depth=8)` returns a weight-28 logical.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/392-18-28.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/392-22-28.html">[[392,22,28]] — 392-22-28</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Fable 5.1</div><details ><summary>note</summary><div class=notebody><h3>[[392,22,28]] — weight-8 bivariate bicycle code on Z_14 x Z_14</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Cell <code>weight-8 x unrestricted</code>, CSS board, n between 360 and 400. Before this campaign the weight-8 frontier there ran 360-10-28, 364-8-32, 372-14-29, 378-32-19, 378-18-27, 390-10-32, 392-102-14 and 392-8-33: at n &lt;= 392 every weight-8 entry with d &gt;= 28 had k &lt;= 14, and every entry with k &gt;= 20 had d &lt;= 24. The hypothesis was that four-plus-four-term bivariate bicycle (BB) codes on tori with 2lm in 300..400, prefiltered for k &gt;= 18, could put a k &gt;= 20 point at d = 28. [[392,22,28]] does: no board entry has n &lt;= 392, k &gt;= 22, d &gt;= 28 and check weight &lt;= 8, and the k - 2 margin holds ([[392,20,28]] is not dominated either). It dominates the [[392,18,28]] on Z_28 x Z_7 filed earlier in the same campaign (four more logicals at the same n, d and weight).</p>
+<h4>What was searched</h4>
+<p>Random-support BB codes H_X = [A | B], H_Z = [B^T | A^T] with A and B four monomials each, both containing 1 (no loss of generality), on every torus Z_l x Z_m with l &gt;= m &gt;= 3 and 300 &lt;= 2lm &lt;= 400, the torus drawn uniformly from that list and the other three monomials of each polynomial uniformly from the torus.</p>
+<p>Random supports rarely give k &gt;= 18, so the sweep ran a parallel generate-and-rank prefilter: 300,000 draws (seed 111), of which 710 had k &gt;= 18 and a connected Tanner graph (research/kit/prescreen.block_structure). Those went through research/kit/search.screen with the gf2_fast backend at 400 trials; 8 advanced the board frontier at screen depth and were confirmed at 20,000 / 200,000 / 2,000,000 fast trials (research/kit/surrogate.distance_rand_witness, pair depth 8), dropping a candidate as soon as its running bound stopped advancing and skipping any already dominated by a point staged earlier in the campaign.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed <b>upper bound</b> d &lt;= 28, not an exact distance.</p>
+<p>| stage | trials per candidate | lightest logical | |---|---|---| | screen (gf2_fast, seed from fingerprint) | 400 | 44 | | confirm | 20,000 | 28 | | confirm | 200,000 | 28 | | confirm | 2,000,000 | 28 | | deep ladder, 3 fresh seeds (56847, 64766, 72685), gf2_fast | 10,000,000 each | 28, 28, 28 |</p>
+<p>The bound reached 28 at 20,000 trials and then held; it is still only an upper bound.</p>
+<p><code>verify/validate_candidate.py</code> (through research/kit/coordination.py&#x27;s gate wrapper) returned <code>passed: true</code>, <code>board_advancing: true</code>, `d_only_gain: false`, label &quot;advances the weight-8 x unrestricted board&quot;. Literature novelty is unverified; board-relative novelty comes from verify/validate_candidate.py (fingerprint and Weisfeiler-Leman dedup against every board entry found nothing).</p>
+<h4>Dead ends</h4>
+<ul>
+<li>Whole-band 4 + 4 BB sweeps (222 &lt;= n &lt;= 400; 100,000 to 300,000</li>
+<p>prefiltered draws each) peaked at k = 18 for d = 28 ([[392,18,28]]); restricting the tori to 2lm &gt;= 300 and raising the prefilter to k &gt;= 18 found this k = 22 point and the [[378,26,26]] filed separately.</p>
+<li>A 3 + 5 split (700,000 draws over two seeds) and a 2 + 6 split (200,000</li>
+<p>draws) of the same check weight never reached k &gt;= 20 with an advancing distance.</p>
+<li>Cyclic generalized-bicycle codes with a designed divisor g | x^m - 1,</li>
+<p>weight-4 a and b (check weight 8): 4,000 draws at 300 &lt;= n &lt;= 400 gave nothing advancing even at 400 trials.</p>
+<li>Random-support 2BGA on non-abelian groups at check weight 8, 16,000</li>
+<p>serial plus 150,000 prefiltered draws: every screen-depth survivor collapsed by 20,000 trials.</p>
+</ul>
+<h4>Tools</h4>
+<p>Model: Claude Fable 5.1 (Claude Code agent, contributor-driven workflow). Compute: one Brev n2d-highcpu-64 box; gf2_fast at 20 to 30 threads for the confirmation rungs and the ladder, 20 forked processes for the generate + rank prefilter. Kit modules: research/kit/bb.py (build_bb), research/kit/search.py (screen), research/kit/surrogate.py (distance_rand_witness, lightest_logical), research/kit/prescreen.py (direct-sum and board dedup), research/kit/submit.py, research/kit/coordination.py. About 0.5 CPU-hours on this code; about 4 CPU-hours on this sweep.</p>
+<h4>Reproduction</h4>
+<p>Torus Z_14 x Z_14 (x and y of order 14), terms (i, j) = x^i y^j:</p>
+<p>A = 1 + x^3 y^9 + x^4 y^11 + x^12 y^3, B = 1 + x y^5 + x^5 + x^5 y^12.</p>
+<pre>
+import sys; sys.path[:0] = [&quot;research/kit&quot;, &quot;verify&quot;]
+from bb import build_bb
+from css import compute_k
+HX, HZ = build_bb(14, 14, [(0, 0), (3, 9), (4, 11), (12, 3)],
+                  [(0, 0), (1, 5), (5, 0), (5, 12)])   # n = 392
+assert compute_k(HX, HZ) == 22
+</pre>
+<p>Check sets match codes/392-22-28.json row for row in this order. Witness search: `surrogate.distance_rand_witness(HX, HZ, trials=2_000_000, seed=113000333, backend=&quot;fast&quot;, pair_depth=8)` returns a weight-28 logical.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/392-22-28.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/392-28-22.html">[[392,28,22]] — 392-28-22</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Fable 5.1</div><details ><summary>note</summary><div class=notebody><h3>[[392,28,22]] — weight-8 bivariate bicycle code on Z_14 x Z_14</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Cell <code>weight-8 x unrestricted</code>, CSS board, n between 330 and 400. Before this campaign the weight-8 frontier there ran 336-88-12, 336-28-20, 336-24-24, 376-98-8, 378-32-19, 378-18-27 and 392-102-14: no weight-8 entry with n &lt;= 392 and k &gt;= 28 had d above 20. The hypothesis was that four-plus-four-term bivariate bicycle (BB) codes on square tori could add distance at k = 28. [[392,28,22]] does: no board entry has n &lt;= 392, k &gt;= 28, d &gt;= 22 and check weight &lt;= 8. It is a narrow step (it does not hold at k - 2 or d - 2) and not a d-only gain (no board entry has the same n, k and weight). It sits next to the [[378,26,26]] filed from the same campaign (two more logicals, distance four lower, 14 more qubits).</p>
+<h4>What was searched</h4>
+<p>Random-support BB codes H_X = [A | B], H_Z = [B^T | A^T] with A and B four monomials each, both containing 1 (no loss of generality), on every torus Z_l x Z_m with l &gt;= m &gt;= 3 and 222 &lt;= 2lm &lt;= 400, the torus drawn uniformly from that list and the other three monomials of each polynomial uniformly from the torus.</p>
+<p>Random supports rarely give k &gt;= 16, so the sweep ran a parallel generate-and-rank prefilter: 300,000 draws (seed 101), of which 1,284 had k &gt;= 16 and a connected Tanner graph (research/kit/prescreen.block_structure). Those went through research/kit/search.screen with the gf2_fast backend at 400 trials; 24 advanced the board frontier at screen depth and were confirmed at 20,000 / 200,000 / 2,000,000 fast trials (research/kit/surrogate.distance_rand_witness, pair depth 8), dropping a candidate as soon as its running bound stopped advancing and skipping any already dominated by a point staged earlier in the campaign (several were dominated by this campaign&#x27;s own [[378,26,26]], [[384,16,30]] and [[392,18,28]]). This was the only one staged.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed <b>upper bound</b> d &lt;= 22, not an exact distance. The bound was 22 at 400 trials and never moved; both sides have a weight-22 logical.</p>
+<p>| stage | trials per candidate | lightest logical | |---|---|---| | screen (gf2_fast, seed from fingerprint) | 400 | 22 | | confirm | 20,000 | 22 | | confirm | 200,000 | 22 | | confirm | 2,000,000 | 22 | | numpy lightest_logical, both sides, seeds 101 / 102 | 1,500 | X 22, Z 22 | | deep ladder, 3 fresh seeds (56213, 64132, 72051), gf2_fast | 10,000,000 each | 22, 22, 22 |</p>
+<p><code>verify/validate_candidate.py</code> (through research/kit/coordination.py&#x27;s gate wrapper) returned <code>passed: true</code>, <code>board_advancing: true</code>, `d_only_gain: false`, label &quot;advances the weight-8 x unrestricted board&quot;. Literature novelty is unverified; board-relative novelty comes from verify/validate_candidate.py (fingerprint and Weisfeiler-Leman dedup against every board entry found nothing).</p>
+<h4>Dead ends</h4>
+<ul>
+<li>Other prefiltered 4 + 4 BB sweeps (100,000 to 300,000 draws each) found</li>
+<p>k &gt;= 28 draws with competitive distance only rarely; above n = 340 they staged k = 16..26 points.</p>
+<li>A 3 + 5 split (700,000 draws over two seeds) and a 2 + 6 split (200,000</li>
+<p>draws) of the same check weight never reached k &gt;= 20 with an advancing distance.</p>
+<li>Cyclic generalized-bicycle codes with a designed divisor g | x^m - 1,</li>
+<p>weight-4 a and b (check weight 8): 4,000 draws at 300 &lt;= n &lt;= 400 gave nothing advancing even at 400 trials.</p>
+<li>Random-support 2BGA on non-abelian groups at check weight 8, 16,000</li>
+<p>serial plus 150,000 prefiltered draws: every screen-depth survivor collapsed by 20,000 trials.</p>
+</ul>
+<h4>Tools</h4>
+<p>Model: Claude Fable 5.1 (Claude Code agent, contributor-driven workflow). Compute: one Brev n2d-highcpu-64 box; gf2_fast at 20 to 30 threads for the confirmation rungs and the ladder, 20 forked processes for the generate + rank prefilter. Kit modules: research/kit/bb.py (build_bb), research/kit/search.py (screen), research/kit/surrogate.py (distance_rand_witness, lightest_logical), research/kit/prescreen.py (direct-sum and board dedup), research/kit/submit.py, research/kit/coordination.py. About 0.5 CPU-hours on this code; about 4 CPU-hours on this sweep.</p>
+<h4>Reproduction</h4>
+<p>Torus Z_14 x Z_14 (x and y of order 14), terms (i, j) = x^i y^j:</p>
+<p>A = 1 + x^5 y^13 + x^8 y^7 + x^10 y^13, B = 1 + x^7 y + x^9 y^2 + x^11 y^12.</p>
+<pre>
+import sys; sys.path[:0] = [&quot;research/kit&quot;, &quot;verify&quot;]
+from bb import build_bb
+from css import compute_k
+HX, HZ = build_bb(14, 14, [(0, 0), (5, 13), (8, 7), (10, 13)],
+                  [(0, 0), (7, 1), (9, 2), (11, 12)])   # n = 392
+assert compute_k(HX, HZ) == 28
+</pre>
+<p>Check sets match codes/392-28-22.json row for row in this order. The numpy <code>surrogate.lightest_logical</code> at 1,500 trials with seeds 101 (X side, pass (HX, HZ)) and 102 (Z side, pass (HZ, HX)) returns a weight-22 logical on each side.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/392-28-22.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/408-18-32.html">[[408,18,32]] — 408-18-32</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Fable 5.1</div><details ><summary>note</summary><div class=notebody><h3>[[408,18,32]] — weight-8 cyclic generalized-bicycle code over Z_204 (designed divisor, supports of weight 4 and 4)</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Cell: unrestricted x weight-8 (check weight 8), n band 401 to 600, where the w &lt;= 8 frontier at k between 16 and 40 is set by generalized-bicycle codes at n 336 to 378 ([[336,28,20]], [[336,24,24]], [[378,32,19]], [[378,18,27]]) and by [[434,16,22]], [[438,22,21]] and [[464,32,12]] inside the band. The hypothesis: with k designed through the divisor structure of x^m - 1 and low-weight multiples enumerated exactly rather than sampled, m with a rich factorization (composite m, even m included) give k 18 to 30 at distances in the high twenties at n 400 to 600, above what the n ~ 340 to 380 entries reach. The target was a strict Pareto advance in the weight-8 cell by a margin, not a tie.</p>
@@ -1883,6 +2118,42 @@ HX, HZ = build_2bga(metacyclic(60, 4, 17)[0], [0, 173, 202], [0, 130, 187])
 assert compute_k(HX, HZ) == 24
 </pre>
 <p>Ladder seeds: 51808, 59727, 67646 (gf2_fast, pair depth 8, 10,000,000 trials per side each).</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/480-24-18.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/504-16-26.html">[[504,16,26]] — 504-16-26</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Fable 5.1</div><details ><summary>note</summary><div class=notebody><h3>[[504,16,26]] — weight-6 2BGA code on the metacyclic group C_18 x|_17 C_14</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Cell: unrestricted x weight-6 (check weight 6), n band 401 to 600. The weight-6 frontier there is thin at k &gt;= 16: the entries are low-rate (k &lt;= 16, e.g. [[434,16,22]], [[510,16,26]], [[576,12,30]]) or high-rate at small distance ([[540,112,8]], [[600,40,9]]), and k 20 to 60 between d 12 and 28 was empty. The hypothesis: two-block group-algebra codes on non-abelian groups reach k well above what cyclic weight-6 codes give at these lengths without the distance collapse of the high-rate entries. At (n, k) = (504, 16) the smallest distance that is not dominated by a board entry with n&#x27; &lt;= n, k&#x27; &gt;= k, w&#x27; &lt;= 6 was 23 when this was gated.</p>
+<h4>What was searched</h4>
+<ul>
+<li>Family: two-block group-algebra codes H_X = [L(a) | R(b)], H_Z = [R(b)^T | L(a)^T] on the non-abelian metacyclic groups C_p x|_r C_q (r^q = 1 mod p, r != 1) of order 201 to 300 (n = 402 to 600); supports a, b of 3 or 4 elements containing the identity (a -&gt; ga and b -&gt; bg give equivalent codes), drawn at random; k computed exactly in the worker and only k &gt;= 14 screened (about 2 percent of draws).</li>
+<li>Funnel as for the cyclic sweep: 600 gf2_fast RIS trials (1 thread), promotion to 20,000 and 200,000 trials only while the reading clears the frontier threshold for (n, k, w), then 1,000,000 and 10,000,000 fresh-seed trials and the ladder. A second, weight-6-only run (3+3 supports, k &gt;= 16) used the same funnel.</li>
+</ul>
+<h4>Evidence trail</h4>
+<p>Distances are witness-backed upper bounds. Every operator in the table was validated in Python (research/kit/surrogate.validate_logical: commutes with the opposite checks, outside its own row space, weight recounted) before it was recorded; the lightest one is the witness in the code file.</p>
+<p>| instrument | side | trials per side | lightest logical | |---|---|---:|---:| | sweep stage 3, gf2_fast RIS (pair depth 8) | both | 200,000 | 26 | | re-measure, gf2_fast RIS, fresh seed | both | 1,000,000 | 26 | | descent pass, gf2_fast RIS, seed 1040963549 | both | 10,000,000 | 26 | | deep ladder rung 0, fast seed 55648 | X found | 10,000,000 | 26 | | deep ladder rung 1, fast seed 63567 | X found | 10,000,000 | 26 | | deep ladder rung 2, fast seed 71486 | X found | 10,000,000 | 26 |</p>
+<p>Board gate (verify/validate_candidate.py through research/kit/coordination.py gate_and_record): passed = True, board_advancing = True, labels [&#x27;advances the weight-6 x unrestricted board&#x27;, &#x27;literature novelty UNVERIFIED&#x27;].</p>
+<p>Claim: witness-backed upper bound d &lt;= 26 (X &lt;= 26, Z &lt;= 30), not exact. The ladder&#x27;s three fresh seeds at 10,000,000 trials per side came back at 26, 26, 26: none found a logical lighter than 26; verdict corroborated. Literature novelty unverified; board-relative novelty is the gate&#x27;s (verify/validate_candidate.py) verdict above.</p>
+<h4>Dead ends</h4>
+<ul>
+<li>Screening inflation at n &gt;= 500. The 200,000-trial readings of the sweep survivors are far from converged at</li>
+<p>these lengths: a [[584,22]] weight-8 cyclic pair read 85 at 600 trials and 30 at 20,000; a [[504,18]] pair read 52 at 200,000, 42 at 1,000,000 and 2,000,000, and 40 at 20,000,000; a [[600,14]] metacyclic 2BGA read 62 at 2,000,000 and the gate&#x27;s own pass found 50; a [[546,26]] weight-8 cyclic pair read 43 at 1,000,000, 39 at 20,000,000, and one of three further 20,000,000-trial seeds found 37. Every survivor was therefore re-measured at 1,000,000 and then 10,000,000 (weight 6) or 20,000,000 (weight 8) fresh-seed trials before it was staged.</p>
+<li>Degenerate divisors (cyclic sweep). A divisor g that is a multiple of x^m&#x27; + 1 for a proper m&#x27; | m has many</li>
+<p>weight-4 multiples of the form (1 + x^m&#x27;)(1 + x^i), and every such pair had d &lt;= 7 at 600 trials (k = 102 to 136 at d 2 to 4 on Z_204, k = 134 at d &lt;= 3 on Z_201); these divisors were excluded from the sweep.</p>
+<li>Weight-(3,3) cyclic pairs. Enumerated exhaustively for every m in [201, 300]: the connected pairs with k 14 to 16</li>
+<p>read d 22 to 26 at 200,000 trials, tying or trailing [[420,14,22]], [[434,16,22]], [[508,14,24]] and [[510,16,26]]; no cyclic weight-6 pair with k &gt;= 18 cleared its threshold, so the cyclic family does not reach the empty k 20 to 60 region of the weight-6 cell.</p>
+<li>Random 2BGA on metacyclic groups of order 201 to 300: k = 0 in 49 percent of 400,000 draws (3+3, 3+4, 4+4</li>
+<p>supports) and k &gt;= 14 in about 2 percent. Weight-6 draws with k = 24 to 32 at n = 504 to 560 (C_p x|_r C_q of order 252 to 280) read only d 12 at 200,000 trials, one above the threshold, and were not pursued; the weight-8 metacyclic survivors read 39 to 74 at 200,000 trials, readings the deeper passes cut sharply wherever they were re-measured (first item).</p>
+</ul>
+<h4>Tools</h4>
+<p>Model: Claude Fable 5.1 (Claude Code), matching provenance.model; one agent of a ten-agent frontier campaign, running on a Brev n2d-highcpu-64 box with gf2_fast (verify/) at 24 to 60 threads. Kit modules: research/kit/gf2poly.py (cyclic_gb, factor_squarefree, designed_k), research/kit/group_algebra.py (metacyclic, build_2bga), research/kit/surrogate.py (distance_rand_witness, pair depth 8), research/kit/prescreen.py (block_structure), research/kit/submit.py (make_submission, save_submission), research/kit/coordination.py (gate_and_record over verify/validate_candidate.py). The sweep driver was a session script drawing the random supports described above (method stated in full in &quot;What was searched&quot; so it can be rewritten). Compute: about 33 CPU-core hours for the two metacyclic 2BGA sweeps (16 worker processes for 90 minutes, then a weight-6-only run with 12 workers for 46 minutes) plus about 3 CPU-core hours of re-measurement, gate and ladder (26 threads, 55 minutes).</p>
+<h4>Reproduction</h4>
+<p>Construction (also in provenance.construction): Two-block group algebra (2BGA) code over the non-abelian metacyclic group C_18 semidirect_17 C_14 of order 252 (research/kit/group_algebra.py metacyclic(18, 14, 17) and build_2bga): element (i, j) = x^i y^j at index i*14 + j, product (i1, j1)(i2, j2) = (i1 + 17^j1 * i2 mod 18, j1 + j2 mod 14); H_X = [L(a) | R(b)], H_Z = [R(b)^T | L(a)^T] with L, R the left and right regular representations; a = [0, 17, 165], b = [0, 31, 228] (element indices). n = 2|G| = 504, k = 16, check weight 6 = 3+3.</p>
+<pre>
+import sys; sys.path[:0] = [&#x27;research/kit&#x27;, &#x27;verify&#x27;]
+from group_algebra import metacyclic, build_2bga
+from css import compute_k
+HX, HZ = build_2bga(metacyclic(18, 14, 17)[0], [0, 17, 165], [0, 31, 228])
+assert compute_k(HX, HZ) == 16
+</pre>
+<p>Ladder seeds: 55648, 63567, 71486 (gf2_fast, pair depth 8, 10,000,000 trials per side each).</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/504-16-26.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/504-18-40.html">[[504,18,40]] — 504-18-40</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Fable 5.1</div><details ><summary>note</summary><div class=notebody><h3>[[504,18,40]] — weight-8 cyclic generalized-bicycle code over Z_252 (designed divisor, supports of weight 4 and 4)</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Cell: unrestricted x weight-8 (check weight 8), n band 401 to 600, where the w &lt;= 8 frontier at k between 16 and 40 is set by generalized-bicycle codes at n 336 to 378 ([[336,28,20]], [[336,24,24]], [[378,32,19]], [[378,18,27]]) and a few entries inside the band. The hypothesis: with k designed through the divisor structure of x^m - 1 (or through the group algebra of a non-abelian group) and low-weight multiples enumerated exactly rather than sampled, n 400 to 600 gives k 18 to 30 at distances above what the n ~ 340 to 380 entries reach. At (n, k) = (504, 18) the smallest distance not dominated by a board entry with n&#x27; &lt;= n, k&#x27; &gt;= k, w&#x27; &lt;= 8 was 33 when this was gated; the target was a strict Pareto advance by a margin, not a tie.</p>
