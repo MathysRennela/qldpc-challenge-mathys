@@ -276,6 +276,8 @@ def main(argv):
                     help="append one JSON line per checked entry here as the run goes: seeds, trials, "
                          "and every logical found at weight <= the claimed distance (issue #2897)")
     ap.add_argument("--root", default=ROOT, help=argparse.SUPPRESS)
+    ap.add_argument("--deep", action="store_true",
+                    help="completion pass: longer per-entry budgets (50k trials, 300s, 50k fold trials) with nauty/SAT fold when available")
     ap.add_argument("--summarize", nargs="+", metavar="REPORT", help="combine shard reports instead of searching")
     ap.add_argument("--expect", type=int, help="with --summarize: the number of shard reports there must be")
     args = ap.parse_args(argv)
@@ -291,9 +293,23 @@ def main(argv):
     paths = shard_paths(scoped, args.shard)
     print(f"scope {args.scope}: {len(scoped)} of {len(board)} entries"
           + (f"; shard {args.shard}: {len(paths)} entries" if args.shard else "") + ", largest n first\n")
+    if args.deep:
+        def refute(doc, seed=0, capture=None):
+            # Deep completion pass: bounded + SAT fold first (sound refutation),
+            # then a long RIS pass.  The fold runs at the deep budget with nauty
+            # and the SAT fold enabled; RIS covers what the fold cannot see.
+            sref, sd, swit, _sp = H.orbit_fold_refute(
+                doc, seed=seed + 97, trials=50000, max_seconds=300.0)
+            if sref:
+                return True, sd, swit, 50000
+            return H.refute_check(doc, seed=seed, trials=50000,
+                                 max_seconds=300.0, fold_trials=0,
+                                 capture=capture)
+    else:
+        refute = H.refute_check
     _install_stop_handlers()
     rep = refute_paths(paths, seed, max_seconds=None if args.max_minutes is None else 60 * args.max_minutes,
-                       root=args.root, recapture=args.recapture)
+                       root=args.root, refute=refute, recapture=args.recapture)
     rep["shard"] = args.shard
     rep["scope"] = args.scope
     if args.report:
