@@ -3,7 +3,197 @@
 <a class=back href="index.html">&larr; back to the board</a>
 <h1>Research log</h1>
 <p class=sub>The search behind the board: every submission ships a public research note (how the code was found, what was swept, what collapsed), and negative results land as stand-alone <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/fieldnotes">fieldnotes</a>. Newest first. See <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes">notes/</a> for the contract.</p>
-<section class=blk><h3><a href="codes/408-216-8.html">[[408,216,8]] — 408-216-8</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details open><summary>note</summary><div class=notebody><h3>[[408,216,8]] - CSS sparse stabilizer code</h3>
+<section class=blk><h3><a href="codes/125-25-3.html">[[125,25,3]] — 125-25-3</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[125,25,3]] — La-cross hypergraph-product code (truncated seed)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at the <code>weight-6 / local-2d-bilayer</code> track cell. La-cross codes (arXiv:2610.12685) are hypergraph products of a classical recurrence-code seed with itself; stabilizers weight at most six and bilayer layout.</p>
+<h4>What was searched</h4>
+<p>Enumerated truncated La-cross seeds for k=25, seed n=10; seed distance d(C)=3. Code parameters [[125,625,3]].</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Seed recurrence c_{a+25}=c_a+c_{a+1}, m=-15, seed distance 3.</li>
+<li>Quantum code [[125,625,3]].</li>
+<li>Witnesses are canonical logicals of weight 3 (upper bound).</li>
+<li>Gate: passed true, board_advancing true, dominated_by [].</li>
+</ul>
+<h4>Dead ends</h4>
+<p>Other truncated seeds pass the gate but are dominated.</p>
+<h4>Tools</h4>
+<p>Beam 1.0 model assisting reconstruction; repo kit.</p>
+<h4>Reproduction</h4>
+<p>Seed matrix H in F2^{-15x10} with H_{a,*}=e_a+e_{a+1}+e_{a+k}; code is HGP(H,H). Layout: principal (i,j) at (j,i), check (a,b) at (b+1,a), 2 layers.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/125-25-3.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/245-49-3.html">[[245,49,3]] — 245-49-3</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[245,49,3]] — La-cross hypergraph-product code (truncated seed)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at the <code>weight-6 / unrestricted</code> track cell. La-cross codes (arXiv:2610.12685) with k=7 truncated seed; bilayer layout radius 9.22 exceeds 7, so classified unrestricted.</p>
+<h4>What was searched</h4>
+<p>Enumerated truncated La-cross seeds for k=7, n=14; seed distance d(C)=3. Code parameters [[245,49,3]].</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Seed recurrence c_{a+7}=c_a+c_{a+1}, m=7, seed distance 3.</li>
+<li>Quantum code [[245,49,3]].</li>
+<li>Witnesses are canonical logicals of weight 3 (upper bound).</li>
+<li>Gate: passed true, board_advancing true, dominated_by [].</li>
+</ul>
+<h4>Dead ends</h4>
+<p>Other k=7 seeds pass the gate but are dominated.</p>
+<h4>Tools</h4>
+<p>Beam 1.0 model assisting reconstruction; repo kit.</p>
+<h4>Reproduction</h4>
+<p>Seed matrix H in F2^{7x14} with H_{a,*}=e_a+e_{a+1}+e_{a+7}; code is HGP(H,H). Layout: principal (i,j) at (j,i), check (a,b) at (b+1,a), 2 layers.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/245-49-3.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/256-120-12.html">[[256,120,12]] — 256-120-12</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[256,120,12]] Affine-Frobenius quasi-dyadic CSS code at n=256, w=7 reading d &lt;= 12, advancing the weight-9plus x unrestricted board over [[256,120,10]].</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Target cell weight-9plus x unrestricted (CSS). The construction of arXiv:2609.24201 guarantees orthogonality and girth &gt;= 6; the w=7 point was expected to read d=10, and a multiplier/shift variant was found reading d=12 at the same k=120.</p>
+<h4>What was searched</h4>
+<p>70+ random multiplier/shift variants at w=7 screened at 20,000 RIS trials per side (gf2_fast); variants at w=2..8 mapped the Pareto tradeoff. Surviving variant screened at 200,000 trials across three seeds and one rung at 1,000,000 trials.</p>
+<h4>Evidence trail</h4>
+<p>Confirmation ladder for the submitted code, each rung a fresh seed unless marked otherwise, reading the lightest logical found:</p>
+<p>| budget (trials/side) | lightest logical | | ---: | ---: | | 20,000 (seed 7) | 12 | | 20,000 (seed 101) | 12 | | 20,000 (seed 202) | 12 | | 200,000 (seed 7) | 12 | | 200,000 (seed 101) | 12 | | 200,000 (seed 202) | 12 | | 1,000,000 (seed 7) | 12 |</p>
+<p>7 fresh-seed rung(s) agree at the best bound, the deepest of them at 1,000,000 trials per side. The submitted witness reproduces it: X: d &lt;= 12 (upper_bound), Z: d &lt;= 12 (upper_bound).</p>
+<p>Matched-depth peer audit (<code>research/audits/leader_audit.py</code> pair): research/audits/leader_audit.py pair against codes/256-120-10.json at 50,000 trials: credible, both claims held at matched depth.</p>
+<h4>Dead ends</h4>
+<ul>
+<li>w</li>
+<li>=</li>
+<li>3</li>
+<p>-</p>
+<li>-</li>
+<li>&gt;</li>
+<p>-</p>
+<li>d</li>
+<li>&lt;</li>
+<li>=</li>
+<li>4</li>
+<li>;</li>
+<p>-</p>
+<li>w</li>
+<li>=</li>
+<li>4</li>
+<p>-</p>
+<li>-</li>
+<li>&gt;</li>
+<p>-</p>
+<li>(</li>
+<li>1</li>
+<li>5</li>
+<li>0</li>
+<li>,</li>
+<li>8</li>
+<li>)</li>
+<li>/</li>
+<li>(</li>
+<li>1</li>
+<li>5</li>
+<li>4</li>
+<li>,</li>
+<li>6</li>
+<li>)</li>
+<li>;</li>
+<p>-</p>
+<li>w</li>
+<li>=</li>
+<li>5</li>
+<li>/</li>
+<li>6</li>
+<p>-</p>
+<li>-</li>
+<li>&gt;</li>
+<p>-</p>
+<li>d</li>
+<li>&lt;</li>
+<li>=</li>
+<li>8</li>
+<li>;</li>
+<p>-</p>
+<li>w</li>
+<li>=</li>
+<li>8</li>
+<p>-</p>
+<li>-</li>
+<li>&gt;</li>
+<p>-</p>
+<li>(</li>
+<li>1</li>
+<li>1</li>
+<li>0</li>
+<li>,</li>
+<li>1</li>
+<li>6</li>
+<li>)</li>
+<li>;</li>
+<p>-</p>
+<li>n</li>
+<li>o</li>
+<p>-</p>
+<li>v</li>
+<li>a</li>
+<li>r</li>
+<li>i</li>
+<li>a</li>
+<li>n</li>
+<li>t</li>
+<p>-</p>
+<li>r</li>
+<li>e</li>
+<li>a</li>
+<li>c</li>
+<li>h</li>
+<li>e</li>
+<li>d</li>
+<p>-</p>
+<li>d</li>
+<li>&gt;</li>
+<li>=</li>
+<li>1</li>
+<li>4</li>
+<p>-</p>
+<li>a</li>
+<li>t</li>
+<p>-</p>
+<li>w</li>
+<li>=</li>
+<li>7</li>
+<li>.</li>
+</ul>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>; the bundle was assembled by <code>research/kit/promote.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Over F_16 (x^4+x+1), N=16, n=256, w_X=w_Z=7: a=[12,11,10,3,7,1,6], b=[4,9,6,7,12,1,8], c=[9,10,3,5,13,15,7], d=[10,11,14,11,11,2,1]. P_X[u][j]=a_u*lambda_j+b_u, P_Z[v][j]=c_v*lambda_j^2+d_v, lifted with size-16 dyadic permutation matrices. Constructor paper_2609_24201.build_qd(4,7,a=...,b=...,c=...,d=...).</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/256-120-12.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/320-64-3.html">[[320,64,3]] — 320-64-3</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[320,64,3]] — La-cross hypergraph-product code (truncated seed)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at the <code>weight-6 / unrestricted</code> track cell. La-cross codes (arXiv:2610.12685) with k=8 truncated seed; layout radius exceeds 7, so classified unrestricted.</p>
+<h4>What was searched</h4>
+<p>Enumerated truncated La-cross seeds for k=8, seed n=16; seed distance d(C)=3. Code parameters [[320,64,3]].</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Seed recurrence c_{a+8}=c_a+c_{a+1}, m=8, seed distance 3.</li>
+<li>Quantum code [[320,64,3]].</li>
+<li>Witnesses are canonical logicals of weight 3 (upper bound).</li>
+<li>Gate: passed true, board_advancing true, dominated_by [].</li>
+</ul>
+<h4>Dead ends</h4>
+<p>Other seeds pass the gate but are dominated.</p>
+<h4>Tools</h4>
+<p>Beam 1.0 model assisting reconstruction; repo kit.</p>
+<h4>Reproduction</h4>
+<p>Seed matrix H in F2^{8x16} with H_{a,*}=e_a+e_{a+1}+e_{a+k}; code is HGP(H,H).</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/320-64-3.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/405-81-3.html">[[405,81,3]] — 405-81-3</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[405,81,3]] — La-cross hypergraph-product code (truncated seed)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at the <code>weight-6 / unrestricted</code> track cell. La-cross codes (arXiv:2610.12685) with k=9 truncated seed; layout radius exceeds 7, so classified unrestricted.</p>
+<h4>What was searched</h4>
+<p>Enumerated truncated La-cross seeds for k=9, seed n=18; seed distance d(C)=3. Code parameters [[405,81,3]].</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Seed recurrence c_{a+9}=c_a+c_{a+1}, m=9, seed distance 3.</li>
+<li>Quantum code [[405,81,3]].</li>
+<li>Witnesses are canonical logicals of weight 3 (upper bound).</li>
+<li>Gate: passed true, board_advancing true, dominated_by [].</li>
+</ul>
+<h4>Dead ends</h4>
+<p>Other seeds pass the gate but are dominated.</p>
+<h4>Tools</h4>
+<p>Beam 1.0 model assisting reconstruction; repo kit.</p>
+<h4>Reproduction</h4>
+<p>Seed matrix H in F2^{9x18} with H_{a,*}=e_a+e_{a+1}+e_{a+k}; code is HGP(H,H).</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/405-81-3.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/408-216-8.html">[[408,216,8]] — 408-216-8</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[408,216,8]] - CSS sparse stabilizer code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Study sparse finite instances of the construction below and their dimension–distance tradeoff.</p>
 <h4>What was searched</h4>
@@ -21,7 +211,7 @@
 <li>https://arxiv.org/abs/2607.28795</li>
 </ul>
 <p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/408-216-8.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/442-234-7.html">[[442,234,7]] — 442-234-7</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details open><summary>note</summary><div class=notebody><h3>[[442,234,7]] - CSS sparse stabilizer code</h3>
+<section class=blk><h3><a href="codes/442-234-7.html">[[442,234,7]] — 442-234-7</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[442,234,7]] - CSS sparse stabilizer code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Study sparse finite instances of the construction below and their dimension–distance tradeoff.</p>
 <h4>What was searched</h4>
@@ -39,7 +229,7 @@
 <li>https://arxiv.org/abs/2607.28795</li>
 </ul>
 <p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/442-234-7.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/442-234-8.html">[[442,234,8]] — 442-234-8</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details open><summary>note</summary><div class=notebody><h3>[[442,234,8]] - CSS sparse stabilizer code</h3>
+<section class=blk><h3><a href="codes/442-234-8.html">[[442,234,8]] — 442-234-8</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[442,234,8]] - CSS sparse stabilizer code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Study sparse finite instances of the construction below and their dimension–distance tradeoff.</p>
 <h4>What was searched</h4>
@@ -124,6 +314,24 @@
 <li>https://arxiv.org/abs/2607.28795</li>
 </ul>
 <p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/494-304-6.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/500-100-3.html">[[500,100,3]] — 500-100-3</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[500,100,3]] — La-cross hypergraph-product code (truncated seed)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at the <code>weight-6 / unrestricted</code> track cell. La-cross codes (arXiv:2610.12685) with k=10 truncated seed; layout radius exceeds 7, so classified unrestricted.</p>
+<h4>What was searched</h4>
+<p>Enumerated truncated La-cross seeds for k=10, seed n=20; seed distance d(C)=3. Code parameters [[500,100,3]].</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Seed recurrence c_{a+10}=c_a+c_{a+1}, m=10, seed distance 3.</li>
+<li>Quantum code [[500,100,3]].</li>
+<li>Witnesses are canonical logicals of weight 3 (upper bound).</li>
+<li>Gate: passed true, board_advancing true, dominated_by [].</li>
+</ul>
+<h4>Dead ends</h4>
+<p>Other seeds pass the gate but are dominated.</p>
+<h4>Tools</h4>
+<p>Beam 1.0 model assisting reconstruction; repo kit.</p>
+<h4>Reproduction</h4>
+<p>Seed matrix H in F2^{10x20} with H_{a,*}=e_a+e_{a+1}+e_{a+k}; code is HGP(H,H).</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/500-100-3.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/510-278-8.html">[[510,278,8]] — 510-278-8</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[510,278,8]] - CSS sparse stabilizer code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Study sparse finite instances of the construction below and their dimension–distance tradeoff.</p>
@@ -202,6 +410,24 @@
 <li>https://arxiv.org/abs/2111.03654</li>
 </ul>
 <p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/646-350-8.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/650-144-2.html">[[650,144,2]] — 650-144-2</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[650,144,2]] — La-cross hypergraph-product code (truncated seed)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at the <code>weight-6 / unrestricted</code> track cell. La-cross codes (arXiv:2610.12685) with k=12 truncated seed.</p>
+<h4>What was searched</h4>
+<p>Enumerated truncated La-cross seeds for k=12, seed n=23; seed distance d(C)=2. Code parameters [[650,144,2]].</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Seed recurrence c_{a+12}=c_a+c_{a+1}, m=11, seed distance 2.</li>
+<li>Quantum code [[650,144,2]].</li>
+<li>Witnesses are canonical logicals of weight 2 (upper bound).</li>
+<li>Gate: passed true, board_advancing true, dominated_by [].</li>
+</ul>
+<h4>Dead ends</h4>
+<p>Other seeds pass the gate but are dominated.</p>
+<h4>Tools</h4>
+<p>Beam 1.0 model assisting reconstruction; repo kit.</p>
+<h4>Reproduction</h4>
+<p>Seed matrix H in F2^{11x23} with H_{a,*}=e_a+e_{a+1}+e_{a+12}; code is HGP(H,H).</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/650-144-2.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/663-351-10.html">[[663,351,10]] — 663-351-10</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[663,351,10]] - CSS sparse stabilizer code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Study sparse finite instances of the construction below and their dimension–distance tradeoff.</p>
@@ -236,6 +462,44 @@
 <li>https://arxiv.org/abs/2111.03654</li>
 </ul>
 <p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/680-360-10.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/697-25-10.html">[[697,25,10]] — 697-25-10</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[697,25,10]] — La-cross hypergraph-product code (truncated seed)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at the <code>weight-6 / local-2d-bilayer</code> track cell. La-cross codes (arXiv:2610.12685) are hypergraph products of a classical recurrence-code seed with itself; their stabilizers have weight at most six and, with an interleaved layout, interaction radius about 6.4, so they land in the bilayer cell rather than unrestricted. The primitive-period family has constant \(kd^2/n \approx k^2/2\), but truncated seeds allow scanning \((k,n)\) for a point that is not dominated by the existing bilayer frontier.</p>
+<h4>What was searched</h4>
+<p>Enumerated truncated La-cross seeds for \(k=3..6\) and \(n\) up to the admissibility limit, computing the seed distance \(d(C_{k,n})\) by exhausting the \(2^k\) seed codewords. For each admissible \((k,n)\) the code was packaged with a bilayer layout (offset \((1,0)\), 2 layers) and gated. Most instances are dominated; the survivor is \(k=5, n=21\).</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Seed \(H_{5,21}\): recurrence \(c_{a+5}=c_a+c_{a+1}\), \(m=16\),</li>
+<p>seed distance \(d(C_{5,21})=10\).</p>
+<li>Quantum code \([[697,25,10]]\): \(N=21^2+16^2=697\), \(K=5^2=25\).</li>
+<li>Witnesses are canonical logicals of weight 10 (upper bound).</li>
+<li>Gate: <code>passed: true</code>, cell <code>weight-6 / local-2d-bilayer</code>,</li>
+<p><code>board_advancing: true</code>, <code>dominated_by: []</code>.</p>
+</ul>
+<h4>Dead ends</h4>
+<p>Primitive-period seeds (s=1,2,3) and \(k=3,4,6\) truncated seeds pass the gate but are dominated in their cells. \(k=5, n=20\) is dominated by one entry.</p>
+<h4>Tools</h4>
+<p>Beam 1.0 model assisting reconstruction; repo kit (<code>products.hypergraph_product</code>, <code>submit.make_submission</code>, <code>coordination.gate_and_record</code>). Classical seed distance by exhaustive enumeration of \(2^k\) codewords.</p>
+<h4>Reproduction</h4>
+<p>Seed matrix \(H\in\mathbb{F}_2^{16\times 21}\) with \(H_{a,*}=e_a+e_{a+1}+e_{a+5}\) for \(0\le a&lt;16\); code is \(\operatorname{HGP}(H,H)\). Layout: principal qubit \((i,j)\) at \((j,i)\), check qubit \((a,b)\) at \((b+1,a)\), 2 layers.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/697-25-10.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/720-144-3.html">[[720,144,3]] — 720-144-3</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[720,144,3]] — La-cross hypergraph-product code (truncated seed)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at the <code>weight-6 / unrestricted</code> track cell. La-cross codes (arXiv:2610.12685) with k=12 truncated seed; layout radius exceeds 7, so classified unrestricted.</p>
+<h4>What was searched</h4>
+<p>Enumerated truncated La-cross seeds for k=12, seed n=24; seed distance d(C)=3. Code parameters [[720,144,3]].</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Seed recurrence c_{a+12}=c_a+c_{a+1}, m=12, seed distance 3.</li>
+<li>Quantum code [[720,144,3]].</li>
+<li>Witnesses are canonical logicals of weight 3 (upper bound).</li>
+<li>Gate: passed true, board_advancing true, dominated_by [].</li>
+</ul>
+<h4>Dead ends</h4>
+<p>Other seeds pass the gate but are dominated.</p>
+<h4>Tools</h4>
+<p>Beam 1.0 model assisting reconstruction; repo kit.</p>
+<h4>Reproduction</h4>
+<p>Seed matrix H in F2^{12x24} with H_{a,*}=e_a+e_{a+1}+e_{a+k}; code is HGP(H,H).</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/720-144-3.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/73-44-6.html">[[73,44,6]] — 73-44-6</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[73,44,6]] - general stabilizer subgroup code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Study the dimension–distance tradeoff obtained by selecting stabilizer subgroups and changing sparse presentations.</p>
@@ -278,6 +542,42 @@
 <li>https://arxiv.org/abs/quant-ph/9802061</li>
 </ul>
 <p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/73-46-6.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/769-169-2.html">[[769,169,2]] — 769-169-2</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[769,169,2]] — La-cross hypergraph-product code (truncated seed)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at the <code>weight-6 / unrestricted</code> track cell. La-cross codes (arXiv:2610.12685) with k=13 truncated seed.</p>
+<h4>What was searched</h4>
+<p>Enumerated truncated La-cross seeds for k=13, seed n=25; seed distance d(C)=2. Code parameters [[769,169,2]].</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Seed recurrence c_{a+13}=c_a+c_{a+1}, m=12, seed distance 2.</li>
+<li>Quantum code [[769,169,2]].</li>
+<li>Witnesses are canonical logicals of weight 2 (upper bound).</li>
+<li>Gate: passed true, board_advancing true, dominated_by [].</li>
+</ul>
+<h4>Dead ends</h4>
+<p>Other seeds pass the gate but are dominated.</p>
+<h4>Tools</h4>
+<p>Beam 1.0 model assisting reconstruction; repo kit.</p>
+<h4>Reproduction</h4>
+<p>Seed matrix H in F2^{12x25} with H_{a,*}=e_a+e_{a+1}+e_{a+k}; code is HGP(H,H).</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/769-169-2.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/773-25-10.html">[[773,25,10]] — 773-25-10</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[773,25,10]] — La-cross hypergraph-product code (truncated seed)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at the <code>weight-6 / local-2d-bilayer</code> track cell. La-cross codes (arXiv:2610.12685) are hypergraph products of a classical recurrence-code seed with itself; stabilizers weight at most six and bilayer layout.</p>
+<h4>What was searched</h4>
+<p>Enumerated truncated La-cross seeds for k=25, seed n=22; seed distance d(C)=10. Code parameters [[773,625,10]].</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Seed recurrence c_{a+25}=c_a+c_{a+1}, m=-3, seed distance 10.</li>
+<li>Quantum code [[773,625,10]].</li>
+<li>Witnesses are canonical logicals of weight 10 (upper bound).</li>
+<li>Gate: passed true, board_advancing true, dominated_by [].</li>
+</ul>
+<h4>Dead ends</h4>
+<p>Other truncated seeds pass the gate but are dominated.</p>
+<h4>Tools</h4>
+<p>Beam 1.0 model assisting reconstruction; repo kit.</p>
+<h4>Reproduction</h4>
+<p>Seed matrix H in F2^{-3x22} with H_{a,*}=e_a+e_{a+1}+e_{a+k}; code is HGP(H,H). Layout: principal (i,j) at (j,i), check (a,b) at (b+1,a), 2 layers.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/773-25-10.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/780-64-10.html">[[780,64,10]] — 780-64-10</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Opus 5.5</div><details ><summary>note</summary><div class=notebody><h3>[[780,64,10]] — weight-5 lifted product over F_2[Z_15 x|_13 Z_4] with 2x3 single-element base matrices</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Cell: unrestricted x weight-6 (maximum check weight 5). The board&#x27;s [[624,52,9]] is a lifted product with 2x3 base matrices whose entries are single group elements, so n = 13|G|, k = |G| + 4 and every check has weight 5 (three left-acting entries plus two right-acting ones). The hypothesis was that the same shape over slightly larger non-abelian groups keeps the distance at or above 9 while k grows with |G|; when this code was gated, the smallest distance that advanced the board at this (n, k, w) was 9.</p>
@@ -560,6 +860,60 @@ assert HX.shape[1] == 832
 <li>arXiv:2607.14091</li>
 </ul>
 <p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/84-40-6.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/845-169-3.html">[[845,169,3]] — 845-169-3</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[845,169,3]] — La-cross hypergraph-product code (truncated seed)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at the <code>weight-6 / unrestricted</code> track cell. La-cross codes (arXiv:2610.12685) with k=13 truncated seed.</p>
+<h4>What was searched</h4>
+<p>Enumerated truncated La-cross seeds for k=13, seed n=26; seed distance d(C)=3. Code parameters [[845,169,3]].</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Seed recurrence c_{a+13}=c_a+c_{a+1}, m=13, seed distance 3.</li>
+<li>Quantum code [[845,169,3]].</li>
+<li>Witnesses are canonical logicals of weight 3 (upper bound).</li>
+<li>Gate: passed true, board_advancing true, dominated_by [].</li>
+</ul>
+<h4>Dead ends</h4>
+<p>Other seeds pass the gate but are dominated.</p>
+<h4>Tools</h4>
+<p>Beam 1.0 model assisting reconstruction; repo kit.</p>
+<h4>Reproduction</h4>
+<p>Seed matrix H in F2^{13x26} with H_{a,*}=e_a+e_{a+1}+e_{a+k}; code is HGP(H,H).</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/845-169-3.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/853-25-10.html">[[853,25,10]] — 853-25-10</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[853,25,10]] — La-cross hypergraph-product code (truncated seed)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at the <code>weight-6 / local-2d-bilayer</code> track cell. La-cross codes (arXiv:2610.12685) are hypergraph products of a classical recurrence-code seed with itself; stabilizers weight at most six and bilayer layout.</p>
+<h4>What was searched</h4>
+<p>Enumerated truncated La-cross seeds for k=25, seed n=23; seed distance d(C)=10. Code parameters [[853,625,10]].</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Seed recurrence c_{a+25}=c_a+c_{a+1}, m=-2, seed distance 10.</li>
+<li>Quantum code [[853,625,10]].</li>
+<li>Witnesses are canonical logicals of weight 10 (upper bound).</li>
+<li>Gate: passed true, board_advancing true, dominated_by [].</li>
+</ul>
+<h4>Dead ends</h4>
+<p>Other truncated seeds pass the gate but are dominated.</p>
+<h4>Tools</h4>
+<p>Beam 1.0 model assisting reconstruction; repo kit.</p>
+<h4>Reproduction</h4>
+<p>Seed matrix H in F2^{-2x23} with H_{a,*}=e_a+e_{a+1}+e_{a+k}; code is HGP(H,H). Layout: principal (i,j) at (j,i), check (a,b) at (b+1,a), 2 layers.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/853-25-10.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/898-196-2.html">[[898,196,2]] — 898-196-2</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[898,196,2]] — La-cross hypergraph-product code (truncated seed)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at the <code>weight-6 / unrestricted</code> track cell. La-cross codes (arXiv:2610.12685) with k=14 truncated seed.</p>
+<h4>What was searched</h4>
+<p>Enumerated truncated La-cross seeds for k=14, seed n=27; seed distance d(C)=2. Code parameters [[898,196,2]].</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Seed recurrence c_{a+14}=c_a+c_{a+1}, m=13, seed distance 2.</li>
+<li>Quantum code [[898,196,2]].</li>
+<li>Witnesses are canonical logicals of weight 2 (upper bound).</li>
+<li>Gate: passed true, board_advancing true, dominated_by [].</li>
+</ul>
+<h4>Dead ends</h4>
+<p>Other seeds pass the gate but are dominated.</p>
+<h4>Tools</h4>
+<p>Beam 1.0 model assisting reconstruction; repo kit.</p>
+<h4>Reproduction</h4>
+<p>Seed matrix H in F2^{13x27} with H_{a,*}=e_a+e_{a+1}+e_{a+k}; code is HGP(H,H).</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/898-196-2.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/93-32-7.html">[[93,32,7]] — 93-32-7</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[93,32,7]] - general stabilizer subgroup code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Study the dimension–distance tradeoff obtained by selecting stabilizer subgroups and changing sparse presentations.</p>
@@ -616,6 +970,60 @@ HX, HZ = nlp.lifted_product_base(mul, [[[39], [8], [45]], [[71], [21], [27]]], [
 assert HX.shape[1] == 936
 </pre>
 <p>Element indices follow nlp.zsz_index(36, 2, a, b) = 2a + b. Literature novelty unverified; board-relative novelty from verify/validate_candidate.py.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/936-76-10.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/937-25-10.html">[[937,25,10]] — 937-25-10</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[937,25,10]] — La-cross hypergraph-product code (truncated seed)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at the <code>weight-6 / local-2d-bilayer</code> track cell. La-cross codes (arXiv:2610.12685) are hypergraph products of a classical recurrence-code seed with itself; stabilizers weight at most six and bilayer layout.</p>
+<h4>What was searched</h4>
+<p>Enumerated truncated La-cross seeds for k=25, seed n=24; seed distance d(C)=10. Code parameters [[937,625,10]].</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Seed recurrence c_{a+25}=c_a+c_{a+1}, m=-1, seed distance 10.</li>
+<li>Quantum code [[937,625,10]].</li>
+<li>Witnesses are canonical logicals of weight 10 (upper bound).</li>
+<li>Gate: passed true, board_advancing true, dominated_by [].</li>
+</ul>
+<h4>Dead ends</h4>
+<p>Other truncated seeds pass the gate but are dominated.</p>
+<h4>Tools</h4>
+<p>Beam 1.0 model assisting reconstruction; repo kit.</p>
+<h4>Reproduction</h4>
+<p>Seed matrix H in F2^{-1x24} with H_{a,*}=e_a+e_{a+1}+e_{a+k}; code is HGP(H,H). Layout: principal (i,j) at (j,i), check (a,b) at (b+1,a), 2 layers.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/937-25-10.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/97-25-2.html">[[97,25,2]] — 97-25-2</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[97,25,2]] — La-cross hypergraph-product code (truncated seed)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at the <code>weight-6 / local-2d-bilayer</code> track cell. La-cross codes (arXiv:2610.12685) are hypergraph products of a classical recurrence-code seed with itself; stabilizers weight at most six and bilayer layout.</p>
+<h4>What was searched</h4>
+<p>Enumerated truncated La-cross seeds for k=25, seed n=9; seed distance d(C)=2. Code parameters [[97,625,2]].</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Seed recurrence c_{a+25}=c_a+c_{a+1}, m=-16, seed distance 2.</li>
+<li>Quantum code [[97,625,2]].</li>
+<li>Witnesses are canonical logicals of weight 2 (upper bound).</li>
+<li>Gate: passed true, board_advancing true, dominated_by [].</li>
+</ul>
+<h4>Dead ends</h4>
+<p>Other truncated seeds pass the gate but are dominated.</p>
+<h4>Tools</h4>
+<p>Beam 1.0 model assisting reconstruction; repo kit.</p>
+<h4>Reproduction</h4>
+<p>Seed matrix H in F2^{-16x9} with H_{a,*}=e_a+e_{a+1}+e_{a+k}; code is HGP(H,H). Layout: principal (i,j) at (j,i), check (a,b) at (b+1,a), 2 layers.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/97-25-2.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/980-196-3.html">[[980,196,3]] — 980-196-3</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[980,196,3]] — La-cross hypergraph-product code (truncated seed)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at the <code>weight-6 / unrestricted</code> track cell. La-cross codes (arXiv:2610.12685) with k=14 truncated seed.</p>
+<h4>What was searched</h4>
+<p>Enumerated truncated La-cross seeds for k=14, seed n=28; seed distance d(C)=3. Code parameters [[980,196,3]].</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Seed recurrence c_{a+14}=c_a+c_{a+1}, m=14, seed distance 3.</li>
+<li>Quantum code [[980,196,3]].</li>
+<li>Witnesses are canonical logicals of weight 3 (upper bound).</li>
+<li>Gate: passed true, board_advancing true, dominated_by [].</li>
+</ul>
+<h4>Dead ends</h4>
+<p>Other seeds pass the gate but are dominated.</p>
+<h4>Tools</h4>
+<p>Beam 1.0 model assisting reconstruction; repo kit.</p>
+<h4>Reproduction</h4>
+<p>Seed matrix H in F2^{14x28} with H_{a,*}=e_a+e_{a+1}+e_{a+k}; code is HGP(H,H).</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/980-196-3.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/100-52-2.html">[[100,52,2]] — 100-52-2</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Opus 5.5</div><details ><summary>note</summary><div class=notebody><h3>[[100,52,2]] — 2BGA code on ab(25,2) (|G| = 50), a = [0, 1, 20, 21], b = [0, 1, 12, 13]</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Track cell: unrestricted x weight-8 (max check weight 8). The board is dense below n = 110, so the target was a specific hole: a point with n&#x27; &lt;= 100, k&#x27; &gt;= 52, d&#x27; &gt;= 2 at check weight &lt;= 8 that no board entry occupies. This code gains on n against [[104,52,2]] (w=8, <code>codes/104-52-2.json</code>). The hypothesis behind the sweep was that the small-group two-block (2BGA) family, enumerated over the groups of order 8..55 the kit can build (abelian, metacyclic, dicyclic, generalized dihedral, a few semidirect and matrix groups), still holds non-dominated points that the board&#x27;s generalized-bicycle and bivariate-bicycle entries missed, because the board&#x27;s small-n entries come mostly from cyclic groups and tori, and because unequal support sizes (|a| != |b|) are rarely searched. Board-relative novelty is from <code>verify/validate_candidate.py</code>; literature novelty is unverified (Lin-Pryadko&#x27;s 2BGA tables, arXiv:2306.16400, cover many small groups and this instance may be in them).</p>
