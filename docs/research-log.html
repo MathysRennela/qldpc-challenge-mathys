@@ -21,7 +21,43 @@
 <li>https://arxiv.org/abs/2607.28795</li>
 </ul>
 <p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/408-216-8.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/48-11-8.html">[[48,11,8]] — 48-11-8</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details open><summary>note</summary><div class=notebody><h3>[[48,11,8]] - general stabilizer subgroup code</h3>
+<section class=blk><h3><a href="codes/442-234-7.html">[[442,234,7]] — 442-234-7</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details open><summary>note</summary><div class=notebody><h3>[[442,234,7]] - CSS sparse stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Study sparse finite instances of the construction below and their dimension–distance tradeoff.</p>
+<h4>What was searched</h4>
+<p>G=C26, addition modulo26. A and B are1x4 rows with respective entry supports[[0, 1, 2], [0, 1, 3, 5], [0, 3, 5, 12], [0, 6, 8, 17]] and[[0, 1, 3], [0, 2, 4, 5], [0, 1, 4, 11], [0, 5, 7, 16]]. Each entry is the binary sum of its cyclic permutation matrices. Sixteen VV(k,j) blocks indexed4*k+j precede one CC block, allsize26. X(j,r) places A(k) on VV(k,j), with column r+g, and B(j) on CC. Z(k,r) places B(j)^T on VV(k,j), with column r-g, and A(k)^T on CC. All104 original rows per sector are independent and retained.</p>
+<p>The displayed presentation has maximum check weight 19, maximum qubit degree 30, 208 checks and total incidence 3900.</p>
+<h4>Evidence trail</h4>
+<p>The JSON contains weight-7 logical witnesses. Distance confidence: X: upper_bound, Z: upper_bound.</p>
+<h4>Tools</h4>
+<p>Recorded workflow configuration: GPT-6 Astra + GPT-6.1 Sol. Official tooling: <code>verify/qldpc_verify.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Read <code>codes/442-234-7.json</code>. Allocate zero binary matrices H_X and H_Z with 442 columns. For each row list in <code>checks.X</code> or <code>checks.Z</code>, set the listed zero-based columns to 1, preserving row order. This reconstructs the displayed presentation exactly.</p>
+<p>Construction references:</p>
+<ul>
+<li>https://arxiv.org/abs/2111.03654</li>
+<li>https://arxiv.org/abs/2607.28795</li>
+</ul>
+<p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/442-234-7.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/442-234-8.html">[[442,234,8]] — 442-234-8</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details open><summary>note</summary><div class=notebody><h3>[[442,234,8]] - CSS sparse stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Study sparse finite instances of the construction below and their dimension–distance tradeoff.</p>
+<h4>What was searched</h4>
+<p>G=C26, addition modulo26. A and B are1x4 rows with respective entry supports[[0, 7, 13], [0, 1, 2, 3, 4], [0, 3, 6, 8, 9], [0, 5, 9, 11, 14]] and[[0, 6, 16], [0, 1, 2, 3, 4], [0, 2, 5, 9, 11], [0, 5, 11, 13, 14]]. Each entry is the binary sum of its cyclic permutation matrices. Sixteen VV(k,j) blocks indexed4*k+j precede one CC block, allsize26. X(j,r) places A(k) on VV(k,j), with column r+g, and B(j) on CC. Z(k,r) places B(j)^T on VV(k,j), with column r-g, and A(k)^T on CC. All104 original rows per sector are independent and retained.</p>
+<p>The displayed presentation has maximum check weight 23, maximum qubit degree 36, 208 checks and total incidence 4680.</p>
+<h4>Evidence trail</h4>
+<p>The JSON contains weight-8 logical witnesses. Distance confidence: X: upper_bound, Z: upper_bound.</p>
+<h4>Tools</h4>
+<p>Recorded workflow configuration: GPT-6 Astra + GPT-6.1 Sol. Official tooling: <code>verify/qldpc_verify.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Read <code>codes/442-234-8.json</code>. Allocate zero binary matrices H_X and H_Z with 442 columns. For each row list in <code>checks.X</code> or <code>checks.Z</code>, set the listed zero-based columns to 1, preserving row order. This reconstructs the displayed presentation exactly.</p>
+<p>Construction references:</p>
+<ul>
+<li>https://arxiv.org/abs/2111.03654</li>
+<li>https://arxiv.org/abs/2607.28795</li>
+</ul>
+<p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/442-234-8.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/48-11-8.html">[[48,11,8]] — 48-11-8</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[48,11,8]] - general stabilizer subgroup code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Study the dimension–distance tradeoff obtained by selecting stabilizer subgroups and changing sparse presentations.</p>
 <h4>What was searched</h4>
@@ -45,7 +81,7 @@
 <li>A. M. Steane, Enlargement of Calderbank-Shor-Steane quantum codes, arXiv:quant-ph/9802061v2.</li>
 </ul>
 <p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/48-11-8.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/48-29-4.html">[[48,29,4]] — 48-29-4</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details open><summary>note</summary><div class=notebody><h3>[[48,29,4]] - general stabilizer subgroup code</h3>
+<section class=blk><h3><a href="codes/48-29-4.html">[[48,29,4]] — 48-29-4</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[48,29,4]] - general stabilizer subgroup code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Study the dimension–distance tradeoff obtained by selecting stabilizer subgroups and changing sparse presentations.</p>
 <h4>What was searched</h4>
@@ -132,6 +168,23 @@
 <li>A. M. Steane, Enlargement of Calderbank Shor Steane quantum codes, arXiv:quant-ph/9802061v2, Table1: known [[64,32,8]]. https://arxiv.org/pdf/quant-ph/9802061v2</li>
 </ul>
 <p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/64-24-8.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/680-360-10.html">[[680,360,10]] — 680-360-10</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[680,360,10]] - CSS sparse stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Study sparse finite instances of the construction below and their dimension–distance tradeoff.</p>
+<h4>What was searched</h4>
+<p>C40 scalar1x4 cross product. X[j,r]: VV(k,j,r+g),g in A_k; CC(r+g),g in B_j. Z[k,r]: VV(k,j,r-g),g in B_j; CC(r-g),g in A_k. A supports=[[0, 3, 14, 15, 17], [0, 7, 15, 16, 22], [0, 12, 19, 21, 27], [0, 8, 11, 19, 28]]; B supports=[[0, 2, 5, 9, 11], [0, 6, 19, 23, 24], [0, 5, 8, 21, 26], [0, 7, 16, 23, 27]]. Every individual entry is invertible.</p>
+<p>The displayed presentation has maximum check weight 25, maximum qubit degree 40, 320 checks and total incidence 8000.</p>
+<h4>Evidence trail</h4>
+<p>The JSON contains weight-10 logical witnesses. Distance confidence: X: upper_bound, Z: upper_bound.</p>
+<h4>Tools</h4>
+<p>Recorded workflow configuration: GPT-6 Astra + GPT-6.1 Sol. Official tooling: <code>verify/qldpc_verify.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Read <code>codes/680-360-10.json</code>. Allocate zero binary matrices H_X and H_Z with 680 columns. For each row list in <code>checks.X</code> or <code>checks.Z</code>, set the listed zero-based columns to 1, preserving row order. This reconstructs the displayed presentation exactly.</p>
+<p>Construction references:</p>
+<ul>
+<li>https://arxiv.org/abs/2111.03654</li>
+</ul>
+<p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/680-360-10.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/73-44-6.html">[[73,44,6]] — 73-44-6</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[73,44,6]] - general stabilizer subgroup code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Study the dimension–distance tradeoff obtained by selecting stabilizer subgroups and changing sparse presentations.</p>
