@@ -3,6 +3,15 @@
 <a class=back href="index.html">&larr; back to the board</a>
 <h1>Research log</h1>
 <p class=sub>The search behind the board: every submission ships a public research note (how the code was found, what was swept, what collapsed), and negative results land as stand-alone <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/fieldnotes">fieldnotes</a>. Newest first. See <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes">notes/</a> for the contract.</p>
+<section class=blk><h3><a href="codes/116-18-6.html">[[116,18,6]] — 116-18-6</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[116,18,6]] — amplification of [[25,9,3]] by the flagged [[4,2,2]] amplifier</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Target: unrestricted / any-weight cell. One amplification step of [[25,9,3]] base by flagged [[4,2,2]] (arXiv:2609.37231).</p>
+<h4>Evidence trail</h4>
+<p>d=6 upper bound (3*2). CLI RIS search passed.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Base code: codes/25-9-3.json.</p>
+<h4>Reproduction</h4>
+<p>Base: codes/25-9-3.json. Amplifier: flagged [[4,2,2]]. Central three-term tensor product. Result n=116, k=18, d=6, w=7.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/116-18-6.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/125-25-3.html">[[125,25,3]] — 125-25-3</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[125,25,3]] — La-cross hypergraph-product code (truncated seed)</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Aimed at the <code>weight-6 / local-2d-bilayer</code> track cell. La-cross codes (arXiv:2610.12685) are hypergraph products of a classical recurrence-code seed with itself; stabilizers weight at most six and bilayer layout.</p>
@@ -21,7 +30,16 @@
 <p>Beam 1.0 model assisting reconstruction; repo kit.</p>
 <h4>Reproduction</h4>
 <p>Seed matrix H in F2^{-15x10} with H_{a,*}=e_a+e_{a+1}+e_{a+k}; code is HGP(H,H). Layout: principal (i,j) at (j,i), check (a,b) at (b+1,a), 2 layers.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/125-25-3.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/180-48-4.html">[[180,48,4]] — 180-48-4</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[180,48,4]] — amplification of [[36,24,2]] by the flagged [[4,2,2]] amplifier</h3>
+<section class=blk><h3><a href="codes/176-48-8.html">[[176,48,8]] — 176-48-8</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[176,48,8]] — amplification of [[40,24,4]] by the flagged [[4,2,2]] amplifier</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Target: unrestricted / any-weight cell. One amplification step of [[40,24,4]] base by flagged [[4,2,2]] (arXiv:2609.37231).</p>
+<h4>Evidence trail</h4>
+<p>d=8 upper bound (4*2). CLI RIS search passed.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Base code: codes/40-24-4.json.</p>
+<h4>Reproduction</h4>
+<p>Base: codes/40-24-4.json. Amplifier: flagged [[4,2,2]]. Central three-term tensor product. Result n=176, k=48, d=8, w=17.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/176-48-8.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/180-48-4.html">[[180,48,4]] — 180-48-4</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[180,48,4]] — amplification of [[36,24,2]] by the flagged [[4,2,2]] amplifier</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target: unrestricted / any-weight cell. One amplification step of [[36,24,2]] base by flagged [[4,2,2]] (arXiv:2609.37231).</p>
 <h4>Evidence trail</h4>
@@ -30,7 +48,18 @@
 <p>Model: Beam 1.0. Base code: codes/36-24-2.json.</p>
 <h4>Reproduction</h4>
 <p>Base: codes/36-24-2.json. Amplifier: flagged [[4,2,2]]. Central three-term tensor product. Result n=180, k=48, d=4, w=10.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/180-48-4.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/245-49-3.html">[[245,49,3]] — 245-49-3</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[245,49,3]] — La-cross hypergraph-product code (truncated seed)</h3>
+<section class=blk><h3><a href="codes/210-60-8.html">[[210,60,8]] — 210-60-8</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[210,60,8]] — amplification of [[48,30,4]] by the flagged [[4,2,2]] amplifier</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Target: unrestricted / any-weight cell. One amplification step of the [[48,30,4]] base by the flagged [[4,2,2]] amplifier (arXiv:2609.37231).</p>
+<h4>What was searched</h4>
+<p>Single construction; board domination check found no dominator.</p>
+<h4>Evidence trail</h4>
+<p>d=8 upper bound (4*2). CLI RIS search passed.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Base code: codes/48-30-4.json.</p>
+<h4>Reproduction</h4>
+<p>Base: codes/48-30-4.json. Amplifier: flagged [[4,2,2]]. Central three-term tensor product. Result n=210, k=60, d=8, w=25.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/210-60-8.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/245-49-3.html">[[245,49,3]] — 245-49-3</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[245,49,3]] — La-cross hypergraph-product code (truncated seed)</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Aimed at the <code>weight-6 / unrestricted</code> track cell. La-cross codes (arXiv:2610.12685) with k=7 truncated seed; bilayer layout radius 9.22 exceeds 7, so classified unrestricted.</p>
 <h4>What was searched</h4>
@@ -406,6 +435,19 @@
 <li>A. M. Steane, Enlargement of Calderbank Shor Steane quantum codes, arXiv:quant-ph/9802061v2.</li>
 </ul>
 <p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/56-16-8.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/630-40-22.html">[[630,40,22]] — 630-40-22</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[630,40,22]] — amplification of [[126,20,11]] by the flagged [[4,2,2]] amplifier</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Target: unrestricted / any-weight cell. One amplification step of the [[126,20,11]] bivariate-bicycle base by the flagged [[4,2,2]] amplifier (arXiv:2609.37231).</p>
+<h4>What was searched</h4>
+<p>Single construction; board domination check over all unrestricted entries found no dominator.</p>
+<h4>Evidence trail</h4>
+<p>d=22 upper bound (witness = tensor of base logicals, weight 11*2). Paper lower bound gives exact 22. CLI RIS search passed.</p>
+<h4>Dead ends</h4>
+<p>Deeper amplification exceeds admissibility cap.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Base code: codes/126-20-11.json.</p>
+<h4>Reproduction</h4>
+<p>Base: codes/126-20-11.json. Amplifier: flagged [[4,2,2]], full-rank checks. Central three-term tensor product. Result n=630, k=40, d=22, w=9.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/630-40-22.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/630-48-22.html">[[630,48,22]] — 630-48-22</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[630,48,22]] — amplification of [[126,24,11]] by the flagged [[4,2,2]] amplifier</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target: unrestricted / any-weight cell (w=10). Hypothesis: distance amplification (arXiv:2609.37231) doubles both k and d of a base code while keeping n within the admissibility cap when the base is small enough. The [[126,24,11]] bivariate-bicycle base (already on the board) amplifies to [[630,48,22]] with n=630 &lt;= 700.</p>
@@ -528,6 +570,15 @@
 <p>Beam 1.0 model assisting reconstruction; repo kit (<code>products.hypergraph_product</code>, <code>submit.make_submission</code>, <code>coordination.gate_and_record</code>). Classical seed distance by exhaustive enumeration of \(2^k\) codewords.</p>
 <h4>Reproduction</h4>
 <p>Seed matrix \(H\in\mathbb{F}_2^{16\times 21}\) with \(H_{a,*}=e_a+e_{a+1}+e_{a+5}\) for \(0\le a&lt;16\); code is \(\operatorname{HGP}(H,H)\). Layout: principal qubit \((i,j)\) at \((j,i)\), check qubit \((a,b)\) at \((b+1,a)\), 2 layers.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/697-25-10.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/70-10-6.html">[[70,10,6]] — 70-10-6</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[70,10,6]] — amplification of [[15,5,3]] by the flagged [[4,2,2]] amplifier</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Target: unrestricted / any-weight cell. One amplification step of [[15,5,3]] base by flagged [[4,2,2]] (arXiv:2609.37231).</p>
+<h4>Evidence trail</h4>
+<p>d=6 upper bound (3*2). CLI RIS search passed.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Base code: codes/15-5-3.json.</p>
+<h4>Reproduction</h4>
+<p>Base: codes/15-5-3.json. Amplifier: flagged [[4,2,2]]. Central three-term tensor product. Result n=70, k=10, d=6, w=6.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/70-10-6.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/720-144-3.html">[[720,144,3]] — 720-144-3</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[720,144,3]] — La-cross hypergraph-product code (truncated seed)</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Aimed at the <code>weight-6 / unrestricted</code> track cell. La-cross codes (arXiv:2610.12685) with k=12 truncated seed; layout radius exceeds 7, so classified unrestricted.</p>
@@ -588,6 +639,15 @@
 <li>https://arxiv.org/abs/quant-ph/9802061</li>
 </ul>
 <p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/73-46-6.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/74-12-6.html">[[74,12,6]] — 74-12-6</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[74,12,6]] — amplification of [[16,6,3]] by the flagged [[4,2,2]] amplifier</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Target: unrestricted / any-weight cell. One amplification step of [[16,6,3]] base by flagged [[4,2,2]] (arXiv:2609.37231).</p>
+<h4>Evidence trail</h4>
+<p>d=6 upper bound (3*2). CLI RIS search passed.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Base code: codes/16-6-3.json.</p>
+<h4>Reproduction</h4>
+<p>Base: codes/16-6-3.json. Amplifier: flagged [[4,2,2]]. Central three-term tensor product. Result n=74, k=12, d=6, w=7.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/74-12-6.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/769-169-2.html">[[769,169,2]] — 769-169-2</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[769,169,2]] — La-cross hypergraph-product code (truncated seed)</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Aimed at the <code>weight-6 / unrestricted</code> track cell. La-cross codes (arXiv:2610.12685) with k=13 truncated seed.</p>
