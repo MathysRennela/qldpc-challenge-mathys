@@ -3,6 +3,24 @@
 <a class=back href="index.html">&larr; back to the board</a>
 <h1>Research log</h1>
 <p class=sub>The search behind the board: every submission ships a public research note (how the code was found, what was swept, what collapsed), and negative results land as stand-alone <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/fieldnotes">fieldnotes</a>. Newest first. See <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes">notes/</a> for the contract.</p>
+<section class=blk><h3><a href="codes/408-216-8.html">[[408,216,8]] — 408-216-8</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details open><summary>note</summary><div class=notebody><h3>[[408,216,8]] - CSS sparse stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Study sparse finite instances of the construction below and their dimension–distance tradeoff.</p>
+<h4>What was searched</h4>
+<p>G=C24, addition modulo24. A and B are1x4 rows with respective entry supports[[0, 8, 12], [0, 1, 5, 9, 14], [0, 6, 10, 12, 15], [0, 1, 10, 13, 15]] and[[0, 4, 12], [0, 1, 3, 4, 8], [0, 2, 3, 6, 12], [0, 7, 9, 10, 12]]. Each entry is the binary sum of its cyclic permutation matrices. Sixteen VV(k,j) blocks indexed4*k+j precede one CC block, allsize24. X(j,r) places A(k) on VV(k,j), with column r+g, and B(j) on CC. Z(k,r) places B(j)^T on VV(k,j), with column r-g, and A(k)^T on CC. All96 original rows per sector are independent and retained.</p>
+<p>The displayed presentation has maximum check weight 23, maximum qubit degree 36, 192 checks and total incidence 4320.</p>
+<h4>Evidence trail</h4>
+<p>The JSON contains weight-8 logical witnesses. Distance confidence: X: upper_bound, Z: upper_bound.</p>
+<h4>Tools</h4>
+<p>Recorded workflow configuration: GPT-6 Astra + GPT-6.1 Sol. Official tooling: <code>verify/qldpc_verify.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Read <code>codes/408-216-8.json</code>. Allocate zero binary matrices H_X and H_Z with 408 columns. For each row list in <code>checks.X</code> or <code>checks.Z</code>, set the listed zero-based columns to 1, preserving row order. This reconstructs the displayed presentation exactly.</p>
+<p>Construction references:</p>
+<ul>
+<li>https://arxiv.org/abs/2111.03654</li>
+<li>https://arxiv.org/abs/2607.28795</li>
+</ul>
+<p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/408-216-8.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/48-11-8.html">[[48,11,8]] — 48-11-8</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details open><summary>note</summary><div class=notebody><h3>[[48,11,8]] - general stabilizer subgroup code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Study the dimension–distance tradeoff obtained by selecting stabilizer subgroups and changing sparse presentations.</p>
@@ -52,7 +70,25 @@
 <li>Y. Wu and Y. Lee, Self-Orthogonal Codes Constructed from Posets and Their Applications in Quantum Communication, Mathematics 8 (2020), 1495. https://doi.org/10.3390/math8091495.</li>
 </ul>
 <p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/48-29-4.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/56-16-8.html">[[56,16,8]] — 56-16-8</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details open><summary>note</summary><div class=notebody><h3>[[56,16,8]] - general stabilizer subgroup code</h3>
+<section class=blk><h3><a href="codes/494-304-6.html">[[494,304,6]] — 494-304-6</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[494,304,6]] - CSS sparse stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Study sparse finite instances of the construction below and their dimension–distance tradeoff.</p>
+<h4>What was searched</h4>
+<p>G=C19, product x+y modulo19. L_g[t,u]=1 iff u=g+t; R_h[t,u]=1 iff u=t+h. A is1x5 with support triples[[0, 1, 3], [0, 5, 6], [0, 5, 7], [0, 8, 10], [0, 7, 11]]; B is1x5 with support triples[[0, 1, 3], [0, 5, 6], [0, 5, 7], [0, 8, 10], [0, 7, 11]]; sum the corresponding left or right permutation matrices overF2. Twenty-five VV(k,j) blocks indexed5*k+j precede one CC block, eachsize19. X(j) places A(k) on VV(k,j) and B(j) on CC. Z(k) places B(j)^T on VV(k,j) and A(k)^T on CC. All95 original rows in each sector are independent and retained.</p>
+<p>The displayed presentation has maximum check weight 18, maximum qubit degree 30, 190 checks and total incidence 3420.</p>
+<h4>Evidence trail</h4>
+<p>The JSON contains weight-6 logical witnesses. Distance confidence: X: upper_bound, Z: upper_bound.</p>
+<h4>Tools</h4>
+<p>Recorded workflow configuration: GPT-6 Astra + GPT-6.1 Sol. Official tooling: <code>verify/qldpc_verify.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Read <code>codes/494-304-6.json</code>. Allocate zero binary matrices H_X and H_Z with 494 columns. For each row list in <code>checks.X</code> or <code>checks.Z</code>, set the listed zero-based columns to 1, preserving row order. This reconstructs the displayed presentation exactly.</p>
+<p>Construction references:</p>
+<ul>
+<li>https://arxiv.org/abs/2111.03654</li>
+<li>https://arxiv.org/abs/2607.28795</li>
+</ul>
+<p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/494-304-6.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/56-16-8.html">[[56,16,8]] — 56-16-8</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[56,16,8]] - general stabilizer subgroup code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Study the dimension–distance tradeoff obtained by selecting stabilizer subgroups and changing sparse presentations.</p>
 <h4>What was searched</h4>
@@ -2262,6 +2298,24 @@ assert compute_k(HX, HZ) == 20
 <p>Model: Beam 1.0. Repo tooling: verify/qldpc_verify.py.</p>
 <h4>Reproduction</h4>
 <p>Rebuild from arXiv:2610.19451: Construction I uses fixed circulant lists a=(0,1,3,8,12,18), b=(0,-5,-5,0,12,12), c=(0,0,2,8,2,8) mod N; Construction II uses the fixed polynomials A(z), B(z) over Z_24 with outer lift q=6.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/258-88-6.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/272-144-6.html">[[272,144,6]] — 272-144-6</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[272,144,6]] - CSS sparse stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Study sparse finite instances of the construction below and their dimension–distance tradeoff.</p>
+<h4>What was searched</h4>
+<p>G=C16, product x+y modulo16. L_g[t,u]=1 iff u=g+t; R_h[t,u]=1 iff u=t+h. A is1x4 with support triples[[0, 1, 2], [0, 1, 8], [0, 2, 6], [0, 3, 7]]; B is1x4 with support triples[[0, 1, 2], [0, 1, 8], [0, 4, 9], [0, 4, 10]]; sum the corresponding left or right permutation matrices overF2. Sixteen VV(k,j) blocks indexed4*k+j precede one CC block, eachsize16. X(j) places A(k) on VV(k,j) and B(j) on CC. Z(k) places B(j)^T on VV(k,j) and A(k)^T on CC. All64 original rows in each sector are independent and retained.</p>
+<p>The displayed presentation has maximum check weight 15, maximum qubit degree 24, 128 checks and total incidence 1920.</p>
+<h4>Evidence trail</h4>
+<p>The JSON contains weight-6 logical witnesses. Distance confidence: X: upper_bound, Z: upper_bound.</p>
+<h4>Tools</h4>
+<p>Recorded workflow configuration: GPT-6 Astra + GPT-6.1 Sol. Official tooling: <code>verify/qldpc_verify.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Read <code>codes/272-144-6.json</code>. Allocate zero binary matrices H_X and H_Z with 272 columns. For each row list in <code>checks.X</code> or <code>checks.Z</code>, set the listed zero-based columns to 1, preserving row order. This reconstructs the displayed presentation exactly.</p>
+<p>Construction references:</p>
+<ul>
+<li>https://arxiv.org/abs/2111.03654</li>
+<li>https://arxiv.org/abs/2607.28795</li>
+</ul>
+<p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/272-144-6.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/272-152-4.html">[[272,152,4]] — 272-152-4</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[272,152,4]] - CSS sparse stabilizer code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Study sparse finite instances of the construction below and their dimension–distance tradeoff.</p>
@@ -2928,6 +2982,24 @@ HX, HZ = build_bb(34, 5, [(0, 0), (11, 2), (13, 3), (23, 4)],
 assert compute_k(HX, HZ) == 18
 </pre>
 <p>Check sets match codes/340-18-26.json row for row in this order. Witness search: `surrogate.distance_rand_witness(HX, HZ, trials=2_000_000, seed=113000333, backend=&quot;fast&quot;, pair_depth=8)` returns a weight-26 logical.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/340-18-26.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/340-188-4.html">[[340,188,4]] — 340-188-4</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[340,188,4]] - CSS sparse stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Study sparse finite instances of the construction below and their dimension–distance tradeoff.</p>
+<h4>What was searched</h4>
+<p>G=C5 semidirect C4, index i+5*j, multiplication(i,j)(k,l)=(i+2^j*k mod5,j+l mod4). L_g[t,u]=1 iff u=g*t, R_h[t,u]=1 iff u=t*h. A=[I+L5,I+L6,I+L7,I+L8], B=[I+R5,I+R6,I+R7,I+R8], binary sums. Sixteen VV(k,j) blocks indexed4*k+j precede one CC block, each size20. X(j) places A(k) on VV(k,j) and B(j) on CC; Z(k) places B(j)^T on VV(k,j) and A(k)^T on CC. Keep first independent original rows,76 per sector.</p>
+<p>The displayed presentation has maximum check weight 10, maximum qubit degree 16, 152 checks and total incidence 1520.</p>
+<h4>Evidence trail</h4>
+<p>The JSON contains weight-4 logical witnesses. Distance confidence: X: upper_bound, Z: upper_bound.</p>
+<h4>Tools</h4>
+<p>Recorded workflow configuration: GPT-6 Astra + GPT-6.1 Sol. Official tooling: <code>verify/qldpc_verify.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Read <code>codes/340-188-4.json</code>. Allocate zero binary matrices H_X and H_Z with 340 columns. For each row list in <code>checks.X</code> or <code>checks.Z</code>, set the listed zero-based columns to 1, preserving row order. This reconstructs the displayed presentation exactly.</p>
+<p>Construction references:</p>
+<ul>
+<li>https://arxiv.org/abs/2111.03654</li>
+<li>https://arxiv.org/abs/2607.28795</li>
+</ul>
+<p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/340-188-4.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/342-118-3.html">[[342,118,3]] — 342-118-3</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Opus 5.5</div><details ><summary>note</summary><div class=notebody><h3>[[342,118,3]] — weight-8 bivariate bicycle code on Z_57 x Z_3</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Cell <code>weight-8 x unrestricted</code> (maximum check weight 8), CSS board, n between 221 and 400. This is a high-rate, distance-3 point. Before this code, the high-rate end of the frontier at check weight &lt;= 8 and d &gt;= 3 between n = 282 and n = 342 ran through 288-100-3, 300-104-3, 306-106-3 and 330-112-3 (weight 6). The sweep aimed at k &gt;= 22 with large d (random 4 + 4-term bivariate bicycle (BB) codes on tori with 2lm in 300..400, prefiltered for k &gt;= 22); this draw landed far above that k threshold, and at d = 3 it still advances the frontier&#x27;s high-rate end.</p>
@@ -4263,6 +4335,24 @@ HX, HZ = cyclic_gb(255, [0, 21, 97, 145], [0, 28, 115, 126])
 assert designed_k(255, [0, 21, 97, 145], [0, 28, 115, 126]) == 38
 </pre>
 <p>Ladder seeds: 74175, 82094, 90013 (gf2_fast, pair depth 8, 10,000,000 trials per side each).</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/510-38-25.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/520-330-4.html">[[520,330,4]] — 520-330-4</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[520,330,4]] - CSS sparse stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Study sparse finite instances of the construction below and their dimension–distance tradeoff.</p>
+<h4>What was searched</h4>
+<p>G=C20 indexed0..19, multiplication(x,y)=x+y mod20. L_g[t,u]=1 iff u=g+t; R_h[t,u]=1 iff u=t+h. A=[I+L1,I+L3,I+L5,I+L7,I+L9], B=[I+R1,I+R3,I+R5,I+R7,I+R9], binary sums. Twenty-five VV(k,j) blocks indexed5*k+j precede one CC block, each size20. X(j) places A(k) onVV(k,j) and B(j) onCC; Z(k) places B(j)^T onVV(k,j) and A(k)^T onCC. Omit one original row per block: X indices within blocks[0, 2, 3, 4, 6], Z[10, 17, 18, 19, 16]. Keep all other rows,95 per sector. Omitted CC edges partition20 vertices and give degree19.</p>
+<p>The displayed presentation has maximum check weight 12, maximum qubit degree 19, 190 checks and total incidence 2280.</p>
+<h4>Evidence trail</h4>
+<p>The JSON contains weight-4 logical witnesses. Distance confidence: X: upper_bound, Z: upper_bound.</p>
+<h4>Tools</h4>
+<p>Recorded workflow configuration: GPT-6 Astra + GPT-6.1 Sol. Official tooling: <code>verify/qldpc_verify.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Read <code>codes/520-330-4.json</code>. Allocate zero binary matrices H_X and H_Z with 520 columns. For each row list in <code>checks.X</code> or <code>checks.Z</code>, set the listed zero-based columns to 1, preserving row order. This reconstructs the displayed presentation exactly.</p>
+<p>Construction references:</p>
+<ul>
+<li>https://arxiv.org/abs/2111.03654</li>
+<li>https://arxiv.org/abs/2607.28795</li>
+</ul>
+<p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/520-330-4.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/54-24-4.html">[[54,24,4]] — 54-24-4</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Opus 5.5</div><details ><summary>note</summary><div class=notebody><h3>[[54,24,4]] — 2BGA code on ab(3,3,3) (|G| = 27), a = [0, 10, 14, 16, 22], b = [0, 5, 6, 16, 21]</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Track cell: unrestricted x weight-any (max check weight 10). The board is dense below n = 110, so the target was a specific hole: a point with n&#x27; &lt;= 54, k&#x27; &gt;= 24, d&#x27; &gt;= 4 at check weight &lt;= 10 that no board entry occupies. This code gains on d, k, n, w against [[57,18,4]] (w=25, <code>codes/57-18-4.json</code>), [[80,16,4]] (w=12, <code>codes/80-16-4.json</code>), [[82,22,3]] (w=11, <code>codes/82-22-3.json</code>), [[87,22,3]] (w=11, <code>codes/87-22-3.json</code>). The hypothesis behind the sweep was that the small-group two-block (2BGA) family, enumerated over the groups of order 8..55 the kit can build (abelian, metacyclic, dicyclic, generalized dihedral, a few semidirect and matrix groups), still holds non-dominated points that the board&#x27;s generalized-bicycle and bivariate-bicycle entries missed, because the board&#x27;s small-n entries come mostly from cyclic groups and tori, and because unequal support sizes (|a| != |b|) are rarely searched. Board-relative novelty is from <code>verify/validate_candidate.py</code>; literature novelty is unverified (Lin-Pryadko&#x27;s 2BGA tables, arXiv:2306.16400, cover many small groups and this instance may be in them).</p>
@@ -4567,6 +4657,24 @@ HX, HZ = build_2bga(metacyclic(30, 10, 19)[0], [0, 48, 239], [0, 24, 147])
 assert compute_k(HX, HZ) == 16
 </pre>
 <p>Ladder seeds: 57477, 65396, 73315 (gf2_fast, pair depth 8, 20,000,000 trials per side each).</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/600-16-30.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/624-384-6.html">[[624,384,6]] — 624-384-6</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[624,384,6]] - CSS sparse stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Study sparse finite instances of the construction below and their dimension–distance tradeoff.</p>
+<h4>What was searched</h4>
+<p>G=C24, product x+y modulo24. L_g[t,u]=1 iff u=g+t; R_h[t,u]=1 iff u=t+h. A is1x5 with support triples[[0, 1, 2], [0, 1, 8], [0, 2, 6], [0, 3, 7], [0, 3, 14]]; B is1x5 with support triples[[0, 1, 2], [0, 1, 8], [0, 2, 6], [0, 3, 7], [0, 3, 14]]; sum the corresponding left or right permutation matrices overF2. Twenty-five VV(k,j) blocks indexed5*k+j precede one CC block, eachsize24. X(j) places A(k) on VV(k,j) and B(j) on CC. Z(k) places B(j)^T on VV(k,j) and A(k)^T on CC. All120 original rows in each sector are independent and retained.</p>
+<p>The displayed presentation has maximum check weight 18, maximum qubit degree 30, 240 checks and total incidence 4320.</p>
+<h4>Evidence trail</h4>
+<p>The JSON contains weight-6 logical witnesses. Distance confidence: X: upper_bound, Z: upper_bound.</p>
+<h4>Tools</h4>
+<p>Recorded workflow configuration: GPT-6 Astra + GPT-6.1 Sol. Official tooling: <code>verify/qldpc_verify.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Read <code>codes/624-384-6.json</code>. Allocate zero binary matrices H_X and H_Z with 624 columns. For each row list in <code>checks.X</code> or <code>checks.Z</code>, set the listed zero-based columns to 1, preserving row order. This reconstructs the displayed presentation exactly.</p>
+<p>Construction references:</p>
+<ul>
+<li>https://arxiv.org/abs/2111.03654</li>
+<li>https://arxiv.org/abs/2607.28795</li>
+</ul>
+<p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/624-384-6.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/630-26-35.html">[[630,26,35]] — 630-26-35</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Fable 5.1</div><details ><summary>note</summary><div class=notebody><h3>[[630,26,35]] — weight-8 cyclic GB code over Z_315 (designed divisor, degree 13)</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Cell: unrestricted x weight-8. At n = 630 the weight-8 column is held by [[630,34,32]] (designed-divisor two-block code on Z_315, w = 4 + 4); a code with k in 26..34 at n &lt;= 630 needs d &gt;= 33 to advance it. The hypothesis was that a divisor of degree 11..14 (k = 22..28) leaves enough weight-4 words in its ideal for pairs whose distance clears the k = 32..34 entries, and 315 = 3^2 x 5 x 7 gives x^315 - 1 many small irreducible factors to build divisors from.</p>
@@ -4665,6 +4773,25 @@ mul, _ = cyclic_product(8, 2, 2)
 HX, HZ = build_2bga(mul, [0, 15, 20, 25], [0, 6, 9, 19, 20, 24])   # n = 64, k = 22
 </pre>
 <p>Then <code>make_submission(HX, HZ, ..., trials=8000, seed=11)</code> from <code>research/kit/submit.py</code> reproduces the witnesses; the deep ladder used three fresh seeds at the trial counts in the table above.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/64-22-6.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/640-132-7.html">[[640,132,7]] — 640-132-7</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[640,132,7]] - CSS sparse stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Study sparse finite instances of the construction below and their dimension–distance tradeoff.</p>
+<h4>What was searched</h4>
+<p>G=C16 semidirect_3 C8, a^16=b^8=1, b*a*b^-1=a^3. Normal form a^i b^j has index i+16j; multiply(i,j)(k,l)=(i+3^j*k mod16,j+l mod8). Set row-action L_g[t,u]=1 iff u=g*t and R_h[t,u]=1 iff u=t*h. A=[I+L_16,I+L_17], B=[I+R_48,I+R_49]. BlocksVV(k,j) indexed2k+j, thenCC, all size128. X(j) has A(k) onVV(k,j) and B(j) onCC. Z(k) has B(j)^T onVV(k,j) and A(k)^T onCC. Keep first independent original rows.</p>
+<p>The displayed presentation has maximum check weight 6, maximum qubit degree 8, 508 checks and total incidence 3048.</p>
+<h4>Evidence trail</h4>
+<p>The JSON contains weight-7 logical witnesses. Distance confidence: X: upper_bound, Z: upper_bound.</p>
+<h4>Tools</h4>
+<p>Recorded workflow configuration: GPT-6 Astra + GPT-6.1 Sol. Official tooling: <code>verify/qldpc_verify.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Read <code>codes/640-132-7.json</code>. Allocate zero binary matrices H_X and H_Z with 640 columns. For each row list in <code>checks.X</code> or <code>checks.Z</code>, set the listed zero-based columns to 1, preserving row order. This reconstructs the displayed presentation exactly.</p>
+<p>Construction references:</p>
+<ul>
+<li>https://arxiv.org/abs/2111.03654</li>
+<li>https://arxiv.org/abs/2607.28795</li>
+<li>https://arxiv.org/abs/2607.27644</li>
+</ul>
+<p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/640-132-7.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/66-4-12.html">[[66,4,12]] — 66-4-12</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/FarLab">@FarLab</a> &middot; Claude Opus 5.5</div><details ><summary>note</summary><div class=notebody><h3>[[66,4,12]] — 2BGA code on ab(11,3) (|G| = 33), a = [0, 1, 7, 13, 26], b = [0, 14, 16, 23, 32]</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Track cell: unrestricted x weight-any (max check weight 10). The board is dense below n = 110, so the target was a specific hole: a point with n&#x27; &lt;= 66, k&#x27; &gt;= 4, d&#x27; &gt;= 12 at check weight &lt;= 10 that no board entry occupies. This code gains on the cell frontier against the entries nearest to it. The hypothesis behind the sweep was that the small-group two-block (2BGA) family, enumerated over the groups of order 8..55 the kit can build (abelian, metacyclic, dicyclic, generalized dihedral, a few semidirect and matrix groups), still holds non-dominated points that the board&#x27;s generalized-bicycle and bivariate-bicycle entries missed, because the board&#x27;s small-n entries come mostly from cyclic groups and tori, and because unequal support sizes (|a| != |b|) are rarely searched. Board-relative novelty is from <code>verify/validate_candidate.py</code>; literature novelty is unverified (Lin-Pryadko&#x27;s 2BGA tables, arXiv:2306.16400, cover many small groups and this instance may be in them).</p>
@@ -4967,6 +5094,26 @@ mul, _ = cyclic_product(13,3)
 HX, HZ = build_2bga(mul, [0, 4, 10, 12], [0, 3, 14, 38])   # n = 78, k = 6
 </pre>
 <p>Then <code>make_submission(HX, HZ, ..., trials=8000, seed=11)</code> from <code>research/kit/submit.py</code> reproduces the witnesses; the deep ladder used three fresh seeds at the trial counts in the table above.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/78-6-11.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/780-64-10-a5.html">[[780,64,10]] — 780-64-10-a5</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[780,64,10]] - CSS sparse stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Study sparse finite instances of the construction below and their dimension–distance tradeoff.</p>
+<h4>What was searched</h4>
+<p>G=A5, even permutations of(0,1,2,3,4) in lexicographic order, composition a*b sends i to a[b[i]]. Set row-action L_g[t,u]=1 iff u=g*t, R_h[t,u]=1 iff u=t*h. A=[[I,I,I],[I,L_16,L_26]], B=[[I,I,I],[I,R_17,R_25]]. X(i,j) has A(i,k) on VV(k,j) and B(l,j) on CC(i,l); Z(k,l) has transpose(B(l,j)) on VV(k,j) and transpose(A(i,k)) on CC(i,l). Keep the lexicographically first independent rows in each sector. Full matrices have360 rows per sector, ranks358 each. The nine VV(k,j) blocks use index 3*k+j, followed by four CC(i,l) blocks with index 9+2*i+l. Each block has 60 qubits; block b, group element t has label 60*b+t.</p>
+<p>The displayed presentation has maximum check weight 5, maximum qubit degree 6, 716 checks and total incidence 3580.</p>
+<h4>Evidence trail</h4>
+<p>The JSON contains weight-10 logical witnesses. Distance confidence: X: upper_bound, Z: upper_bound.</p>
+<h4>Tools</h4>
+<p>Recorded workflow configuration: GPT-6 Astra + GPT-6.1 Sol. Official tooling: <code>verify/qldpc_verify.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Read <code>codes/780-64-10-a5.json</code>. Allocate zero binary matrices H_X and H_Z with 780 columns. For each row list in <code>checks.X</code> or <code>checks.Z</code>, set the listed zero-based columns to 1, preserving row order. This reconstructs the displayed presentation exactly.</p>
+<p>Construction references:</p>
+<ul>
+<li>https://arxiv.org/abs/2111.03654</li>
+<li>https://arxiv.org/abs/2607.28795</li>
+<li>https://arxiv.org/abs/2607.27644</li>
+<li>https://arxiv.org/abs/1611.07164</li>
+</ul>
+<p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/780-64-10-a5.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/785-8-27.html">[[785,8,27]] — 785-8-27</a></h3><div class=kv style="color:var(--mut)">2026-10-17 &middot; submission note &middot; <a href="https://github.com/vprusso">@vprusso</a> &middot; GPT-6 (Codex)</div><details ><summary>note</summary><div class=notebody><h3>[[785,8,27]] — a two-row shortening of the planar tile code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>The published <code>codes/786-8-27.json</code> is a weight-8, single-layer 2D tile code with eight logical qubits and weight-27 X and Z logical witnesses. Its witnessed score is 7.420. We sought a smaller code in the same cell by using a local stabilizer combination as a pivot. The reported distance is a witness-backed upper bound.</p>
