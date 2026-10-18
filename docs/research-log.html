@@ -21,6 +21,15 @@
 <p>Beam 1.0 model assisting reconstruction; repo kit.</p>
 <h4>Reproduction</h4>
 <p>Seed matrix H in F2^{-15x10} with H_{a,*}=e_a+e_{a+1}+e_{a+k}; code is HGP(H,H). Layout: principal (i,j) at (j,i), check (a,b) at (b+1,a), 2 layers.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/125-25-3.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/180-48-4.html">[[180,48,4]] — 180-48-4</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[180,48,4]] — amplification of [[36,24,2]] by the flagged [[4,2,2]] amplifier</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Target: unrestricted / any-weight cell. One amplification step of [[36,24,2]] base by flagged [[4,2,2]] (arXiv:2609.37231).</p>
+<h4>Evidence trail</h4>
+<p>d=4 upper bound (2*2). CLI RIS search passed.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Base code: codes/36-24-2.json.</p>
+<h4>Reproduction</h4>
+<p>Base: codes/36-24-2.json. Amplifier: flagged [[4,2,2]]. Central three-term tensor product. Result n=180, k=48, d=4, w=10.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/180-48-4.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/245-49-3.html">[[245,49,3]] — 245-49-3</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[245,49,3]] — La-cross hypergraph-product code (truncated seed)</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Aimed at the <code>weight-6 / unrestricted</code> track cell. La-cross codes (arXiv:2610.12685) with k=7 truncated seed; bilayer layout radius 9.22 exceeds 7, so classified unrestricted.</p>
@@ -39,7 +48,7 @@
 <p>Beam 1.0 model assisting reconstruction; repo kit.</p>
 <h4>Reproduction</h4>
 <p>Seed matrix H in F2^{7x14} with H_{a,*}=e_a+e_{a+1}+e_{a+7}; code is HGP(H,H). Layout: principal (i,j) at (j,i), check (a,b) at (b+1,a), 2 layers.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/245-49-3.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/256-120-12.html">[[256,120,12]] — 256-120-12</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[256,120,12]] Affine-Frobenius quasi-dyadic CSS code at n=256, w=7 reading d &lt;= 12, advancing the weight-9plus x unrestricted board over [[256,120,10]].</h3>
+<section class=blk><h3><a href="codes/256-120-12.html">[[256,120,12]] — 256-120-12</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[256,120,12]] Affine-Frobenius quasi-dyadic CSS code at n=256, w=7 reading d &lt;= 12, advancing the weight-9plus x unrestricted board over [[256,120,10]].</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target cell weight-9plus x unrestricted (CSS). The construction of arXiv:2609.24201 guarantees orthogonality and girth &gt;= 6; the w=7 point was expected to read d=10, and a multiplier/shift variant was found reading d=12 at the same k=120.</p>
 <h4>What was searched</h4>
@@ -175,6 +184,18 @@
 <p>Beam 1.0 model assisting reconstruction; repo kit.</p>
 <h4>Reproduction</h4>
 <p>Seed matrix H in F2^{8x16} with H_{a,*}=e_a+e_{a+1}+e_{a+k}; code is HGP(H,H).</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/320-64-3.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/378-128-6.html">[[378,128,6]] — 378-128-6</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><p>--- author: @MathysRennela ---</p>
+<h3>[[378,128,6]]</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Construction I from paper arXiv:2610.19451: fixed circulant lists a,b,c, N=63.</p>
+<h4>What was searched</h4>
+<p>Staged candidate validated by the trusted gate (<code>verify/validate_candidate.py</code>, passed: true).</p>
+<h4>Evidence trail</h4>
+<p>Distance claim d=6 is an upper bound (witness-backed). Candidate passed the trusted validation gate.</p>
+<h4>Why it matters</h4>
+<p>Board-advancing (non-dominated) frontier extension in the <code>[&#x27;weight-6&#x27;, &#x27;unrestricted&#x27;]</code> cell.</p>
+<h4>Reproduction</h4>
+<p>Candidate document and verdict are in local staging output (not committed).</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/378-128-6.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/405-81-3.html">[[405,81,3]] — 405-81-3</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[405,81,3]] — La-cross hypergraph-product code (truncated seed)</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Aimed at the <code>weight-6 / unrestricted</code> track cell. La-cross codes (arXiv:2610.12685) with k=9 truncated seed; layout radius exceeds 7, so classified unrestricted.</p>
@@ -349,6 +370,18 @@
 <li>https://arxiv.org/abs/2111.03654</li>
 </ul>
 <p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/510-278-8.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/512-8-20.html">[[512,8,20]] — 512-8-20</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><p>--- author: @MathysRennela ---</p>
+<h3>[[512,8,20]]</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Open-boundary planar bivariate-bicycle code from research/local2d/boundary_engine.py build_planar(16, 16, S_f, S_g) with S_f = x^0 y^0 + x^1 y^2 + x^2 y^1 + x^2 y^2 and S_g = x^0 y^2 + x^1 y^0 + x^1 y^1 + x^2 y^0, both 4-subsets of a 3x3 box, on a 16x16 grid; the 48 secondary boundary stabilizers of weight &gt; 8 are dropped, which recovers the weight-8 stabilizer set and leaves the rank unchanged. CSS, n = 2*16*16 = 512, k = 8. LAYOUT: the unit square lattice rotated 45 degrees with the two blocks on its two sublattices, qubit (i, j, block c) at (i + j + c, j - i). That map is injective on (i, j, c), so all 512 sites are distinct and the minimum spacing is exactly 1; the pattern is the one codes/572-8-19.json uses. Because both supports lie in a 3x3 box, every check spans at most di = dj = 2, and a same-block pair separated by (di, dj) sits at distance sqrt(2*(di^2 + dj^2)) = 4, so the measured interaction radius is 4.0 -- inside the local-2d-single cap. The arXiv:2504.09171 B=4 tile has 4x4 supports and lands at sqrt(18) = 4.2426 instead, which is why the whole k = 18 tile family sits in local-2d-bilayer. This construction is this repository&#x27;s own; the rotated-square layout pattern is taken from the board entry named above, and the distance is a witness-backed upper bound.</p>
+<h4>What was searched</h4>
+<p>Staged candidate validated by the trusted gate (<code>verify/validate_candidate.py</code>, passed: true).</p>
+<h4>Evidence trail</h4>
+<p>Distance claim d=20 is an upper bound (witness-backed). Candidate passed the trusted validation gate.</p>
+<h4>Why it matters</h4>
+<p>Board-advancing (non-dominated) frontier extension in the <code>[&#x27;weight-8&#x27;, &#x27;local-2d-single&#x27;]</code> cell.</p>
+<h4>Reproduction</h4>
+<p>Candidate document and verdict are in local staging output (not committed).</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/512-8-20.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/56-16-8.html">[[56,16,8]] — 56-16-8</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[56,16,8]] - general stabilizer subgroup code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Study the dimension–distance tradeoff obtained by selecting stabilizer subgroups and changing sparse presentations.</p>
@@ -373,6 +406,19 @@
 <li>A. M. Steane, Enlargement of Calderbank Shor Steane quantum codes, arXiv:quant-ph/9802061v2.</li>
 </ul>
 <p>Local validation: the official <code>verify/validate_candidate.py</code> passed, including independent-seed distance refutation.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/56-16-8.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/630-48-22.html">[[630,48,22]] — 630-48-22</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[630,48,22]] — amplification of [[126,24,11]] by the flagged [[4,2,2]] amplifier</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Target: unrestricted / any-weight cell (w=10). Hypothesis: distance amplification (arXiv:2609.37231) doubles both k and d of a base code while keeping n within the admissibility cap when the base is small enough. The [[126,24,11]] bivariate-bicycle base (already on the board) amplifies to [[630,48,22]] with n=630 &lt;= 700.</p>
+<h4>What was searched</h4>
+<p>One amplification step of the flagged [[4,2,2]] amplifier applied to the [[126,24,11]] base, using the central three-term truncation (Eq. 12-15 of the paper). No parameter sweep; single construction. Screening: board domination check over all unrestricted entries (no dominator found).</p>
+<h4>Evidence trail</h4>
+<p>Distance claim d=22 is an upper bound: witness-backed via the tensor product of the base logicals (weight 11 * 2 = 22). The paper&#x27;s lower bound gives ceil(2*11)=22, so the code distance is exactly 22 under the paper&#x27;s assumptions. CLI RIS search (20,000 trials + 2,000,000 accelerator trials) found no lighter logical; gate passed (dry run).</p>
+<h4>Dead ends</h4>
+<p>Deeper amplification (3-4 steps) exceeds the admissibility cap (n &gt; 700) and is not submittable. One-step amplification of smaller bases (e.g. [[18,4,4]]) is admissible but dominated.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Repo tooling: cli/qldpc submit, scipy sparse construction, RIS distance search. Base code: codes/126-24-11.json.</p>
+<h4>Reproduction</h4>
+<p>Base: codes/126-24-11.json (H_X, H_Z). Amplifier: flagged [[4,2,2]] with full-rank checks G_X = G_Z = [1 1 1 1] (one row each). Apply central three-term tensor product (Eq. 14-15, arXiv:2609.37231). Result: n=630, k=48, d=22, w=10.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/630-48-22.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/64-24-8.html">[[64,24,8]] — 64-24-8</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/hirobumii">@hirobumii</a> &middot; GPT-6 Astra + GPT-6.1 Sol (recorded multi-agent configuration)</div><details ><summary>note</summary><div class=notebody><h3>[[64,24,8]] - general stabilizer subgroup code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Study the dimension–distance tradeoff obtained by selecting stabilizer subgroups and changing sparse presentations.</p>
