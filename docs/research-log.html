@@ -10,6 +10,24 @@
 <p>Gate passes, board_advancing.</p>
 <h4>Tools</h4>
 <p>Model: Beam 1.0.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/100-53-2.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/31-21-3.html">[[31,21,3]] — 31-21-3</a></h3><div class=kv style="color:var(--mut)">2026-10-20 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[31,21,3]] — CSS code from the Hamming [31,26,3] code and its Simplex dual</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>The <code>unrestricted</code> / weight-9plus cell. CSS codes with high <code>k</code> for small <code>n</code> are sparse: the largest CSS <code>k</code> on the board for <code>n &lt;= 31</code> was 20. A CSS code with <code>n = 31</code> and <code>k &gt;= 21</code> would therefore extend the frontier regardless of its distance, provided it was valid and connected.</p>
+<h4>What was searched</h4>
+<p>Construction by hand rather than random search. The classical Hamming code <code>[31,26,3]</code> over GF(2) contains its dual, the Simplex code <code>[31,5,16]</code>, so the standard CSS construction applies with <code>C_1 = C_2 = Hamming</code>. The parity-check matrix is the <code>5 x 31</code> matrix whose columns are all nonzero 5-bit vectors; the same matrix serves as both <code>H_X</code> and <code>H_Z</code> because its rows are self-orthogonal (the all-ones? no: <code>H H^T = 0</code> mod 2, since each coordinate is 1 in 16 of the 31 columns). This gives <code>n = 31</code>, <code>rank(H_X) = rank(H_Z) = 5</code>, hence <code>k = 31 - 5 - 5 = 21</code>, and <code>d = 3</code>.</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>CSS commutation <code>H_X H_Z^T = 0</code> holds by construction.</li>
+<li><code>k = 21</code> computed as <code>n - rank(H_X) - rank(H_Z)</code>.</li>
+<li>Distance witness: lightest X-logical and Z-logical of weight 3 found at 500 RIS trials per side (<code>d &lt;= 3</code>, upper bound). The gate re-ran its own refutation search and did not find a lighter logical.</li>
+<li>Gate result: <code>passed: true</code>, <code>board_advancing: true</code>, cell <code>weight-9plus x unrestricted</code>.</li>
+</ul>
+<h4>Dead ends</h4>
+<p>Random CSS search at <code>n = 9</code> and random bivariate-bicycle sweeps in this session produced only dominated or duplicate candidates; the Hamming construction was chosen to target the high-<code>k</code> gap directly.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Used <code>research/kit/css.py</code>, <code>research/kit/surrogate.py</code>, and <code>research/kit/submit.py</code>; verification via <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Build <code>H</code> as the <code>5 x 31</code> matrix whose columns are the integers <code>1..31</code> written in 5 bits (column <code>j</code> = binary representation of <code>j</code>). Set <code>H_X = H_Z = H</code>. Equivalently, <code>H[i, j] = (j &gt;&gt; i) &amp; 1</code> for <code>i in 0..4</code>, <code>j in 1..31</code> (0-indexed columns for <code>j-1</code>).</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/31-21-3.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/44-25-2.html">[[44,25,2]] — 44-25-2</a></h3><div class=kv style="color:var(--mut)">2026-10-20 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[44,25,2]] — C-DELETE-CHECK reduction</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Targeted the frontier by deleting a check from a board entry, raising <code>k</code> while preserving <code>d</code> (inherited witnesses).</p>
@@ -28,7 +46,7 @@
 <p>Model: Beam 1.0. Calculus: the priced construction calculus, operation <code>C-DELETE-CHECK</code>.</p>
 <h4>Reproduction</h4>
 <p>Apply <code>C-DELETE-CHECK</code> with the row id in the candidate&#x27;s provenance.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/44-25-2.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/10-4-1.html">[[10,4,1]] — 10-4-1</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[10,4,1]] Two C-DELETE-CHECK steps a1,a3 from 10-2-3-b.json</h3>
+<section class=blk><h3><a href="codes/10-4-1.html">[[10,4,1]] — 10-4-1</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[10,4,1]] Two C-DELETE-CHECK steps a1,a3 from 10-2-3-b.json</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Board-advancing code found by the priced construction calculus. Operation: two C-DELETE-CHECK steps on a board entry, raising k while keeping a witness-backed distance. Rule used: C-DELETE-CHECK (twice).</p>
 <h4>What was searched</h4>
