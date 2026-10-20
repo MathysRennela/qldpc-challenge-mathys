@@ -31,7 +31,27 @@
 <p>Model: Beam 1.0. Harness: unreleased code calculus tool (E-GRAFT). Repo tooling: verify/validate_candidate.py, verify/qldpc_verify.py. Compute: local CPU.</p>
 <h4>Reproduction</h4>
 <p>The construction is not reproducible from a committed script: the generating tool is unreleased. The check matrices are given in codes/11-3-3-b.json; anyone can re-run the trusted gate with <code>uv run python verify/validate_candidate.py codes/11-3-3-b.json</code>. Construction stage is declared not reproducible.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/11-3-3-b.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/12-4-2-d.html">[[12,4,2]] — 12-4-2-d</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[12,4,2]] — repair of d=1 code by adding one X check</h3>
+<section class=blk><h3><a href="codes/11-3-3-c.html">[[11,3,3]] — 11-3-3-c</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[11,3,3]] — E-GRAFT reduction of [[12,3,3]]</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Targeted the <code>weight-6 × local-2d-single</code> cell: remove one qubit from the board&#x27;s <code>[[12,3,3]]</code> entry via the <code>E-GRAFT</code> rule of the priced construction calculus, preserving <code>k</code> and <code>d</code> while lowering <code>n</code> (and hence raising <code>kd²/n</code>).</p>
+<h4>What was searched</h4>
+<p>Single-qubit grafts (<code>E-GRAFT</code>) on parents up to <code>n≤60</code>, trying every qubit and every spliced sector, with all permutations of the chain order for rows touching the grafted qubit. Parents&#x27; witnesses were reused when they did not contain the grafted qubit; candidates were screened with <code>verify/validate_candidate.py</code> (refute=False) and then the full gate.</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Parent: <code>codes/12-3-3.json</code> (n=12, k=3, d=3).</li>
+<li>Graft removes 1 qubit → n=11, k=3, d=3.</li>
+<li>Distance is a witness-backed upper bound (both sides), refuted at 200k+ RIS</li>
+<p>trials with no lighter logical found.</p>
+<li><code>verify/validate_candidate.py</code> passes: <code>board_advancing: true</code>, no duplicate</li>
+<p>or WL-equivalent entry.</p>
+</ul>
+<h4>Dead ends</h4>
+<p>Grafts on parents where the grafted qubit appeared in a distance witness were invalid (witness destroyed). Most permutations failed the coverage/CSS checks. Chains of two grafts collapsed <code>k</code> or failed connectivity.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Agent harness: OpenCode. Calculus: E-GRAFT (local staging tooling, not committed). Board tooling: <code>verify/validate_candidate.py</code>, <code>research/kit/coordination.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Apply <code>E-GRAFT</code> with sector <code>X</code>, grafted qubit <code>2</code>, ordered row ids as in <code>codes/12-3-3.json</code>, using the E-GRAFT operation. Export via <code>export_challenge_entry</code> with the surviving witnesses.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/11-3-3-c.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/12-4-2-d.html">[[12,4,2]] — 12-4-2-d</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[12,4,2]] — repair of d=1 code by adding one X check</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Unrestricted / weight-4 cell. Raise distance of a d = 1 frontier sliver to 2 by adding one commuting check.</p>
 <h4>What was searched</h4>
