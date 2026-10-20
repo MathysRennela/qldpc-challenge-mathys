@@ -3,6 +3,31 @@
 <a class=back href="index.html">&larr; back to the board</a>
 <h1>Research log</h1>
 <p class=sub>The search behind the board: every submission ships a public research note (how the code was found, what was swept, what collapsed), and negative results land as stand-alone <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/fieldnotes">fieldnotes</a>. Newest first. See <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes">notes/</a> for the contract.</p>
+<section class=blk><h3><a href="codes/100-53-2.html">[[100,53,2]] — 100-53-2</a></h3><div class=kv style="color:var(--mut)">2026-10-20 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[100,53,2]] — C-DELETE-CHECK reduction</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Deletion of a check from a board entry.</p>
+<h4>Evidence trail</h4>
+<p>Gate passes, board_advancing.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/100-53-2.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/44-25-2.html">[[44,25,2]] — 44-25-2</a></h3><div class=kv style="color:var(--mut)">2026-10-20 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[44,25,2]] — C-DELETE-CHECK reduction</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Targeted the frontier by deleting a check from a board entry, raising <code>k</code> while preserving <code>d</code> (inherited witnesses).</p>
+<h4>What was searched</h4>
+<p>Single C-DELETE-CHECK on parents in <code>n=41–50</code>, all rows, inherited-witness validation, full gate.</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Parent: a board entry with <code>n=44</code>.</li>
+<li>Delete one check → <code>n=44, k=25, d=2</code>.</li>
+<li>Distance is a witness-backed upper bound (both sides), gate passes.</li>
+<li><code>board_advancing: true</code>.</li>
+</ul>
+<h4>Dead ends</h4>
+<p>Many deletions collapsed <code>d</code> via new lower-weight logicals; only a few survived the gate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Calculus: the priced construction calculus, operation <code>C-DELETE-CHECK</code>.</p>
+<h4>Reproduction</h4>
+<p>Apply <code>C-DELETE-CHECK</code> with the row id in the candidate&#x27;s provenance.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/44-25-2.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/10-4-1.html">[[10,4,1]] — 10-4-1</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[10,4,1]] Two C-DELETE-CHECK steps a1,a3 from 10-2-3-b.json</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Board-advancing code found by the priced construction calculus. Operation: two C-DELETE-CHECK steps on a board entry, raising k while keeping a witness-backed distance. Rule used: C-DELETE-CHECK (twice).</p>
@@ -16,7 +41,7 @@
 <p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
 <h4>Reproduction</h4>
 <p>Reconstruct the parent board code, delete the two named checks in order, and recompute n, k, and the witness-backed distance.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/10-4-1.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/11-3-3-b.html">[[11,3,3]] — 11-3-3-b</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[11,3,3]] — graft reduction to an [[11,3,3]] CSS code</h3>
+<section class=blk><h3><a href="codes/11-3-3-b.html">[[11,3,3]] — 11-3-3-b</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[11,3,3]] — graft reduction to an [[11,3,3]] CSS code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Targeted the weight-6 x unrestricted cell with a smaller-n representative: the existing [[11,3,3]] entry and several larger-n siblings share parameters, so a graft that removes a qubit while preserving k, d, and weight class is a frontier extension on the n axis.</p>
 <h4>What was searched</h4>
@@ -31,7 +56,7 @@
 <p>Model: Beam 1.0. Harness: unreleased code calculus tool (E-GRAFT). Repo tooling: verify/validate_candidate.py, verify/qldpc_verify.py. Compute: local CPU.</p>
 <h4>Reproduction</h4>
 <p>The construction is not reproducible from a committed script: the generating tool is unreleased. The check matrices are given in codes/11-3-3-b.json; anyone can re-run the trusted gate with <code>uv run python verify/validate_candidate.py codes/11-3-3-b.json</code>. Construction stage is declared not reproducible.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/11-3-3-b.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/11-3-3-c.html">[[11,3,3]] — 11-3-3-c</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[11,3,3]] — E-GRAFT reduction of [[12,3,3]]</h3>
+<section class=blk><h3><a href="codes/11-3-3-c.html">[[11,3,3]] — 11-3-3-c</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[11,3,3]] — E-GRAFT reduction of [[12,3,3]]</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Targeted the <code>weight-6 × local-2d-single</code> cell: remove one qubit from the board&#x27;s <code>[[12,3,3]]</code> entry via the <code>E-GRAFT</code> rule of the priced construction calculus, preserving <code>k</code> and <code>d</code> while lowering <code>n</code> (and hence raising <code>kd²/n</code>).</p>
 <h4>What was searched</h4>
@@ -376,6 +401,13 @@
 <p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
 <h4>Reproduction</h4>
 <p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/40-23-2.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/52-29-2.html">[[52,29,2]] — 52-29-2</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; DeepSeek V4 Flash 0731</div><details ><summary>note</summary><div class=notebody><h3>[[52,29,2]] — C-DELETE-CHECK reduction</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Deletion of a check from a board entry.</p>
+<h4>Evidence trail</h4>
+<p>Gate passes, board_advancing.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/52-29-2.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/6-5-1.html">[[6,5,1]] — 6-5-1</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[6,5,1]] C-DELETE-CHECK b1 from 6-4-2.json</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
