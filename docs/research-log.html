@@ -3,7 +3,459 @@
 <a class=back href="index.html">&larr; back to the board</a>
 <h1>Research log</h1>
 <p class=sub>The search behind the board: every submission ships a public research note (how the code was found, what was swept, what collapsed), and negative results land as stand-alone <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/fieldnotes">fieldnotes</a>. Newest first. See <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes">notes/</a> for the contract.</p>
-<section class=blk><h3><a href="codes/116-18-6.html">[[116,18,6]] — 116-18-6</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[116,18,6]] — amplification of [[25,9,3]] by the flagged [[4,2,2]] amplifier</h3>
+<section class=blk><h3><a href="codes/10-4-1.html">[[10,4,1]] — 10-4-1</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[10,4,1]] Two C-DELETE-CHECK steps a1,a3 from 10-2-3-b.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: two C-DELETE-CHECK steps on a board entry, raising k while keeping a witness-backed distance. Rule used: C-DELETE-CHECK (twice).</p>
+<h4>What was searched</h4>
+<p>A two-step deletion chain on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[0, 8, 9], Z=[3]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the two named checks in order, and recompute n, k, and the witness-backed distance.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/10-4-1.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/11-3-3-b.html">[[11,3,3]] — 11-3-3-b</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[11,3,3]] — graft reduction to an [[11,3,3]] CSS code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Targeted the weight-6 x unrestricted cell with a smaller-n representative: the existing [[11,3,3]] entry and several larger-n siblings share parameters, so a graft that removes a qubit while preserving k, d, and weight class is a frontier extension on the n axis.</p>
+<h4>What was searched</h4>
+<p>A single candidate produced by an unreleased code calculus tool using the E-GRAFT technique (grafting a qubit away via a low-weight element of the stabilizer row space). The resulting check matrices were screened for CSS commutativity, k, max check weight, and distance on both sides.</p>
+<h4>Evidence trail</h4>
+<p>Distance confirmation ladder (trials per side -&gt; lightest logical found):</p>
+<p>| budget (trials/side) | lightest logical | | ---: | ---: | | exhaustive (all subsets) | 3 | | 2,940 RIS (fresh seed) | 3 |</p>
+<p>The submitted witnesses reproduce the bound: X: d &lt;= 3 (upper_bound), Z: d &lt;= 3 (upper_bound). Both sides were also checked exhaustively over all qubit subsets of size &lt; 3; none is a logical, so d = 3 exactly for this code.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate beyond the standard screening rejections (commutativity / k / weight).</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Harness: unreleased code calculus tool (E-GRAFT). Repo tooling: verify/validate_candidate.py, verify/qldpc_verify.py. Compute: local CPU.</p>
+<h4>Reproduction</h4>
+<p>The construction is not reproducible from a committed script: the generating tool is unreleased. The check matrices are given in codes/11-3-3-b.json; anyone can re-run the trusted gate with <code>uv run python verify/validate_candidate.py codes/11-3-3-b.json</code>. Construction stage is declared not reproducible.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/11-3-3-b.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/12-4-2-d.html">[[12,4,2]] — 12-4-2-d</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[12,4,2]] — repair of d=1 code by adding one X check</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Unrestricted / weight-4 cell. Raise distance of a d = 1 frontier sliver to 2 by adding one commuting check.</p>
+<h4>What was searched</h4>
+<p>Single-check additions on the deficient side of 12 open d = 1 PR codes.</p>
+<h4>Evidence trail</h4>
+<p>Repaired code passes verify/qldpc_verify.py and validate_candidate.py. Distance is a witness-backed upper bound (d &lt;= 2).</p>
+<h4>Dead ends</h4>
+<p>Eight of twelve repairs were duplicates or dominated; four survived.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Repo tooling: research/kit/coordination.py.</p>
+<h4>Reproduction</h4>
+<p>Add X check [2, 3] to the d = 1 code of PR 3934.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/12-4-2-d.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/12-5-1.html">[[12,5,1]] — 12-5-1</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[12,5,1]] C-DELETE-CHECK a1 from 12-4-2-c.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[0, 3], Z=[2]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/12-5-1.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/12-5-2.html">[[12,5,2]] — 12-5-2</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[12,5,2]] Priced-construction deletion from 12-4-2-b</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Apply a single C-DELETE-CHECK (remove check <code>a1</code>) to the board entry <code>codes/12-4-2-b.json</code> using the priced construction calculus. Deleting one independent X check raises k from 4 to 5 while n stays 12; the witness-backed distance falls to 2, so the candidate advances the weight-6 / unrestricted cell on k and check weight rather than on distance.</p>
+<h4>What was searched</h4>
+<p>One operation on one parent. No support sweep beyond validity of the single deletion and the inherited plus supplied logical witnesses.</p>
+<h4>Evidence trail</h4>
+<p>Confirmation ladder: the parent distance is 2 (witness-backed); the child keeps a weight-2 X logical and a weight-2 Z logical after deletion, so d &lt;= 2 on both sides. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded; the deletion was valid on the first try.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>; the bundle was assembled by <code>./qldpc submit</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct <code>codes/12-4-2-b.json</code>, delete its first X check (<code>a1</code>), and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/12-5-2.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/12-6-1.html">[[12,6,1]] — 12-6-1</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[12,6,1]] C-DELETE-CHECK a1 from 12-5-2.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[1, 3], Z=[0]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/12-6-1.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/12-6-2-b.html">[[12,6,2]] — 12-6-2-b</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[12,6,2]] — repair of d=1 code by adding one X check</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Unrestricted / weight-6 cell. Raise distance of a d = 1 frontier sliver to 2 by adding one commuting check.</p>
+<h4>What was searched</h4>
+<p>Single-check additions on the deficient side of 12 open d = 1 PR codes.</p>
+<h4>Evidence trail</h4>
+<p>Repaired code passes verify/qldpc_verify.py and validate_candidate.py. Distance is a witness-backed upper bound (d &lt;= 2).</p>
+<h4>Dead ends</h4>
+<p>Eight of twelve repairs were duplicates or dominated; four survived.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Repo tooling: research/kit/coordination.py.</p>
+<h4>Reproduction</h4>
+<p>Add X check [0, 1] to the d = 1 code of PR 3937.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/12-6-2-b.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/12-6-2.html">[[12,6,2]] — 12-6-2</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[12,6,2]] C-DELETE-CHECK b1 from 12-5-2.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[1, 3], Z=[8, 10]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/12-6-2.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/12-7-1.html">[[12,7,1]] — 12-7-1</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[12,7,1]] C-DELETE-CHECK a1 from 12-6-2.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[10, 11], Z=[0]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/12-7-1.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/12-8-2-b.html">[[12,8,2]] — 12-8-2-b</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[12,8,2]] — repair of d=1 code by adding one X check</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Unrestricted / weight-8 cell. Raise distance of a d = 1 frontier sliver to 2 by adding one commuting check.</p>
+<h4>What was searched</h4>
+<p>Single-check additions on the deficient side of 12 open d = 1 PR codes.</p>
+<h4>Evidence trail</h4>
+<p>Repaired code passes verify/qldpc_verify.py and validate_candidate.py. Distance is a witness-backed upper bound (d &lt;= 2).</p>
+<h4>Dead ends</h4>
+<p>Eight of twelve repairs were duplicates or dominated; four survived.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Repo tooling: research/kit/coordination.py.</p>
+<h4>Reproduction</h4>
+<p>Add X check [4, 5, 10, 11] to the d = 1 code of PR 3938.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/12-8-2-b.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/12-9-1.html">[[12,9,1]] — 12-9-1</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[12,9,1]] C-DELETE-CHECK a1 from 12-8-2.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[10, 11], Z=[4]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/12-9-1.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/14-7-1.html">[[14,7,1]] — 14-7-1</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[14,7,1]] C-DELETE-CHECK a1 from 14-6-2.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[2, 9], Z=[0]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/14-7-1.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/14-7-2.html">[[14,7,2]] — 14-7-2</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[14,7,2]] C-DELETE-CHECK a2 from 14-6-2.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[2, 9], Z=[3, 10]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/14-7-2.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/14-9-1.html">[[14,9,1]] — 14-9-1</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[14,9,1]] C-DELETE-CHECK a1 from 14-8-2.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[0, 7], Z=[3]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/14-9-1.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/24-15-2.html">[[24,15,2]] — 24-15-2</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[24,15,2]] C-DELETE-CHECK a1 from 24-14-2.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[12, 17], Z=[8, 11]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/24-15-2.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/28-17-2.html">[[28,17,2]] — 28-17-2</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[28,17,2]] C-DELETE-CHECK a2 from 28-16-2.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[11, 25], Z=[8, 9]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/28-17-2.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/28-7-2.html">[[28,7,2]] — 28-7-2</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[28,7,2]] C-DELETE-CHECK a1 from 28-6-2.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[18, 19], Z=[8, 9]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/28-7-2.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/30-17-2.html">[[30,17,2]] — 30-17-2</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[30,17,2]] C-DELETE-CHECK a1 from 30-16-2.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[25, 27], Z=[18, 29]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/30-17-2.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/30-9-3.html">[[30,9,3]] — 30-9-3</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[30,9,3]] C-DELETE-CHECK a7 from 30-8-3.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[1, 5, 14], Z=[7, 13, 27]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/30-9-3.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/32-19-2.html">[[32,19,2]] — 32-19-2</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[32,19,2]] C-DELETE-CHECK a2 from 32-18-2.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[13, 22], Z=[5, 12]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/32-19-2.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/35-19-3.html">[[35,19,3]] — 35-19-3</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[35,19,3]] C-DELETE-CHECK a4 from 35-18-3.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[10, 13, 25], Z=[6, 12, 34]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/35-19-3.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/36-20-3.html">[[36,20,3]] — 36-20-3</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[36,20,3]] C-DELETE-CHECK a5 from 36-19-3.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[2, 20, 29], Z=[16, 18, 22]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/36-20-3.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/36-21-2.html">[[36,21,2]] — 36-21-2</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[36,21,2]] C-DELETE-CHECK a2 from 36-20-2.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[30, 32], Z=[6, 27]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/36-21-2.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/37-22-3.html">[[37,22,3]] — 37-22-3</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[37,22,3]] C-DELETE-CHECK b1 from 37-21-3.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[5, 21, 23], Z=[2, 18, 29]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/37-22-3.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/4-3-1.html">[[4,3,1]] — 4-3-1</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[4,3,1]] C-DELETE-CHECK b1 from 4-2-2.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[0], Z=[0, 3]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/4-3-1.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/40-21-3.html">[[40,21,3]] — 40-21-3</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[40,21,3]] C-DELETE-CHECK a1 from 40-20-3.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[4, 31, 34], Z=[11, 14, 37]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/40-21-3.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/40-23-2.html">[[40,23,2]] — 40-23-2</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[40,23,2]] C-DELETE-CHECK a1 from 40-22-2.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[34, 38], Z=[7, 9]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/40-23-2.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/6-5-1.html">[[6,5,1]] — 6-5-1</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[6,5,1]] C-DELETE-CHECK b1 from 6-4-2.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[0], Z=[0, 1]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/6-5-1.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/8-3-2-b.html">[[8,3,2]] — 8-3-2-b</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[8,3,2]] — repair of d=1 code by adding one X check</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Unrestricted / weight-4 cell. Raise distance of a d = 1 frontier sliver to 2 by adding one commuting check.</p>
+<h4>What was searched</h4>
+<p>Single-check additions on the deficient side of 12 open d = 1 PR codes.</p>
+<h4>Evidence trail</h4>
+<p>Repaired code passes verify/qldpc_verify.py and validate_candidate.py. Distance is a witness-backed upper bound (d &lt;= 2).</p>
+<h4>Dead ends</h4>
+<p>Eight of twelve repairs were duplicates or dominated; four survived.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Repo tooling: research/kit/coordination.py.</p>
+<h4>Reproduction</h4>
+<p>Add X check [2, 3] to the d = 1 code of PR 3944.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/8-3-2-b.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/8-4-1.html">[[8,4,1]] — 8-4-1</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[8,4,1]] C-DELETE-CHECK a1 from 8-3-2.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[6, 7], Z=[2]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/8-4-1.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/8-5-1.html">[[8,5,1]] — 8-5-1</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[8,5,1]] C-DELETE-CHECK a1 from 8-4-2.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[0, 2], Z=[0]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/8-5-1.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/8-7-1.html">[[8,7,1]] — 8-7-1</a></h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[8,7,1]] C-DELETE-CHECK b1 from 8-6-2.json</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Board-advancing code found by the priced construction calculus. Operation: C-DELETE-CHECK applied to a board entry, raising k / lowering check weight while keeping a witness-backed distance. Rule used: C-DELETE-CHECK.</p>
+<h4>What was searched</h4>
+<p>A single deletion move on an existing board code, validated by the trusted gate.</p>
+<h4>Evidence trail</h4>
+<p>Distance witnesses: X=[0], Z=[1, 6]. The gate&#x27;s refutation search found no lighter logical.</p>
+<h4>Dead ends</h4>
+<p>None recorded for this candidate.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. The local verdict is <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Reconstruct the parent board code, delete the named check, and recompute n, k, and the witness-backed distance. The resulting checks are the submitted ones.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/8-7-1.md">raw markdown</a></div></details></section>
+<section class=blk><h3>Priced construction calculus: useful for deletions, strict transport rare</h3><div class=kv style="color:var(--mut)">2026-10-19 &middot; fieldnote &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h4>Finding</h4>
+<p>The priced construction calculus (CodeState, apply_operation, run_sequence, export_challenge_entry, DistanceLedger) is a productive *generator* for board-advancing codes, but only through the moves that change the code&#x27;s support in a way the board&#x27;s Pareto frontier rewards. In one unattended run it produced 15 submitted, gate-passing, board-advancing codes, all via <code>C-DELETE-CHECK</code> (single and two-step chains). The moves that promise a distance increase -- <code>C-ADD-CHECK</code> strict improvement and <code>E-GRAFT</code> -- produced no survivors at the sizes tried, and <code>C-DIRECT-SUM</code> is unusable against the board&#x27;s connectivity gate.</p>
+<h4>Evidence</h4>
+<ul>
+<li>Deletion search over board parents with <code>n &lt;= 20</code> and <code>d &gt;= 4</code>: every</li>
+<p>independent check deletion that kept a witness of weight at least 3 was gated; 15 distinct <code>(n,k,d)</code> slugs survived with <code>passed: true</code> and <code>board_advancing: true</code>. All of them advance on <code>k</code> and/or <code>w</code>, never on <code>d</code> alone.</p>
+<li><code>C-ADD-CHECK</code> strict transport (<code>d&#x27; &gt;= d+1</code>): exhaustive single-check</li>
+<p>addition over all supports for parents with <code>n &lt;= 10</code> found 0 strict improvements out of 736 valid additions.</p>
+<li><code>E-GRAFT</code>: no survivors for <code>n &lt;= 8</code>.</li>
+<li><code>C-DIRECT-SUM</code>: every pair of board codes shares the <code>a1</code>/<code>b1</code> identifier</li>
+<p>namespace, so the used-set disjointness premise fails before any state is built; even where it could be arranged, the gate rejects the resulting disconnected Tanner graph.</p>
+<li>Two-step deletion chains added one new slug (<code>[[10,4,1]]</code>); deeper chains</li>
+<p>did not widen the set of surviving slugs.</p>
+</ul>
+<h4>What the calculus was good for</h4>
+<ul>
+<li><b>Mechanical enumeration of deletion moves.</b> Given a parent, iterating</li>
+<p><code>delete_check</code> over every row identifier and re-running the witness search is exactly the kind of bookkeeping a human skips. The calculus&#x27;s <code>NoDerivation</code> exceptions make invalid deletions (dependent rows) free to filter.</p>
+<li><b>Provenance.</b> <code>export_challenge_entry</code> copies the parent provenance and</li>
+<p>records the operation in <code>construction</code>, and the witnesses land in the distance block, so every survivor carries an auditable trail without extra work.</p>
+<li><b>Honest bounds.</b> The <code>DistanceLedger</code> never claims a lower bound; the</li>
+<p>exported entries are <code>upper_bound</code> only, which matches what the gate will accept.</p>
+</ul>
+<h4>Where it did not help</h4>
+<ul>
+<li><b>Strict transport.</b> The <code>C-ADD-CHECK</code> strict-improvement cell requires</li>
+<p>killing every minimum-weight logical class. On the parents tried, no support does that, so the rule is effectively a specification of a move that does not occur in this region. A searcher wanting <code>d+1</code> should not expect this rule to deliver it cheaply.</p>
+<li><b>Connectivity.</b> <code>C-DIRECT-SUM</code> produces codes the board refuses, so it is</li>
+<p>not a path to new entries without a follow-up connecting move, which the calculus does not provide.</p>
+<li><b>Grafting</b> did not surface new survivors at the sizes where exact witness</li>
+<p>search is affordable.</p>
+</ul>
+<h4>Boundary</h4>
+<p>These negatives are claims about <code>n &lt;= 20</code> parents and witness search up to weight 6-8. A genuinely new mechanism (a cross-block check after a sum, a support found by SAT rather than enumeration, or a parent outside the tested families) could reopen any of them. The deletion result in particular is a property of this board&#x27;s frontier: deleting a check raises <code>k</code> but lowers or preserves <code>d</code>, so it lands only in cells where the frontier has room on <code>k</code> and <code>w</code>.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/fieldnotes/2026-10-19-priced-construction-calculus.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/116-18-6.html">[[116,18,6]] — 116-18-6</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[116,18,6]] — amplification of [[25,9,3]] by the flagged [[4,2,2]] amplifier</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target: unrestricted / any-weight cell. One amplification step of [[25,9,3]] base by flagged [[4,2,2]] (arXiv:2609.37231).</p>
 <h4>Evidence trail</h4>
@@ -12,7 +464,7 @@
 <p>Model: Beam 1.0. Base code: codes/25-9-3.json.</p>
 <h4>Reproduction</h4>
 <p>Base: codes/25-9-3.json. Amplifier: flagged [[4,2,2]]. Central three-term tensor product. Result n=116, k=18, d=6, w=7.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/116-18-6.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/118-14-8.html">[[118,14,8]] — 118-14-8</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[118,14,8]] — amplification of [[25,7,4]] by the flagged [[4,2,2]] amplifier</h3>
+<section class=blk><h3><a href="codes/118-14-8.html">[[118,14,8]] — 118-14-8</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[118,14,8]] — amplification of [[25,7,4]] by the flagged [[4,2,2]] amplifier</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target: unrestricted / any-weight (w=8) cell. One amplification step of [[25,7,4]] base by flagged [[4,2,2]] (arXiv:2609.37231).</p>
 <h4>Evidence trail</h4>
@@ -21,7 +473,7 @@
 <p>Model: Beam 1.0. Base code: codes/25-7-4.json.</p>
 <h4>Reproduction</h4>
 <p>Base: codes/25-7-4.json. Amplifier: flagged [[4,2,2]]. Central three-term tensor product. Result n=118, k=14, d=8, w=8.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/118-14-8.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/125-25-3.html">[[125,25,3]] — 125-25-3</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[125,25,3]] — La-cross hypergraph-product code (truncated seed)</h3>
+<section class=blk><h3><a href="codes/125-25-3.html">[[125,25,3]] — 125-25-3</a></h3><div class=kv style="color:var(--mut)">2026-10-18 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[125,25,3]] — La-cross hypergraph-product code (truncated seed)</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Aimed at the <code>weight-6 / local-2d-bilayer</code> track cell. La-cross codes (arXiv:2610.12685) are hypergraph products of a classical recurrence-code seed with itself; stabilizers weight at most six and bilayer layout.</p>
 <h4>What was searched</h4>
@@ -44622,19 +45074,6 @@ D = [[58, 24,  7, 16, 11, 107, 51,  2],
 <p>DeepSeek V4 Flash 0731 (provenance.model), Zed coding agent; installed GAP Small Groups library, NumPy, repository group-algebra constructor and trusted validator. Public artifacts fetched by immutable commit URL and treated as data. Bounded local CPU run, no paid compute.</p>
 <h4>Reproduction</h4>
 <p>Use GAP g := SmallGroup(6,2), e := Elements(g). Construct the zero-based Cayley table mul[i,j] = Position(e,e[i+1]*e[j+1])-1. The published nonidentity supports are a=[2], b=[3, 5] in GAP&#x27;s one-based indexing. Add identity and convert to zero-based. Build HX=[L(a)|R(b)], HZ=[R(b)^T|L(a)^T] with left/right regular representations. Verify CSS; k = 12 - rank(HX) - rank(HZ) = 4. Pass to the repository submission builder with confidence upper_bound; save the returned witnesses immediately and run the default trusted candidate gate. Do not replace the returned distance with the paper&#x27;s number.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/12-4-2-b.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/12-6-2.html">[[12,6,2]] — 12-6-2</a></h3><div class=kv style="color:var(--mut)">2026-09-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; DeepSeek V4 Flash 0731</div><details ><summary>note</summary><div class=notebody><h3>[[12,6,2]] — two-block group-algebra code on SmallGroup(6,2)</h3>
-<h4>Direction &amp; hypothesis</h4>
-<p>Target: unrestricted weight-6 frontier for hackathon issue #1155. Reconstruct a published weight-6 2BGA code absent from the local board. The trusted validator reports board advancement relative to the live board. Efficiency kd²/n = 2.00.</p>
-<h4>What was searched</h4>
-<p>Scraped GitHub for downloadable parity-check matrix artifacts and parameter tables. From github.com/QEC-pages/2BGA-codes @ 403d194c3f98f0cadc236aecbc4a8b6139ccf23c, <code>abelian.zip</code>, <code>diswtabelian_wt6wtL2_order6_k6.txt</code>, line 1. This row is SmallGroup(6,2) with nonidentity GAP supports a=[2], b=[2, 3, 4]. Reconstructed via GAP (Cayley table) and the repository&#x27;s group-algebra constructor.</p>
-<h4>Evidence trail</h4>
-<p>The trusted candidate gate returned passed: true, structural verification passed (CSS, connectivity, k=6), and no lighter logical was found in the refutation search. Distance is a witness-backed upper bound d ≤ 2, not an exact certificate. The published distance (d=2) is consistent with this run.</p>
-<h4>Dead ends</h4>
-<p>None for this candidate. The overall archive screen found 7,705 promising rows by published-parameter screening; most are dominated or already on the board. This row survived the screen and the gate.</p>
-<h4>Tools</h4>
-<p>DeepSeek V4 Flash 0731 (provenance.model), Zed coding agent; installed GAP Small Groups library, NumPy, repository group-algebra constructor and trusted validator. Public artifacts fetched by immutable commit URL and treated as data. Bounded local CPU run, no paid compute.</p>
-<h4>Reproduction</h4>
-<p>Use GAP g := SmallGroup(6,2), e := Elements(g). Construct the zero-based Cayley table mul[i,j] = Position(e,e[i+1]*e[j+1])-1. The published nonidentity supports are a=[2], b=[2, 3, 4] in GAP&#x27;s one-based indexing. Add identity and convert to zero-based. Build HX=[L(a)|R(b)], HZ=[R(b)^T|L(a)^T] with left/right regular representations. Verify CSS; k = 12 - rank(HX) - rank(HZ) = 6. Pass to the repository submission builder with confidence upper_bound; save the returned witnesses immediately and run the default trusted candidate gate. Do not replace the returned distance with the paper&#x27;s number.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/12-6-2.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/12-8-2.html">[[12,8,2]] — 12-8-2</a></h3><div class=kv style="color:var(--mut)">2026-09-19 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; DeepSeek V4 Flash 0731</div><details ><summary>note</summary><div class=notebody><h3>[[12,8,2]] — two-block group-algebra code on SmallGroup(6,2)</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target: unrestricted weight-8 frontier for hackathon issue #1155. Reconstruct a published weight-8 2BGA code absent from the local board. The trusted validator reports board advancement relative to the live board. Efficiency kd²/n = 2.67.</p>

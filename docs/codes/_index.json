@@ -9,6 +9,14 @@
       "code_type": "CSS"
     },
     {
+      "id": "4-3-1",
+      "n": 4,
+      "k": 3,
+      "d": 1,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
       "id": "5-1-3",
       "n": 5,
       "k": 1,
@@ -22,6 +30,14 @@
       "k": 4,
       "d": 2,
       "tier": "exact",
+      "code_type": "CSS"
+    },
+    {
+      "id": "6-5-1",
+      "n": 6,
+      "k": 5,
+      "d": 1,
+      "tier": "ub",
       "code_type": "CSS"
     },
     {
@@ -49,12 +65,28 @@
       "code_type": "CSS"
     },
     {
+      "id": "8-3-2-b",
+      "n": 8,
+      "k": 3,
+      "d": 2,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
       "id": "8-3-3",
       "n": 8,
       "k": 3,
       "d": 3,
       "tier": "ub",
       "code_type": "stabilizer"
+    },
+    {
+      "id": "8-4-1",
+      "n": 8,
+      "k": 4,
+      "d": 1,
+      "tier": "ub",
+      "code_type": "CSS"
     },
     {
       "id": "8-4-2",
@@ -65,11 +97,27 @@
       "code_type": "CSS"
     },
     {
+      "id": "8-5-1",
+      "n": 8,
+      "k": 5,
+      "d": 1,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
       "id": "8-6-2",
       "n": 8,
       "k": 6,
       "d": 2,
       "tier": "exact",
+      "code_type": "CSS"
+    },
+    {
+      "id": "8-7-1",
+      "n": 8,
+      "k": 7,
+      "d": 1,
+      "tier": "ub",
       "code_type": "CSS"
     },
     {
@@ -97,11 +145,27 @@
       "code_type": "stabilizer"
     },
     {
+      "id": "10-4-1",
+      "n": 10,
+      "k": 4,
+      "d": 1,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
       "id": "11-3-3",
       "n": 11,
       "k": 3,
       "d": 3,
       "tier": "exact",
+      "code_type": "CSS"
+    },
+    {
+      "id": "11-3-3-b",
+      "n": 11,
+      "k": 3,
+      "d": 3,
+      "tier": "ub",
       "code_type": "CSS"
     },
     {
@@ -177,6 +241,14 @@
       "code_type": "CSS"
     },
     {
+      "id": "12-4-2-d",
+      "n": 12,
+      "k": 4,
+      "d": 2,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
       "id": "12-4-3",
       "n": 12,
       "k": 4,
@@ -193,6 +265,30 @@
       "code_type": "stabilizer"
     },
     {
+      "id": "12-5-1",
+      "n": 12,
+      "k": 5,
+      "d": 1,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
+      "id": "12-5-2",
+      "n": 12,
+      "k": 5,
+      "d": 2,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
+      "id": "12-6-1",
+      "n": 12,
+      "k": 6,
+      "d": 1,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
       "id": "12-6-2",
       "n": 12,
       "k": 6,
@@ -201,11 +297,43 @@
       "code_type": "CSS"
     },
     {
+      "id": "12-6-2-b",
+      "n": 12,
+      "k": 6,
+      "d": 2,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
+      "id": "12-7-1",
+      "n": 12,
+      "k": 7,
+      "d": 1,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
       "id": "12-8-2",
       "n": 12,
       "k": 8,
       "d": 2,
       "tier": "exact",
+      "code_type": "CSS"
+    },
+    {
+      "id": "12-8-2-b",
+      "n": 12,
+      "k": 8,
+      "d": 2,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
+      "id": "12-9-1",
+      "n": 12,
+      "k": 9,
+      "d": 1,
+      "tier": "ub",
       "code_type": "CSS"
     },
     {
@@ -249,11 +377,35 @@
       "code_type": "CSS"
     },
     {
+      "id": "14-7-1",
+      "n": 14,
+      "k": 7,
+      "d": 1,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
+      "id": "14-7-2",
+      "n": 14,
+      "k": 7,
+      "d": 2,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
       "id": "14-8-2",
       "n": 14,
       "k": 8,
       "d": 2,
       "tier": "exact",
+      "code_type": "CSS"
+    },
+    {
+      "id": "14-9-1",
+      "n": 14,
+      "k": 9,
+      "d": 1,
+      "tier": "ub",
       "code_type": "CSS"
     },
     {
@@ -697,6 +849,14 @@
       "code_type": "CSS"
     },
     {
+      "id": "24-15-2",
+      "n": 24,
+      "k": 15,
+      "d": 2,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
       "id": "24-16-2",
       "n": 24,
       "k": 16,
@@ -881,6 +1041,14 @@
       "code_type": "CSS"
     },
     {
+      "id": "28-7-2",
+      "n": 28,
+      "k": 7,
+      "d": 2,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
       "id": "28-8-4",
       "n": 28,
       "k": 8,
@@ -918,6 +1086,14 @@
       "k": 16,
       "d": 2,
       "tier": "exact",
+      "code_type": "CSS"
+    },
+    {
+      "id": "28-17-2",
+      "n": 28,
+      "k": 17,
+      "d": 2,
+      "tier": "ub",
       "code_type": "CSS"
     },
     {
@@ -1009,6 +1185,14 @@
       "code_type": "CSS"
     },
     {
+      "id": "30-9-3",
+      "n": 30,
+      "k": 9,
+      "d": 3,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
       "id": "30-10-3",
       "n": 30,
       "k": 10,
@@ -1054,6 +1238,14 @@
       "k": 16,
       "d": 2,
       "tier": "exact",
+      "code_type": "CSS"
+    },
+    {
+      "id": "30-17-2",
+      "n": 30,
+      "k": 17,
+      "d": 2,
+      "tier": "ub",
       "code_type": "CSS"
     },
     {
@@ -1193,6 +1385,14 @@
       "code_type": "CSS"
     },
     {
+      "id": "32-19-2",
+      "n": 32,
+      "k": 19,
+      "d": 2,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
       "id": "33-2-8",
       "n": 33,
       "k": 2,
@@ -1278,6 +1478,14 @@
       "k": 18,
       "d": 3,
       "tier": "exact",
+      "code_type": "CSS"
+    },
+    {
+      "id": "35-19-3",
+      "n": 35,
+      "k": 19,
+      "d": 3,
+      "tier": "ub",
       "code_type": "CSS"
     },
     {
@@ -1465,6 +1673,22 @@
       "code_type": "CSS"
     },
     {
+      "id": "36-20-3",
+      "n": 36,
+      "k": 20,
+      "d": 3,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
+      "id": "36-21-2",
+      "n": 36,
+      "k": 21,
+      "d": 2,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
       "id": "36-24-2",
       "n": 36,
       "k": 24,
@@ -1502,6 +1726,14 @@
       "k": 21,
       "d": 3,
       "tier": "exact",
+      "code_type": "CSS"
+    },
+    {
+      "id": "37-22-3",
+      "n": 37,
+      "k": 22,
+      "d": 3,
+      "tier": "ub",
       "code_type": "CSS"
     },
     {
@@ -1673,11 +1905,27 @@
       "code_type": "CSS"
     },
     {
+      "id": "40-21-3",
+      "n": 40,
+      "k": 21,
+      "d": 3,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
       "id": "40-22-2",
       "n": 40,
       "k": 22,
       "d": 2,
       "tier": "exact",
+      "code_type": "CSS"
+    },
+    {
+      "id": "40-23-2",
+      "n": 40,
+      "k": 23,
+      "d": 2,
+      "tier": "ub",
       "code_type": "CSS"
     },
     {
