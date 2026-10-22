@@ -547,8 +547,9 @@ overflow:hidden;text-overflow:ellipsis;min-width:0}
    narrow screens (where the table sets its own min-width). */
 .boardscroll{max-height:64vh;overflow:auto;-webkit-overflow-scrolling:touch;
 border:1px solid var(--ln);border-radius:12px}
-/* "Show all" reveal for the collapsed mobile card list (issue #336);
-   desktop keeps the bounded scroll box and never needs it. */
+/* "Show all" reveal for the collapsed mobile card list (issue #336) and the
+   LER frontier list (issue #3931); desktop keeps the bounded scroll box and
+   the whole list, and never needs it. */
 .showall{display:none}
 /* On screens tall enough to fit plots + legend + a useful slice of the table,
    size the explorer to exactly one viewport: plots and legend keep their
@@ -580,6 +581,12 @@ padding:9px 12px 8px;background:var(--soft)}
 font:inherit;font-size:14px;font-weight:600;color:var(--ac);
 background:var(--soft);border:1px solid var(--ln);border-radius:12px;
 cursor:pointer}
+/* the (n, k, LER) frontier: two dozen rows of three lines each on a phone,
+   a screenful or more between the primary tracks and the board (issue
+   #3931). The first few rows, then the same Show-all reveal as the cards;
+   the list is static, so a CSS cap is safe here where the cards' was not. */
+.lerfront:not(.open) .latestlist li:nth-child(n+6){display:none}
+.lerfront.open .showall{display:none}
 .board td{display:flex;justify-content:space-between;align-items:baseline;
 gap:16px;padding:3px 0;border:0;white-space:normal;text-align:right}
 .board td::before{content:attr(data-label);color:var(--mut);flex:0 0 auto;

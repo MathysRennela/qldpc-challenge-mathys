@@ -657,6 +657,14 @@ document.addEventListener('click',e=>{
  // with a verified layout (f defined), 'without' = only codes with none.
  // Clicking the active button clears it back to 'all'.
  let geoMode='';
+ // The filters as the page loaded them: defaultValue is the markup's value
+ // attribute, so a browser restoring form state on reload does not move the
+ // baseline. Used by the card cap in apply().
+ function atdefault(){
+  const same=el=>!el||el.value===el.defaultValue;
+  return !q.value.trim()&&same(wlo)&&same(whi)&&same(dlo)&&same(dhi)
+   &&same(nlo)&&same(nhi)&&same(klo)&&same(khi)
+   &&!(lit&&lit.classList.contains('active'))&&geoMode==='';}
  // asym: X/Z distance asymmetry, so biased-noise candidates can
  // be pulled out by a threshold of the reader's choosing until the board
  // defines a label for them.
@@ -757,13 +765,20 @@ document.addEventListener('click',e=>{
   board.classList.toggle('showroute',
    (rtog&&rtog.classList.contains('active'))||(!!cellTok&&anyRoute));
   // Collapse only the unfiltered mobile card list; any narrowing shows every
-  // match (some may sit past the cap). Walk current DOM order, not the static
-  // rows array, so a sorted board collapses to its first cards, not its
-  // original ones. Chart dots key off vis, so capped cards stay plotted.
-  const capped=showall&&cardsmq.matches&&!allcards&&shown===rows.length;
+  // match (some may sit past the cap). Unfiltered is every row shown, or the
+  // filters as the page loaded them: the weight slider starts at
+  // BOARD_DEFAULT_W (#2132), so the loaded view already hides rows and the
+  // every-row test alone never held at load, which put every card within
+  // the default weight on a phone (issue #3931). Walk current DOM order,
+  // not the static rows array, so a sorted board collapses to its first
+  // cards, not its original ones. Chart dots key off vis, so capped cards
+  // stay plotted.
+  const capped=showall&&cardsmq.matches&&!allcards
+   &&(shown===rows.length||atdefault());
   if(capped){let ci=0;board.querySelectorAll('tbody tr').forEach(r=>{
    if(r.style.display===''&&++ci>CARDCAP)r.style.display='none';});}
-  if(showall)showall.style.display=capped?'':'none';
+  if(showall){showall.style.display=capped?'':'none';
+   if(capped)showall.textContent='Show all '+shown+' codes';}
   if(count)count.textContent=shown+(shown===rows.length?'':' of '+rows.length)+' codes';
   var chip=document.getElementById('qchip');
   if(chip){var f=q.value.trim();
