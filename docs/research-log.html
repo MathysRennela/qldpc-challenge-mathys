@@ -3,6 +3,28 @@
 <a class=back href="index.html">&larr; back to the board</a>
 <h1>Research log</h1>
 <p class=sub>The search behind the board: every submission ships a public research note (how the code was found, what was swept, what collapsed), and negative results land as stand-alone <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/fieldnotes">fieldnotes</a>. Newest first. See <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes">notes/</a> for the contract.</p>
+<section class=blk><h3><a href="codes/110-28-10.html">[[110,28,10]] — 110-28-10</a></h3><div class=kv style="color:var(--mut)">2026-10-22 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[110,28,10]] — halved pair-partition code converted to CSS</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aim at the unrestricted / weight-9plus cell with a high-rate stabilizer code. The paper (arXiv:2610.28737) proves that among the 191 symplectically halved pair-partition entries of Lee et al. (arXiv:2609.30069) only one is LC-equivalent to CSS: the [[110,28,10]] plain-fold instance. Converting it to CSS should place a (110,28,10) code on the CSS board, where no CSS entry dominates it on (n,k,d,w).</p>
+<h4>What was searched</h4>
+<p>No new search: reconstructed the published instance <code>plain_j4l10_voltage_seed14_p22</code> from the data repository and applied the paper&#x27;s LC-to-CSS conversion. The instance has n=110, k=28, exact distance 10, max check weight 10.</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Source instance: github.com/ultra-high-rate-qec/design-principles-data @</li>
+<p>306b31d, instance plain_j4l10_voltage_seed14_p22 (catalogue entry plain_j4l10_voltage_seed14_p22, exact distance 10).</p>
+<li>LC-to-CSS conversion: paper arXiv:2610.28737, Algorithm 1 (affine reduction).</li>
+<p>Both affine branches consistent on the single indecomposable component; converted checks have max weight 10.</p>
+<li>Gate: <code>verify/validate_candidate.py</code> returned <code>passed: true</code>,</li>
+<p><code>board_advancing: true</code> on the weight-9plus x unrestricted cell, advancing on <code>n</code> and <code>d</code>.</p>
+<li>Distance: witness-backed upper bound <code>d &lt;= 10</code> on both sides (surrogate</li>
+<p><code>lightest_logical</code>, 2000 trials/side); the source instance&#x27;s exact distance is 10, and the converted CSS code preserves parameters.</p>
+</ul>
+<h4>Dead ends</h4>
+<p>Scanned 40 stabilizer codes already on the board (n &lt;= 250) with the same converter; none was LC-equivalent to CSS, consistent with the paper&#x27;s classification of the published catalogs. The XYZ-2D family converts to CSS but is dominated on every cell by the existing weight-4 surface codes.</p>
+<h4>Tools</h4>
+<p>Beam 1.0 (model), OpenCode agent harness. Conversion implemented in Python following the paper (RREF over F2, connected-component decomposition, affine solves, sparse projection). Repository tooling: <code>research/kit/submit.py</code>, <code>verify/validate_candidate.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Parameters: J=4, L=10, P=22, voltage seed 14. Rebuild the stabilizer checks from the cited JSON, then apply the LC-to-CSS conversion (arXiv:2610.28737 Algorithm 1) to obtain H_X, H_Z. The converted supports are the submitted checks.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/110-28-10.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/108-58-4.html">[[108,58,4]] — 108-58-4</a></h3><div class=kv style="color:var(--mut)">2026-10-21 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[108,58,4]] — Cornucopia q=3 with searched column shifts</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target cell: weight-9plus × unrestricted on the CSS board (weight-12 checks, no layout), family <code>other</code>. The Cornucopia construction (Lu, Li, Ma et al., &quot;A modular quantum computer based on Cornucopia codes&quot;, arXiv:2610.19073v2) fixes only the row maps; its twelve column shifts are free parameters. The hypothesis was that at a small, admissible <code>q</code> (n = 36q ≤ 700) an unexplored shift tuple would land on the frontier where no Cornucopia instance of these parameters existed yet.</p>
@@ -29,7 +51,7 @@
 <p>Model: Beam 1.0. Repo tooling: <code>research/kit/submit.make_submission</code>, <code>research/kit/surrogate</code> (NumPy + <code>gf2_fast</code> backend), gate <code>research/kit/coordination.py gate</code>. Build matrices per arXiv:2610.19073v2 Methods, Eq. (1).</p>
 <h4>Reproduction</h4>
 <p>q=5, row maps ρ_A(0)=r+1, ρ_A(1)=2r+2, ρ_B(2)=r+1, ρ_B(3)=2r+2 (identity otherwise), column shifts sA=[4, 0, 3, 3, 4, 0], sB=[1, 3, 3, 2, 1, 0] on Z_5. Index data qubit (b,r,c) as (3b+r)q+c; HX block (i,j) = [A_(j-i) | B_(j-i)], HZ block (i,j) = [B_(i-j)^-1 | A_(i-j)^-1] for i∈{0,1,2}, j∈{0..5}.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/180-94-4-b.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/252-130-6-b.html">[[252,130,6]] — 252-130-6-b</a></h3><div class=kv style="color:var(--mut)">2026-10-21 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[252,130,6]] — Cornucopia q=7 with searched column shifts</h3>
+<section class=blk><h3><a href="codes/252-130-6-b.html">[[252,130,6]] — 252-130-6-b</a></h3><div class=kv style="color:var(--mut)">2026-10-21 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[252,130,6]] — Cornucopia q=7 with searched column shifts</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target cell: weight-9plus × unrestricted on the CSS board (weight-12 checks, no layout), family <code>other</code>. The Cornucopia construction (Lu, Li, Ma et al., &quot;A modular quantum computer based on Cornucopia codes&quot;, arXiv:2610.19073v2) fixes only the row maps; its twelve column shifts are free parameters. The hypothesis: at this admissible q (n = 36q ≤ 700) an unexplored shift tuple would produce a code that is not dominated by the Cornucopia instance of the same (n, k) already on the board.</p>
 <h4>What was searched</h4>
