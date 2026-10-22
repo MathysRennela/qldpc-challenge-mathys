@@ -25,6 +25,53 @@
 <p>Beam 1.0 (model), OpenCode agent harness. Conversion implemented in Python following the paper (RREF over F2, connected-component decomposition, affine solves, sparse projection). Repository tooling: <code>research/kit/submit.py</code>, <code>verify/validate_candidate.py</code>.</p>
 <h4>Reproduction</h4>
 <p>Parameters: J=4, L=10, P=22, voltage seed 14. Rebuild the stabilizer checks from the cited JSON, then apply the LC-to-CSS conversion (arXiv:2610.28737 Algorithm 1) to obtain H_X, H_Z. The converted supports are the submitted checks.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/110-28-10.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/854-158-2.html">[[854,158,2]] — 854-158-2</a></h3><div class=kv style="color:var(--mut)">2026-10-22 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0, MiMo-V2.6-Flash</div><details open><summary>note</summary><div class=notebody><h3>[[854,158,2]] — one Z-check deletion from 854-157-3.json (C-DELETE-CHECK b237)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>A high-k board region at 854 &lt;= n reachable by deleting one check from 854-157-3.json at little distance cost. Deletion raises k by one at fixed n and fixed qubit set, so any landing point where the frontier has headroom on k is reachable in one move. The aim was the largest d the deletion could keep while still clearing the cell&#x27;s floor -- here 2, against a parent claim of 3.</p>
+<h4>What was searched</h4>
+<p>All 163 CSS board entries with n &gt; 700, not a sample of them: 88,592 essential single check deletions (rows whose removal changes the stabilizer group; dependent rows are dropped, since removing one yields an identical code). 28,913 of those -- 33% -- free a bare qubit and are d=1 by construction; a structural filter on column weights discarded them before any witness search, leaving 59,679 clean deletions across 109 distinct (n, k+1, d, w) tuples.</p>
+<p>Witnesses were then re-measured per candidate rather than inherited: 8000 RIS trials per side, seed 0, via the challenge&#x27;s own <code>heuristic_distance</code> search. At most 3 clean rows were sampled per tuple, so this is a floor on what the pool contains, not an exhaustive sweep.</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Parent <code>854-157-3.json</code> claims d = 3.</li>
+<li>Unpriced <code>C-DELETE-CHECK</code> carry from the parent (no child witnesses supplied):</li>
+<p>interval [0, 3]. Contains the measured child distance.</p>
+<li>Priced transport, <code>d&#x27; = min(d, w_del, w_exp)</code>: <b>[0, 2]</b> with</li>
+<p>w_del = 2, w_exp = 5 (RIS upper bounds, 20,000 trials, seed 0; the true minima are NP-hard, Theorem 24.1, so both are over-estimates).</p>
+<li>Seed-0 estimate over the child: 2 per side, 8000 trials/side.</li>
+<li>Gate at seed 5: passed, not refuted, no duplicate, board-advancing on no axis in particular.</li>
+<li>Advancement: nothing dominates it in its cell.</li>
+</ul>
+<h4>Dead ends</h4>
+<ul>
+<li>Distance does not survive deletion. The parent&#x27;s claim was never carried forward: on 14 of</li>
+<p>the 18 filed entries the child measured strictly below the parent, so inheriting the parent&#x27;s number would have been an over-claim that the refutation gate catches.</p>
+<li>28,913 of 88,592 essential deletions free a bare qubit and land at d=1; only 4 of the 18</li>
+<p>filed entries are of that kind, the rest being shadowed by d=2 siblings from the same parent.</p>
+<li>22 candidates in the working set passed the gate but were dominated by a batch-mate at the</li>
+<p>same (n, k, w), so 40 were reduced to 18 before filing.</p>
+<li>Not attempted at this scale: <code>C-ADD-CHECK</code> strict improvement and <code>E-GRAFT</code>. The 2026-10-19</li>
+<p>fieldnote reports 0 strict improvements out of 736 valid additions for n &lt;= 10 and no graft survivors for n &lt;= 8, so neither was worth a sweep at n = 700-1000 without a new idea.</p>
+<li><code>C-DIRECT-SUM</code> is unusable against the connectivity gate regardless of scale.</li>
+</ul>
+<h4>Tools</h4>
+<p>Models: Beam 1.0, MiMo-V2.6-Flash (matches <code>provenance.model</code>).</p>
+<ul>
+<li>Structural work: the challenge&#x27;s own <code>gf2</code> and <code>verify/heuristic_distance.py</code>, plus an</li>
+<p>independent nullspace test for row essentiality.</p>
+<li>Verification: <code>verify/qldpc_verify.py</code> and <code>verify/check_codes_format.py</code>, unchanged, both</li>
+<p>passing locally on the committed file.</p>
+<li>Interval transport: the priced construction calculus at github.com/MathysRennela/code-calculus-dev @ 661d1e0, <code>machine/priced_calculus.py</code>. Its <code>CodeState.delete_check</code></li>
+<p>reproduces this entry&#x27;s child state exactly from the parent, and its <code>Independent(...)</code> premise agreed with the independent nullspace check on all 18 pairs.</p>
+</ul>
+<p>The calculus run is evidence against <code>OBL-PRICED-INTERVAL-SOUNDNESS</code>, not confirmation of it: containment held on 18/18 for both the unpriced carry and the priced interval, but the prices themselves are over-estimates and no lower endpoint was exercised (the ledger&#x27;s lower bound stays 0 throughout).</p>
+<h4>Reproduction</h4>
+<p>Take <code>854-157-3.json</code> from <code>codes/</code>, remove the Z-check whose support is [590, 591, 621, 622], and set k = 158. The result is <code>codes/854-158-2.json</code>. Then:</p>
+<pre>
+python verify/qldpc_verify.py codes/854-158-2.json
+python verify/check_codes_format.py --files codes/854-158-2.json
+</pre>
+<p>Both exit 0. The distance witnesses in <code>codes/854-158-2.json</code> are the acceptance argument; they are upper bounds only.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/854-158-2.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/108-58-4.html">[[108,58,4]] — 108-58-4</a></h3><div class=kv style="color:var(--mut)">2026-10-21 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[108,58,4]] — Cornucopia q=3 with searched column shifts</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target cell: weight-9plus × unrestricted on the CSS board (weight-12 checks, no layout), family <code>other</code>. The Cornucopia construction (Lu, Li, Ma et al., &quot;A modular quantum computer based on Cornucopia codes&quot;, arXiv:2610.19073v2) fixes only the row maps; its twelve column shifts are free parameters. The hypothesis was that at a small, admissible <code>q</code> (n = 36q ≤ 700) an unexplored shift tuple would land on the frontier where no Cornucopia instance of these parameters existed yet.</p>
@@ -38,7 +85,7 @@
 <p>Model: Beam 1.0. Repo tooling: <code>research/kit/submit.make_submission</code>, <code>research/kit/surrogate</code> (NumPy + <code>gf2_fast</code> backend), gate <code>research/kit/coordination.py gate</code>. Build matrices per arXiv:2610.19073v2 Methods, Eq. (1).</p>
 <h4>Reproduction</h4>
 <p>q=3, row maps ρ_A(0)=r+1, ρ_A(1)=2r+2, ρ_B(2)=r+1, ρ_B(3)=2r+2 (identity otherwise), column shifts sA=[1,1,0,2,0,1], sB=[2,1,1,2,0,2] on Z_3. Index data qubit (b,r,c) as (3b+r)q+c; HX block (i,j) = [A_(j-i) | B_(j-i)], HZ block (i,j) = [B_(i-j)^-1 | A_(i-j)^-1] for i∈{0,1,2}, j∈{0..5}.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/108-58-4.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/180-94-4-b.html">[[180,94,4]] — 180-94-4-b</a></h3><div class=kv style="color:var(--mut)">2026-10-21 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[180,94,4]] — Cornucopia q=5 with searched column shifts</h3>
+<section class=blk><h3><a href="codes/180-94-4-b.html">[[180,94,4]] — 180-94-4-b</a></h3><div class=kv style="color:var(--mut)">2026-10-21 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[180,94,4]] — Cornucopia q=5 with searched column shifts</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target cell: weight-9plus × unrestricted on the CSS board (weight-12 checks, no layout), family <code>other</code>. The Cornucopia construction (Lu, Li, Ma et al., &quot;A modular quantum computer based on Cornucopia codes&quot;, arXiv:2610.19073v2) fixes only the row maps; its twelve column shifts are free parameters. The hypothesis: at this admissible q (n = 36q ≤ 700) an unexplored shift tuple would produce a code that is not dominated by the Cornucopia instance of the same (n, k) already on the board.</p>
 <h4>What was searched</h4>
