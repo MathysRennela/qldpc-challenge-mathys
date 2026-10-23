@@ -28,6 +28,48 @@
 <p>The code is <code>Q_G^H(ahat, bhat)</code> of arXiv:2606.17268 (Construction 1): with <code>G = SmallGroup(384, 512)</code>, <code>H</code> the 53-rd non-normal subgroup of <code>G</code> in <code>Filtered(AllSubgroups(G), H -&gt; not IsNormal(G, H))</code> (of order 16), take <code>ahat = [1, 34, 48]</code> and <code>bhat = [1, 6, 12]</code> as 1-based indices into the coset-representative lists <code>LeftCosets(G, Core(G, H))</code> and <code>LeftCosets(Normalizer(G, H), H)</code>. Form the <code>m x m</code> permutation matrices (m = 24 = [G:H]) of the left action <code>L(g): xH -&gt; (g x)H</code> and the right action <code>R(g): xH -&gt; (x g)H</code> for <code>g</code> in the coset representatives those indices select; then</p>
 <p>H_X = [L(ahat) | R(bhat)],   H_Z = [R(bhat)^T | L(ahat)^T]</p>
 <p>(sum the action matrices mod 2, one per indexed representative). These are the exact steps that produce <code>codes/48-8-6-b.json</code>; run on GAP 4.15.1, whose <code>SmallGroup</code>, <code>AllSubgroups</code>, <code>Core</code>, <code>Normalizer</code> and <code>LeftCosets</code> fix every ordering convention the recipe depends on. The GAP builder used for the reconstruction was session-local staging output and is deliberately not cited as evidence; its <code>s</code>-index convention is documented above, and all 29 instances of the paper&#x27;s two tables reproduce their stated (n, k) under it.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/48-8-6-b.md">raw markdown</a></div></details></section>
+<section class=blk><h3>Family concentration of the frontier, first measurement: generalized-bicycle holds 42% of the CSS frontier&#x27;s records, the top two 54%, and the search has moved 5 of 12 cells off the literature&#x27;s best family</h3><div class=kv style="color:var(--mut)">2026-10-23 &middot; fieldnote &middot; <a href="https://github.com/vprusso">@vprusso</a> &middot; Claude Fable 5.1 (Claude Code)</div><details open><summary>note</summary><div class=notebody><p>Issue #4025 (@MathysRennela) asks for the shape of the frontier by family to be a published number rather than a caveat. This note records the first measurement, on main at d5a2a7406 (2,728 entries, 2,532 CSS), made by research/audits/family_concentration.py; its record is research/audits/family_concentration-2026-10-23.json. The metric is computed in site/build.py from the same per-cell and global Pareto frontiers over (n, k, d, w) that award the star, and the site publishes it in docs/stats.json and beside the frontier map&#x27;s legend.</p>
+<h4>What is measured</h4>
+<ul>
+<li>For each of the 12 CSS primary-track cells and for the global CSS frontier: the</li>
+<p>share of the frontier&#x27;s records held by the top declared family and by the top two, and the Herfindahl-Hirschman index (HHI, the sum of squared family shares: 1/families for an even split, 1 for a single family).</p>
+<li>Whether the search moved a cell: the cell&#x27;s leader (largest kd^2/n) belongs to a</li>
+<p>family other than the incumbent&#x27;s, where the incumbent is the same leader taken over the cell&#x27;s literature baselines alone (provenance.origin baseline), the best the seeded literature had there.</p>
+<li>Entries rendered as family &quot;other&quot; are entries without a family tag. They are</li>
+<p>reported as untagged: in every denominator, never a family in the top list or the HHI.</p>
+</ul>
+<p>Cells nest (a weight-4 code is also in the weight-6, weight-8, and weight-any cells), so a code counts in every cell it qualifies for, and the global row is the unrestricted, weight-any cell by construction.</p>
+<h4>The caveat, which travels with every number</h4>
+<p><code>family</code> is the one self-declared label on an entry (research/AUTORESEARCH.md: filterable, never ranked). Everything here measures the declared tag, not a property recovered from H, and is displayed, never ranked. The derived provenance buckets in research/provenance/derived.json are the computed axis wherever they cover an entry.</p>
+<h4>First measurement, 2026-10-23</h4>
+<p>Global CSS frontier: 1,413 records, 14 named families and 187 untagged (13%). generalized-bicycle holds 596 (42%) and bivariate-bicycle 170 (12%); the top two hold 54%; HHI 0.207. The search has moved 5 of 12 cells to a family other than the literature&#x27;s best there.</p>
+<p>| cell | members | records | top family (share) | top two | HHI | incumbent -&gt; leader | moved | |---|---|---|---|---|---|---|---| | local-2d-bilayer~weight-4 | 256 | 189 | local-2d-single (46%) | 80% | 0.331 | topological -&gt; topological | no | | local-2d-bilayer~weight-6 | 661 | 371 | generalized-bicycle (28%) | 51% | 0.189 | bivariate-bicycle -&gt; generalized-bicycle | yes | | local-2d-bilayer~weight-8 | 1,043 | 556 | generalized-bicycle (37%) | 52% | 0.195 | pair-partition-cpm -&gt; pair-partition-cpm | no | | local-2d-bilayer~weight-any | 1,130 | 604 | generalized-bicycle (37%) | 52% | 0.190 | pair-partition-cpm -&gt; lifted-product | yes | | local-2d-single~weight-4 | 243 | 179 | local-2d-single (48%) | 85% | 0.367 | topological -&gt; topological | no | | local-2d-single~weight-6 | 353 | 239 | local-2d-single (36%) | 65% | 0.229 | bivariate-bicycle -&gt; bivariate-bicycle | no | | local-2d-single~weight-8 | 418 | 277 | local-2d-single (31%) | 57% | 0.185 | bivariate-bicycle -&gt; tile | yes | | local-2d-single~weight-any | 419 | 278 | local-2d-single (31%) | 56% | 0.184 | bivariate-bicycle -&gt; tile | yes | | unrestricted~weight-4 | 271 | 195 | local-2d-single (44%) | 78% | 0.311 | topological -&gt; topological | no | | unrestricted~weight-6 | 931 | 528 | generalized-bicycle (30%) | 47% | 0.160 | 2bga-coset -&gt; 2bga-coset | no | | unrestricted~weight-8 | 1,828 | 964 | generalized-bicycle (37%) | 50% | 0.178 | pair-partition-cpm -&gt; pair-partition-cpm | no | | unrestricted~weight-any | 2,532 | 1,413 | generalized-bicycle (42%) | 54% | 0.207 | pair-partition-cpm -&gt; generalized-bicycle | yes |</p>
+<h4>Reading it</h4>
+<ul>
+<li>generalized-bicycle and bivariate-bicycle hold 54% of the global frontier&#x27;s</li>
+<p>records and 53% of the board&#x27;s entries (1,436 of 2,708 when the issue was opened), so the frontier&#x27;s shape follows the entry mix: the two families are not more concentrated on the frontier than in what was submitted.</p>
+<li>The weight-4 cells are the literature&#x27;s. The local-2d-single and topological tags</li>
+<p>hold 78% to 85% of their records, HHI above 0.3, and their leaders are the topological codes the baselines already led with.</p>
+<li>Concentration falls as the weight cap loosens: HHI 0.31 to 0.37 at weight 4, 0.16</li>
+<p>to 0.23 at weight 6, 0.18 to 0.21 at weight 8 and above, as more families reach those cells.</p>
+<li>The five moved cells are where a submitted family overtook the seeded one: the</li>
+<p>bilayer-local board at weight 6 (generalized-bicycle over bivariate-bicycle) and weight-any (lifted-product over pair-partition-cpm), the single-layer board at weight 8 and weight-any (tile over bivariate-bicycle), and the unrestricted weight-any cell (generalized-bicycle over pair-partition-cpm).</p>
+</ul>
+<h4>Re-measuring</h4>
+<pre>
+uv run python research/audits/family_concentration.py --markdown
+</pre>
+<p>writes a record dated by the run beside the script (today&#x27;s is research/audits/family_concentration-2026-10-23.json) and prints the table above, so later measurements extend the series this note starts. docs/stats.json carries the current values under family_concentration on every site build.</p>
+<h4>Limits</h4>
+<ul>
+<li>A declared label is what is counted (above); an entry tagged by its construction</li>
+<p>family rather than by what H is isomorphic to is counted under its tag.</p>
+<li>A record counts once per cell it sits on, so the per-cell rows are not disjoint</li>
+<p>and do not sum to the global row.</p>
+<li>The frontier is repo-local (TRACKS.md): a published code not yet seeded is on none</li>
+<p>of these frontiers, and a cell&#x27;s incumbent is the best of the baselines seeded so far, not the literature&#x27;s best.</p>
+<li>Leader ties are broken by date, then slug.</li>
+</ul></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/fieldnotes/2026-10-23-family-concentration-of-the-frontier.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/1000-407-4.html">[[1000,407,4]] — 1000-407-4</a></h3><div class=kv style="color:var(--mut)">2026-10-22 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0, MiMo-V2.6-Flash</div><details open><summary>note</summary><div class=notebody><h3>[[1000,407,4]] — one Z-check deletion from 1000-406-6.json (C-DELETE-CHECK b20)</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>A high-k board region at 1000 &lt;= n reachable by deleting one check from 1000-406-6.json at little distance cost. Deletion raises k by one at fixed n and fixed qubit set, so any landing point where the frontier has headroom on k is reachable in one move. The aim was the largest d the deletion could keep while still clearing the cell&#x27;s floor -- here 4, against a parent claim of 6.</p>
@@ -75,7 +117,7 @@ python verify/qldpc_verify.py codes/1000-407-4.json
 python verify/check_codes_format.py --files codes/1000-407-4.json
 </pre>
 <p>Both exit 0. The distance witnesses in <code>codes/1000-407-4.json</code> are the acceptance argument; they are upper bounds only.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/1000-407-4.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/110-28-10.html">[[110,28,10]] — 110-28-10</a></h3><div class=kv style="color:var(--mut)">2026-10-22 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[110,28,10]] — halved pair-partition code converted to CSS</h3>
+<section class=blk><h3><a href="codes/110-28-10.html">[[110,28,10]] — 110-28-10</a></h3><div class=kv style="color:var(--mut)">2026-10-22 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[110,28,10]] — halved pair-partition code converted to CSS</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Aim at the unrestricted / weight-9plus cell with a high-rate stabilizer code. The paper (arXiv:2610.28737) proves that among the 191 symplectically halved pair-partition entries of Lee et al. (arXiv:2609.30069) only one is LC-equivalent to CSS: the [[110,28,10]] plain-fold instance. Converting it to CSS should place a (110,28,10) code on the CSS board, where no CSS entry dominates it on (n,k,d,w).</p>
 <h4>What was searched</h4>
