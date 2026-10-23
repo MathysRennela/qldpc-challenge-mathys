@@ -1,21 +1,21 @@
 {
-  "verified_codes": 2731,
-  "css_codes": 2535,
+  "verified_codes": 2732,
+  "css_codes": 2536,
   "stabilizer_codes": 196,
   "certified_exact": 1098,
   "tracks": 12,
   "best_kd2_over_n": 1456.855,
   "best_geometric_efficiency": 1.7555,
   "provenance": {
+    "no_match": 781,
+    "not_derived": 1052,
     "literature": 449,
     "parameters_only": 254,
-    "no_match": 781,
-    "not_derived": 1051,
     "method": "isomorphism against the literature index",
     "caveat": "no_match means the index holds no match, not that the code is unpublished: two sparse generating sets of one stabilizer group can have non-isomorphic Tanner graphs"
   },
   "novelty": {
-    "unknown": 2003,
+    "unknown": 2004,
     "known_parameters": 680,
     "new_parameters": 48
   },
@@ -23,14 +23,14 @@
   "board_screen": {
     "distinct": 2494,
     "review": 38,
-    "not_screened": 3,
+    "not_screened": 4,
     "reference_entries": 771,
     "method": "fingerprint and Weisfeiler-Leman signature against the board's seeded and literature entries",
     "caveat": "distinct means not permutation-equivalent to any seeded or literature entry on this board, not that the code is unpublished; review is a flag, not a verdict; nothing here is a novelty claim"
   },
   "family_concentration": {
     "global": {
-      "records": 1414,
+      "records": 1415,
       "families": 14,
       "untagged": 187,
       "untagged_share": 0.132,
@@ -38,15 +38,15 @@
         {
           "family": "generalized-bicycle",
           "records": 595,
-          "share": 0.421
+          "share": 0.42
         },
         {
           "family": "bivariate-bicycle",
           "records": 169,
-          "share": 0.12
+          "share": 0.119
         }
       ],
-      "top1_share": 0.421,
+      "top1_share": 0.42,
       "top2_share": 0.54,
       "hhi": 0.206
     },
@@ -382,7 +382,7 @@
         "moved": false
       },
       "unrestricted~weight-8": {
-        "records": 965,
+        "records": 966,
         "families": 13,
         "untagged": 103,
         "untagged_share": 0.107,
@@ -390,7 +390,7 @@
           {
             "family": "generalized-bicycle",
             "records": 355,
-            "share": 0.368
+            "share": 0.367
           },
           {
             "family": "bivariate-bicycle",
@@ -398,14 +398,14 @@
             "share": 0.134
           }
         ],
-        "top1_share": 0.368,
-        "top2_share": 0.502,
+        "top1_share": 0.367,
+        "top2_share": 0.501,
         "hhi": 0.177,
-        "members": 1831,
+        "members": 1832,
         "leader": {
-          "slug": "1000-200-29",
+          "slug": "996-166-32",
           "family": "pair-partition-cpm",
-          "eff": 168.2
+          "eff": 170.667
         },
         "incumbent": {
           "slug": "584-150-18",
@@ -415,7 +415,7 @@
         "moved": false
       },
       "unrestricted~weight-any": {
-        "records": 1414,
+        "records": 1415,
         "families": 14,
         "untagged": 187,
         "untagged_share": 0.132,
@@ -423,18 +423,18 @@
           {
             "family": "generalized-bicycle",
             "records": 595,
-            "share": 0.421
+            "share": 0.42
           },
           {
             "family": "bivariate-bicycle",
             "records": 169,
-            "share": 0.12
+            "share": 0.119
           }
         ],
-        "top1_share": 0.421,
+        "top1_share": 0.42,
         "top2_share": 0.54,
         "hhi": 0.206,
-        "members": 2535,
+        "members": 2536,
         "leader": {
           "slug": "674-170-76-b",
           "family": "generalized-bicycle",
@@ -461,6 +461,6 @@
     "caveat": "family is the one self-declared label on an entry, filterable and never ranked, so these shares measure the declared tag, not a property recovered from H; the derived provenance buckets are the computed axis wherever they cover an entry"
   },
   "best_kd2_over_n_w6": 40.0,
-  "best_kd2_over_n_w8": 168.2,
+  "best_kd2_over_n_w8": 170.667,
   "best_kd2_over_n_w12": 517.098
 }
