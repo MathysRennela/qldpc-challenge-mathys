@@ -1,6 +1,6 @@
 {
-  "verified_codes": 2729,
-  "css_codes": 2533,
+  "verified_codes": 2731,
+  "css_codes": 2535,
   "stabilizer_codes": 196,
   "certified_exact": 1098,
   "tracks": 12,
@@ -8,29 +8,29 @@
   "best_geometric_efficiency": 1.7555,
   "provenance": {
     "no_match": 781,
-    "not_derived": 1049,
-    "parameters_only": 254,
+    "not_derived": 1051,
     "literature": 449,
+    "parameters_only": 254,
     "method": "isomorphism against the literature index",
     "caveat": "no_match means the index holds no match, not that the code is unpublished: two sparse generating sets of one stabilizer group can have non-isomorphic Tanner graphs"
   },
   "novelty": {
-    "unknown": 2002,
-    "known_parameters": 679,
+    "unknown": 2003,
+    "known_parameters": 680,
     "new_parameters": 48
   },
-  "novelty_audited": 727,
+  "novelty_audited": 728,
   "board_screen": {
-    "review": 38,
     "distinct": 2494,
-    "not_screened": 1,
+    "review": 38,
+    "not_screened": 3,
     "reference_entries": 771,
     "method": "fingerprint and Weisfeiler-Leman signature against the board's seeded and literature entries",
     "caveat": "distinct means not permutation-equivalent to any seeded or literature entry on this board, not that the code is unpublished; review is a flag, not a verdict; nothing here is a novelty claim"
   },
   "family_concentration": {
     "global": {
-      "records": 1412,
+      "records": 1414,
       "families": 14,
       "untagged": 187,
       "untagged_share": 0.132,
@@ -47,8 +47,8 @@
         }
       ],
       "top1_share": 0.421,
-      "top2_share": 0.541,
-      "hhi": 0.207
+      "top2_share": 0.54,
+      "hhi": 0.206
     },
     "cells": {
       "local-2d-bilayer~weight-4": {
@@ -382,7 +382,7 @@
         "moved": false
       },
       "unrestricted~weight-8": {
-        "records": 963,
+        "records": 965,
         "families": 13,
         "untagged": 103,
         "untagged_share": 0.107,
@@ -390,7 +390,7 @@
           {
             "family": "generalized-bicycle",
             "records": 355,
-            "share": 0.369
+            "share": 0.368
           },
           {
             "family": "bivariate-bicycle",
@@ -398,14 +398,14 @@
             "share": 0.134
           }
         ],
-        "top1_share": 0.369,
-        "top2_share": 0.503,
-        "hhi": 0.178,
-        "members": 1829,
+        "top1_share": 0.368,
+        "top2_share": 0.502,
+        "hhi": 0.177,
+        "members": 1831,
         "leader": {
-          "slug": "912-234-22",
+          "slug": "1000-200-29",
           "family": "pair-partition-cpm",
-          "eff": 124.184
+          "eff": 168.2
         },
         "incumbent": {
           "slug": "584-150-18",
@@ -415,7 +415,7 @@
         "moved": false
       },
       "unrestricted~weight-any": {
-        "records": 1412,
+        "records": 1414,
         "families": 14,
         "untagged": 187,
         "untagged_share": 0.132,
@@ -432,9 +432,9 @@
           }
         ],
         "top1_share": 0.421,
-        "top2_share": 0.541,
-        "hhi": 0.207,
-        "members": 2533,
+        "top2_share": 0.54,
+        "hhi": 0.206,
+        "members": 2535,
         "leader": {
           "slug": "674-170-76-b",
           "family": "generalized-bicycle",
@@ -461,6 +461,6 @@
     "caveat": "family is the one self-declared label on an entry, filterable and never ranked, so these shares measure the declared tag, not a property recovered from H; the derived provenance buckets are the computed axis wherever they cover an entry"
   },
   "best_kd2_over_n_w6": 40.0,
-  "best_kd2_over_n_w8": 124.184,
+  "best_kd2_over_n_w8": 168.2,
   "best_kd2_over_n_w12": 517.098
 }
