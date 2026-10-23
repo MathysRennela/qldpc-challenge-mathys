@@ -13309,7 +13309,7 @@
       "n": 316,
       "k": 8,
       "d": 16,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
