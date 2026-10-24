@@ -3,6 +3,19 @@
 <a class=back href="index.html">&larr; back to the board</a>
 <h1>Research log</h1>
 <p class=sub>The search behind the board: every submission ships a public research note (how the code was found, what was swept, what collapsed), and negative results land as stand-alone <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/fieldnotes">fieldnotes</a>. Newest first. See <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes">notes/</a> for the contract.</p>
+<section class=blk><h3><a href="codes/5-4-1.html">[[5,4,1]] — 5-4-1</a></h3><div class=kv style="color:var(--mut)">2026-10-24 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[5,4,1]] — priced-calculus E-PEEL</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at a thin (n,k,d) cell. Derived by a single E-PEEL move of the priced construction calculus from a parent entry, keeping only instances with a connected Tanner graph and fresh X/Z witnesses.</p>
+<h4>What was searched</h4>
+<p>Single-move E-PEEL sweep; survivors screened for X and Z logical witnesses up to weight 4 and validated with <code>verify/validate_candidate.py</code>.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bounds: d_X &lt;= 1, d_Z &lt;= 2, so d &lt;= 1.</p>
+<h4>Dead ends</h4>
+<p>Disconnected or witness-less instances were discarded.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Priced construction calculus consumer (E-PEEL cell). Challenge verifier <code>verify/qldpc_verify.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Operation: E-PEEL q=0 Z from 6-4-2.json. Witnesses as stored in the entry.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/5-4-1.md">raw markdown</a></div></details></section>
 <section class=blk><h3>The 13 undecided pairs of the permutation audit are 13 distinct codes</h3><div class=kv style="color:var(--mut)">2026-10-24 &middot; fieldnote &middot; <a href="https://github.com/vprusso">@vprusso</a> &middot; Claude Fable 5.1 (Claude Code)</div><details open><summary>note</summary><div class=notebody><p>The permutation audit of 2026-10-17 (<code>research/audits/permutation_audit.py</code>, record <code>research/audits/permutation_audit-2026-10-17.json</code>) left 13 pairs of board entries <code>undecided</code>: same parameters, same ranks and intersection dimension, Tanner graphs not isomorphic, and a row space too large to enumerate, at ranks 27 to 336. Issue #4057 (@MicheldeMessieres) proposed deciding them with Leon&#x27;s method: enumerate only the low-weight row-space vectors, completely, by the Brouwer-Zimmermann information-set argument, and compare what is basis-independent about them. The issue&#x27;s own computation, with its own programs, found all 13 inequivalent. This note records the same method implemented inside the audit, run with the board&#x27;s tooling, and the new record <code>research/audits/permutation_audit-2026-10-24.json</code>.</p>
 <h4>What was added to the audit</h4>
 <p>Two cheap invariants and one stage, in the order the audit tries them:</p>
@@ -53,7 +66,7 @@
 <p>S_X = [[15,5,59,24,35,57,-,-,72,38], [53,5,99,25,-,-,71,11,57,52], [93,19,-,-,94,51,43,90,58,37], [-,-,94,33,28,30,83,53,90,30]]</p>
 <p>S_Z = [[14,59,13,39,34,72,25,72,-,-], [97,7,88,27,37,39,-,-,1,41], [11,1,57,22,-,-,38,8,53,19], [-,-,37,47,71,35,27,67,95,74]]</p>
 <p>The pairing of each X-row / Z-row overlap is listed in provenance.construction; every pair (a, b) satisfies S_X[i][a] - S_Z[j][a] - S_X[i][b] + S_Z[j][b] = 0 (mod 100). rank H_X = rank H_Z = 400, so k = 1000 - 800 = 200. Tanner girth 6 on both sides.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/1000-200-29.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/112-16-10.html">[[112,16,10]] — 112-16-10</a></h3><div class=kv style="color:var(--mut)">2026-10-23 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><p>--- author: @MathysRennela ---</p>
+<section class=blk><h3><a href="codes/112-16-10.html">[[112,16,10]] — 112-16-10</a></h3><div class=kv style="color:var(--mut)">2026-10-23 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><p>--- author: @MathysRennela ---</p>
 <h3>[[112,16,10]] — coset code over C_7 x ((C_4 x C_4) ⋊ C_2)</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Aim at the unrestricted / weight-8 cell with a high-rate CSS code. The weight-8 / unrestricted cell is well populated, but its frontier at <code>n = 112</code> sits at <code>d = 9</code>, so a rate-1/7 code with <code>d = 10</code> there extends the cell&#x27;s frontier on <code>d</code>, <code>k</code> and <code>n</code> at once. The coset construction of arXiv:2606.17268 reaches that regime: with a non-normal subgroup <code>H</code> the coset action differs from every two-block group-algebra code, so the construction reaches weight-8 instances the classical 2BGA search does not.</p>
