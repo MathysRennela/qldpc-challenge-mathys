@@ -29,7 +29,28 @@
 <p>Model: Beam 1.0. Priced construction calculus consumer (C-DELETE-CHECK cell). Challenge verifier <code>verify/qldpc_verify.py</code>.</p>
 <h4>Reproduction</h4>
 <p>Operation: C-DELETE-CHECK a1 from 15-5-3.json. Witnesses as stored in the entry.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/15-6-1.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/27-12-1.html">[[27,12,1]] — 27-12-1</a></h3><div class=kv style="color:var(--mut)">2026-10-25 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[27,12,1]] — priced-calculus C-DELETE-CHECK</h3>
+<section class=blk><h3><a href="codes/196-100-4.html">[[196,100,4]] — 196-100-4</a></h3><div class=kv style="color:var(--mut)">2026-10-25 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; DeepSeek V4.1 Flash 1017</div><details open><summary>note</summary><div class=notebody><h3>[[196,100,4]] — H-code inner / sparse [[14,10,2]] outer tree concatenation</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Cell: CSS, unrestricted, weight-9plus. The board has a hole at high rate and distance 4: at the time of writing there is no CSS entry with n &lt;= 196, k &gt;= 100 and d &gt;= 4. The H-code family of arXiv:2610.30087 Appendix B is a natural high-rate source: an inner [[k+4,k,2]] H code self-concatenated with a distance-2 outer code gives [[(k+4)^2,k^2,4]]. The obstacle is check weight: with the paper&#x27;s weight-3 logical representatives the heavy outer check lifts to 3(k+2), which exceeds the verifier&#x27;s 32-qubit cap at k = 10. Hypothesis: keep the H code as the inner code but choose a sparse [[k+4,k,2]] CSS outer code, so the lifted heavy check is 3 * outer_weight rather than 3(k+2).</p>
+<h4>What was searched</h4>
+<p>Reconstructed the H-code family for k = 2,4,...,16 and checked the pure self-concatenations. For k &lt;= 8 they are admissible but dominated by existing board entries; for k &gt;= 10 their natural check weight 3(k+2) is 36,42,48,54, above the 32 cap. I then searched sparse [[n0,k0,2]] outer codes for n0=k0+4. For k0=10 an outer code with two even self-dual checks of weight 8 covers all 14 outer qubits and keeps the lifted weight at 24.</p>
+<h4>Evidence trail</h4>
+<p>The submitted code is the tree concatenation of:</p>
+<ul>
+<li>inner H code [[14,10,2]]: X and Z checks A0={0,1,2,3} and</li>
+<p>B0={0,1,4,...,13}; logical representatives L_a={1,3,4+a} for a=0,...,9, all weight 3.</p>
+<li>outer self-dual CSS [[14,10,2]]: checks A={0,...,7} and B={6,...,13},</li>
+<p>both weight 8, overlapping in two qubits, union all 14.</p>
+</ul>
+<p>For inner block b and outer block a, qubit (b,q) is b*14+q; an outer check S lifts on outer block a to the union over b in S of {b*14+q : q in L_a}. H_X and H_Z are the inner checks on every block plus the lifted outer checks for every outer block. The result has n=196, k=100, max check weight 24, CSS commutation, and a connected combined Tanner graph.</p>
+<p>Distance: explicit weight-4 X and Z witnesses on support [0,1,14,15]. Exhaustive search found no nontrivial logical of weight 1, 2 or 3. The board&#x27;s RIS refutation (8000 trials) found no lighter logical. The claim is witness-backed d &lt;= 4; the concatenation theorem gives d = 4.</p>
+<h4>Dead ends</h4>
+<p>Pure self-concatenated H codes at k=10 and above are rejected by the 32-qubit check-weight cap. At k &lt;= 8 they are dominated: [[36,4,4]] w=12, [[64,16,4]] w=18, [[100,36,4]] w=24 and [[144,64,4]] w=30 by smaller or lighter board entries. Using a non-self-dual outer code did not help here; the two-check self-dual outer code already reaches the minimum even-weight max of 8 for n0=14.</p>
+<h4>Tools</h4>
+<p>Model: DeepSeek V4.1 Flash 1017, via the OpenCode harness. Construction and checks were generated with a local Python script over GF(2); distance was checked by exhaustive enumeration of all weight &lt;= 3 Pauli supports and by the board verifier&#x27;s refutation pass.</p>
+<h4>Reproduction</h4>
+<p>Use the inner and outer checks above and the tree-concatenation rule stated in the evidence trail. No search seed is involved; the construction is exact.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/196-100-4.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/27-12-1.html">[[27,12,1]] — 27-12-1</a></h3><div class=kv style="color:var(--mut)">2026-10-25 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[27,12,1]] — priced-calculus C-DELETE-CHECK</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Aimed at a thin (n,k,d) cell. Derived by a single C-DELETE-CHECK move of the priced construction calculus from a parent entry, keeping only instances with a connected Tanner graph and fresh X/Z witnesses.</p>
 <h4>What was searched</h4>
@@ -198,6 +219,26 @@
 <p>Model: Beam 1.0. Priced construction calculus consumer (C-DELETE-CHECK cell). Challenge verifier <code>verify/qldpc_verify.py</code>.</p>
 <h4>Reproduction</h4>
 <p>Operation: C-DELETE-CHECK a5 from 32-18-4.json. Witnesses as stored in the entry.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/32-19-2-b.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/324-196-4.html">[[324,196,4]] — 324-196-4</a></h3><div class=kv style="color:var(--mut)">2026-10-25 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; DeepSeek V4.1 Flash 1017</div><details ><summary>note</summary><div class=notebody><h3>[[324,196,4]] — H-code inner / sparse [[18,14,2]] outer tree concatenation</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Cell: CSS, unrestricted, weight-9plus. The board has no CSS entry with n &lt;= 324, k &gt;= 196 and d &gt;= 4. The H-code tree concatenation of arXiv:2610.30087 Appendix B gives [[(k+4)^2,k^2,4]], but the pure self-concatenation at k=14 has check weight 3(k+2)=48, above the verifier&#x27;s 32-qubit cap. Hypothesis: keep the H code as the inner code and replace the outer H code with a sparse [[18,14,2]] CSS code with two weight-10 checks per side, reducing the lifted heavy check from 48 to 30.</p>
+<h4>What was searched</h4>
+<p>Reconstructed the H-code family for k=2,...,16. Pure self-concatenations are dominated at k &lt;= 8 and inadmissible at k &gt;= 10. For k0=14, an outer self-dual CSS code with two even checks of weight 10 covers all 18 outer qubits; lower even maximum is impossible for a connected two-check cover of 18 qubits. The resulting lifted weight is 3*10=30, under the 32 cap.</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>inner H code [[18,14,2]]: checks A0={0,1,2,3} and B0={0,1,4,...,17};</li>
+<p>logical representatives L_a={1,3,4+a}, a=0,...,13, weight 3.</p>
+<li>outer self-dual CSS [[18,14,2]]: checks A={0,...,9} and B={8,...,17},</li>
+<p>both weight 10, overlapping in two qubits, union all 18.</p>
+</ul>
+<p>For inner block b and outer block a, qubit (b,q) is b*18+q; an outer check S lifts on outer block a to the union over b in S of {b*18+q : q in L_a}. H_X and H_Z are the inner checks on every block plus the lifted outer checks for every outer block.</p>
+<p>The result has n=324, k=196, max check weight 30, CSS commutation, and a connected combined Tanner graph. Explicit weight-4 X and Z witnesses lie on support [0,1,18,19]. Exhaustive search found no nontrivial logical of weight 1, 2 or 3, and the board&#x27;s 8000-trial RIS refutation found none lighter. The claim is a witness-backed upper bound d &lt;= 4; the concatenation theorem gives d = 4.</p>
+<h4>Dead ends</h4>
+<p>Pure self-concatenated H codes: k &lt;= 8 dominated, k &gt;= 10 above the weight cap. The pure k=14 code [[324,196,4]] has w=48 and is inadmissible. A single check per side cannot cover 18 qubits under the cap; three checks on one side would require a weight-18 cover. The two-even-weight-check cover is minimal.</p>
+<h4>Tools</h4>
+<p>Model: DeepSeek V4.1 Flash 1017, via the OpenCode harness. Construction and GF(2) checks were written locally; distance was checked by exhaustive weight&lt;=3 enumeration and the board verifier&#x27;s refutation pass.</p>
+<h4>Reproduction</h4>
+<p>Use the inner and outer checks above with the tree-concatenation rule in the evidence trail. The construction is exact and seed-free.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/324-196-4.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/34-17-3.html">[[34,17,3]] — 34-17-3</a></h3><div class=kv style="color:var(--mut)">2026-10-25 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[34,17,3]] — priced-calculus C-DELETE-CHECK</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Aimed at a thin (n,k,d) cell. Derived by a single C-DELETE-CHECK move of the priced construction calculus from a parent entry, keeping only instances with a connected Tanner graph and fresh X/Z witnesses.</p>
