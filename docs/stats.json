@@ -1,44 +1,44 @@
 {
-  "verified_codes": 2805,
-  "css_codes": 2609,
+  "verified_codes": 2806,
+  "css_codes": 2610,
   "stabilizer_codes": 196,
   "certified_exact": 1097,
   "tracks": 12,
   "best_kd2_over_n": 1456.855,
   "best_geometric_efficiency": 1.7555,
   "provenance": {
-    "not_derived": 1126,
-    "parameters_only": 254,
     "no_match": 780,
+    "not_derived": 1127,
     "literature": 449,
+    "parameters_only": 254,
     "method": "isomorphism against the literature index",
     "caveat": "no_match means the index holds no match, not that the code is unpublished: two sparse generating sets of one stabilizer group can have non-isomorphic Tanner graphs"
   },
   "novelty": {
-    "unknown": 2065,
+    "unknown": 2066,
     "known_parameters": 692,
     "new_parameters": 48
   },
   "novelty_audited": 740,
   "board_screen": {
     "distinct": 2497,
+    "not_screened": 76,
     "review": 37,
-    "not_screened": 75,
     "reference_entries": 771,
     "method": "fingerprint and Weisfeiler-Leman signature against the board's seeded and literature entries",
     "caveat": "distinct means not permutation-equivalent to any seeded or literature entry on this board, not that the code is unpublished; review is a flag, not a verdict; nothing here is a novelty claim"
   },
   "family_concentration": {
     "global": {
-      "records": 1436,
+      "records": 1437,
       "families": 14,
-      "untagged": 208,
+      "untagged": 209,
       "untagged_share": 0.145,
       "top": [
         {
           "family": "generalized-bicycle",
           "records": 594,
-          "share": 0.414
+          "share": 0.413
         },
         {
           "family": "bivariate-bicycle",
@@ -46,9 +46,9 @@
           "share": 0.118
         }
       ],
-      "top1_share": 0.414,
+      "top1_share": 0.413,
       "top2_share": 0.531,
-      "hhi": 0.2
+      "hhi": 0.199
     },
     "cells": {
       "local-2d-bilayer~weight-4": {
@@ -415,15 +415,15 @@
         "moved": false
       },
       "unrestricted~weight-any": {
-        "records": 1436,
+        "records": 1437,
         "families": 14,
-        "untagged": 208,
+        "untagged": 209,
         "untagged_share": 0.145,
         "top": [
           {
             "family": "generalized-bicycle",
             "records": 594,
-            "share": 0.414
+            "share": 0.413
           },
           {
             "family": "bivariate-bicycle",
@@ -431,10 +431,10 @@
             "share": 0.118
           }
         ],
-        "top1_share": 0.414,
+        "top1_share": 0.413,
         "top2_share": 0.531,
-        "hhi": 0.2,
-        "members": 2609,
+        "hhi": 0.199,
+        "members": 2610,
         "leader": {
           "slug": "674-170-76-b",
           "family": "generalized-bicycle",
