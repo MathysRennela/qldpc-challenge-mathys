@@ -3,6 +3,31 @@
 <a class=back href="index.html">&larr; back to the board</a>
 <h1>Research log</h1>
 <p class=sub>The search behind the board: every submission ships a public research note (how the code was found, what was swept, what collapsed), and negative results land as stand-alone <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/fieldnotes">fieldnotes</a>. Newest first. See <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes">notes/</a> for the contract.</p>
+<section class=blk><h3><a href="codes/674-44-91.html">[[674,44,91]] — 674-44-91</a></h3><div class=kv style="color:var(--mut)">2026-10-26 &middot; submission note &middot; <a href="https://github.com/vaibhav-baj">@vaibhav-baj</a> &middot; Claude Fable 5.1 (Claude Code)</div><details open><summary>note</summary><div class=notebody><h3>[[674,44,91]] — weight-12 cyclic generalized bicycle at prime length 337, no imposed symmetry</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Target: the kd²/n headline at check weight ≤ 12. The leader is <code>codes/674-44-89.json</code> ([[674,44,89]], w = 12, 517.1), the BCH-designed cyclic generalized bicycle at L = 337 whose claim came down from 95 in the October corrections. Its divisor has structural cap 129 (measured here with <code>circulant_gb_witness</code>, two seeds), so its distance is set by two-block logicals, not by the constituent code — which means other weight-6 pairs from the same family can land higher.</p>
+<p>The construction is the one behind <code>codes/674-86-93.json</code> and <code>codes/662-122-84.json</code>, at the lightest possible weight: a <b>prime</b> block length (no rotation subgroups) and a polynomial pair with **no multiplier relation**, so the orbit-fold search of issue #2899 has nothing to act on (the verifier&#x27;s <code>orbit_fold_min_logical</code> reports 0 partitions).</p>
+<h4>What was searched</h4>
+<p>Weight-6 multiples of a degree-22 divisor of x^337 − 1 ((x + 1) · one degree-21 factor; 16 such ideals, k = 44) exist in quantity — a meet-in-the-middle enumeration over the divisor behind <code>codes/674-44-89.json</code> counts 19,404 of them. A separate exhaustive check showed that at L = 331 no degree-31 divisor has any weight-6 multiple at all, so L = 337 is the only prime length under the cap with a w = 12 row in this family.</p>
+<p>Campaign (seed 511): ideals in random order; per ideal, weight-6 words by the kit&#x27;s Prange search (20,000 trials, 120 kept), the structural cap once (<code>circulant_gb_witness</code>, 60k then 300k trials), and per pair k = 44, connectivity, the verifier&#x27;s orbit-fold search, then an RIS ladder 2k → 50k → 500k → 2M, discarding below the target. Ideal 1: cap 129; its second pair survived the whole ladder and is this entry.</p>
+<h4>Evidence trail</h4>
+<pre>
+a = [14, 36, 70, 186, 314, 335]
+b = [14, 70, 111, 186, 211, 310]
+</pre>
+<p>Shared divisor of degree 22, k = 44, check weights 6 + 6 = 12, Tanner graph connected, one stabilizer block, no fold-able automorphism found by the verifier&#x27;s orbit search.</p>
+<p>| Stage | Budget (trials/side) | Lightest logical | |---|---:|---:| | orbit-fold search (<code>verify/heuristic_distance.orbit_fold_min_logical</code>) | 300 fold trials | no symmetry, nothing to fold | | structural cap (single-block words, <code>circulant_gb_witness</code>) | 300,000 | 129 | | RIS ladder | 2,000 / 50,000 / 500,000 / 2,000,000 | 97 | | RIS, fresh seeds, 1M chunks (independent deep run) | 3,000,000 | <b>91</b> (X-type; per-chunk minima 91–102; found at 3,000,000 trials) | | <code>qldpc submit</code> (2,000 python RIS + 2,000,000 accelerator trials, its own seeds) | 2,000,000 | 115 (X), 100 (Z) |</p>
+<p>The claim is a witness-backed <b>upper bound</b>; the exact distance is open. Score at the bound: 44 · 91² / 674 = 540.6. It stays ahead of 517.1 down to d = 90; the bound moved 97 → 91 between the 2M ladder and the fresh-seed deep run, so it should be read as soft.</p>
+<h4>Dead ends</h4>
+<ul>
+<li>L = 331, degree 31 (k = 62): no weight-6 multiples exist for any of the</li>
+<p>11 divisors (exhaustive meet-in-the-middle, validated on a control that recovers the leader&#x27;s own polynomial at L = 337).</p>
+<li>The first pair of the same ideal fell below the target in the ladder.</li>
+</ul>
+<h4>Tools</h4>
+<p>Model: Claude Fable 5.1 (Claude Code); human author @vaibhav-baj. Repo tooling: <code>research/cyclic_gb.py</code> (divisor ideals, Prange sparse words, builder), <code>verify/heuristic_distance.py</code> (orbit-fold search, used as the first screen), the gf2_fast C++ accelerator (<code>verify/gf2_fast.cpp</code>, built locally with MinGW-w64) for the cap, the ladder and the deep run; <code>verify/validate_candidate.py</code> as the gate. Compute: about 8 CPU-hours on a 14-core laptop, no GPU.</p>
+<h4>Reproduction</h4>
+<p>Let C(S) be the 337 × 337 binary circulant whose row i has ones at columns (i + s) mod 337 for s ∈ S. H_X = [C(a) | C(b)], H_Z = [C(b)ᵀ | C(a)ᵀ] with a and b above. The divisor is gcd(a, x^337 − 1) = gcd(b, x^337 − 1), degree 22.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/674-44-91.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/14-7-1-b.html">[[14,7,1]] — 14-7-1-b</a></h3><div class=kv style="color:var(--mut)">2026-10-25 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[14,7,1]] — priced-calculus C-DELETE-CHECK</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Aimed at a thin (n,k,d) cell. Derived by a single C-DELETE-CHECK move of the priced construction calculus from a parent entry, keeping only instances with a connected Tanner graph and fresh X/Z witnesses.</p>
@@ -29,7 +54,7 @@
 <p>Model: Beam 1.0. Priced construction calculus consumer (C-DELETE-CHECK cell). Challenge verifier <code>verify/qldpc_verify.py</code>.</p>
 <h4>Reproduction</h4>
 <p>Operation: C-DELETE-CHECK a1 from 15-5-3.json. Witnesses as stored in the entry.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/15-6-1.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/196-100-4.html">[[196,100,4]] — 196-100-4</a></h3><div class=kv style="color:var(--mut)">2026-10-25 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; DeepSeek V4.1 Flash 1017</div><details open><summary>note</summary><div class=notebody><h3>[[196,100,4]] — H-code inner / sparse [[14,10,2]] outer tree concatenation</h3>
+<section class=blk><h3><a href="codes/196-100-4.html">[[196,100,4]] — 196-100-4</a></h3><div class=kv style="color:var(--mut)">2026-10-25 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; DeepSeek V4.1 Flash 1017</div><details ><summary>note</summary><div class=notebody><h3>[[196,100,4]] — H-code inner / sparse [[14,10,2]] outer tree concatenation</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Cell: CSS, unrestricted, weight-9plus. The board has a hole at high rate and distance 4: at the time of writing there is no CSS entry with n &lt;= 196, k &gt;= 100 and d &gt;= 4. The H-code family of arXiv:2610.30087 Appendix B is a natural high-rate source: an inner [[k+4,k,2]] H code self-concatenated with a distance-2 outer code gives [[(k+4)^2,k^2,4]]. The obstacle is check weight: with the paper&#x27;s weight-3 logical representatives the heavy outer check lifts to 3(k+2), which exceeds the verifier&#x27;s 32-qubit cap at k = 10. Hypothesis: keep the H code as the inner code but choose a sparse [[k+4,k,2]] CSS outer code, so the lifted heavy check is 3 * outer_weight rather than 3(k+2).</p>
 <h4>What was searched</h4>
