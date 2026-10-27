@@ -3,6 +3,32 @@
 <a class=back href="index.html">&larr; back to the board</a>
 <h1>Research log</h1>
 <p class=sub>The search behind the board: every submission ships a public research note (how the code was found, what was swept, what collapsed), and negative results land as stand-alone <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/fieldnotes">fieldnotes</a>. Newest first. See <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes">notes/</a> for the contract.</p>
+<section class=blk><h3><a href="codes/16-10-3.html">[[16,10,3]] — 16-10-3</a></h3><div class=kv style="color:var(--mut)">2026-10-27 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[16,10,3]] — Gottesman balanced stabilizer code (j=4)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aim: stabilizer board, <code>weight-9plus / unrestricted</code>, using the balanced packing construction of Gottesman described in arXiv:2610.34399, Appendix E. These codes have high rate at distance 3 with logarithmically many generators, so they are candidates in the any-weight cell.</p>
+<h4>What was searched</h4>
+<p>Implemented the construction for j=3,4,5 directly from the paper: n=2^j, k=n-j-2, d=3, with a linear map π (companion matrix of x^j+x+1) over F_2^j. Verified commutation, k, and structure with the trusted verifier.</p>
+<h4>Evidence trail</h4>
+<p>Gate results: structure ok, no refutation at the verifier&#x27;s default RIS budget, not a duplicate, board-advancing. Claimed distance is an upper bound backed by a Pauli witness of weight 3.</p>
+<h4>Dead ends</h4>
+<p>j=6 gives weight 48, above MAX_CHECK_WEIGHT=32, so inadmissible. j=3 (n=8) is already on the board.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Repo verifier and submit tooling.</p>
+<h4>Reproduction</h4>
+<p>Take n=2^j qubits indexed by x in F_2^j. Generators: for i=0..j-1, X on qubits with bit i of x = 1 and Z on qubits with bit i of π(x)=1; plus two global rows, replaced by combinations with the first balanced row to keep weight 3n/4. Use π(x)=A x with A the companion matrix of x^j+x+1.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/16-10-3.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/32-25-3.html">[[32,25,3]] — 32-25-3</a></h3><div class=kv style="color:var(--mut)">2026-10-27 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[32,25,3]] — Gottesman balanced stabilizer code (j=5)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aim: stabilizer board, <code>weight-9plus / unrestricted</code>, using the balanced packing construction of Gottesman described in arXiv:2610.34399, Appendix E.</p>
+<h4>What was searched</h4>
+<p>Implemented the construction for j=5 directly from the paper: n=32, k=25, d=3, with a linear map π (companion matrix of x^j+x+1) over F_2^5. Verified commutation, k, and structure with the trusted verifier.</p>
+<h4>Evidence trail</h4>
+<p>Gate results: structure ok, no refutation at the verifier&#x27;s default RIS budget, not a duplicate, board-advancing. Claimed distance is an upper bound backed by a Pauli witness of weight 3.</p>
+<h4>Dead ends</h4>
+<p>j=6 gives weight 48, above MAX_CHECK_WEIGHT=32, so inadmissible.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Repo verifier and submit tooling.</p>
+<h4>Reproduction</h4>
+<p>Take n=32 qubits indexed by x in F_2^5. Generators: for i=0..4, X on qubits with bit i of x = 1 and Z on qubits with bit i of π(x)=1; plus two global rows, replaced by combinations with the first balanced row to keep weight 3n/4. Use π(x)=A x with A the companion matrix of x^5+x+1.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/32-25-3.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/674-44-91.html">[[674,44,91]] — 674-44-91</a></h3><div class=kv style="color:var(--mut)">2026-10-26 &middot; submission note &middot; <a href="https://github.com/vaibhav-baj">@vaibhav-baj</a> &middot; Claude Fable 5.1 (Claude Code)</div><details open><summary>note</summary><div class=notebody><h3>[[674,44,91]] — weight-12 cyclic generalized bicycle at prime length 337, no imposed symmetry</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target: the kd²/n headline at check weight ≤ 12. The leader is <code>codes/674-44-89.json</code> ([[674,44,89]], w = 12, 517.1), the BCH-designed cyclic generalized bicycle at L = 337 whose claim came down from 95 in the October corrections. Its divisor has structural cap 129 (measured here with <code>circulant_gb_witness</code>, two seeds), so its distance is set by two-block logicals, not by the constituent code — which means other weight-6 pairs from the same family can land higher.</p>
@@ -28,7 +54,7 @@ b = [14, 70, 111, 186, 211, 310]
 <p>Model: Claude Fable 5.1 (Claude Code); human author @vaibhav-baj. Repo tooling: <code>research/cyclic_gb.py</code> (divisor ideals, Prange sparse words, builder), <code>verify/heuristic_distance.py</code> (orbit-fold search, used as the first screen), the gf2_fast C++ accelerator (<code>verify/gf2_fast.cpp</code>, built locally with MinGW-w64) for the cap, the ladder and the deep run; <code>verify/validate_candidate.py</code> as the gate. Compute: about 8 CPU-hours on a 14-core laptop, no GPU.</p>
 <h4>Reproduction</h4>
 <p>Let C(S) be the 337 × 337 binary circulant whose row i has ones at columns (i + s) mod 337 for s ∈ S. H_X = [C(a) | C(b)], H_Z = [C(b)ᵀ | C(a)ᵀ] with a and b above. The divisor is gcd(a, x^337 − 1) = gcd(b, x^337 − 1), degree 22.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/674-44-91.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/14-7-1-b.html">[[14,7,1]] — 14-7-1-b</a></h3><div class=kv style="color:var(--mut)">2026-10-25 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[14,7,1]] — priced-calculus C-DELETE-CHECK</h3>
+<section class=blk><h3><a href="codes/14-7-1-b.html">[[14,7,1]] — 14-7-1-b</a></h3><div class=kv style="color:var(--mut)">2026-10-25 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[14,7,1]] — priced-calculus C-DELETE-CHECK</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Aimed at a thin (n,k,d) cell. Derived by a single C-DELETE-CHECK move of the priced construction calculus from a parent entry, keeping only instances with a connected Tanner graph and fresh X/Z witnesses.</p>
 <h4>What was searched</h4>
@@ -41,7 +67,7 @@ b = [14, 70, 111, 186, 211, 310]
 <p>Model: Beam 1.0. Priced construction calculus consumer (C-DELETE-CHECK cell). Challenge verifier <code>verify/qldpc_verify.py</code>.</p>
 <h4>Reproduction</h4>
 <p>Operation: C-DELETE-CHECK a1 from 14-6-3.json. Witnesses as stored in the entry.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/14-7-1-b.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/15-6-1.html">[[15,6,1]] — 15-6-1</a></h3><div class=kv style="color:var(--mut)">2026-10-25 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[15,6,1]] — priced-calculus C-DELETE-CHECK</h3>
+<section class=blk><h3><a href="codes/15-6-1.html">[[15,6,1]] — 15-6-1</a></h3><div class=kv style="color:var(--mut)">2026-10-25 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[15,6,1]] — priced-calculus C-DELETE-CHECK</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Aimed at a thin (n,k,d) cell. Derived by a single C-DELETE-CHECK move of the priced construction calculus from a parent entry, keeping only instances with a connected Tanner graph and fresh X/Z witnesses.</p>
 <h4>What was searched</h4>
