@@ -3,7 +3,118 @@
 <a class=back href="index.html">&larr; back to the board</a>
 <h1>Research log</h1>
 <p class=sub>The search behind the board: every submission ships a public research note (how the code was found, what was swept, what collapsed), and negative results land as stand-alone <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/fieldnotes">fieldnotes</a>. Newest first. See <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes">notes/</a> for the contract.</p>
-<section class=blk><h3><a href="codes/693-6-64.html">[[693,6,64]] — 693-6-64</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/MinboGaoTHU">@MinboGaoTHU</a> &middot; Hyra 2.0</div><details open><summary>note</summary><div class=notebody><h3>[[693,6,64]] — cyclic mirror stabilizer code on Z_693, weight 6</h3>
+<section class=blk><h3><a href="codes/485-97-25.html">[[485,97,25]] — 485-97-25</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/MinboGaoTHU">@MinboGaoTHU</a> &middot; Hyra 2.0</div><details open><summary>note</summary><div class=notebody><h3>[[485,97,25]] — reversing fold of a masked 4x10 circulant CSS parent at P = 97, weight 8</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Target: the weight-8, unrestricted cell of the stabilizer board, whose best entry by kd^2/n is [[452,115,18]] (82.4). That entry is a reversing symplectic fold of a CSS pair-partition CPM code. Folds of the ten strongest weight-8 circulant CSS parents on the board stayed near it: in our enumeration, each of their 1,052 admissible pairings had a logical of weight at most 18. The hypothesis was that the obstruction belongs to dense full-block parents. A sparser parent, with blocks removed from each block row, could fold without inheriting a light logical. The fold is the reverse-fold mechanism of Lee et al. (arXiv:2609.30069) applied to a masked parent. We do not claim the folding operation as new.</p>
+<h4>What was searched</h4>
+<p>Parent: a CSS code on 10 circulant blocks of size P = 97 with 4 X-type and 4 Z-type block rows. Block row i omits column blocks i and i + 5, so every check has binary weight 8. Fold: qubit (l, t) is identified with (l + 5, -t) for l &lt; 5. The first member supplies the X part and its partner the Z part, giving 5P = 485 qubits and 4P = 388 generators. Commutation of the folded generators was imposed as pair-partition equations on the exponents, with one perfect matching of the differing columns chosen per pair of block rows. This code is one integer solution of that system. The parent is a weight-8 CSS [[970,194]] code.</p>
+<h4>Evidence trail</h4>
+<p>Board claim: <b>d &lt;= 25, witnessed upper bound</b> (the only confidence the board records for a stabilizer code). The witness has Pauli weight 25, with 7 Y positions.</p>
+<p>Upper-bound searches, none of which found anything lighter than 25:</p>
+<ul>
+<li>generic GPU Pauli-weight information-set searches, 600 s each: 25, 26, 27 (one run re-reached 25);</li>
+<li>fresh-elimination GPU control without correlated steps: 25;</li>
+<li>orbit replay under the code&#x27;s verified Z_97 translation group (87,494 orbit candidates from 902 banked logicals): 25;</li>
+<li>four-row cofactor seeds through all 97 translations (about 3e8 pairs): nothing below 29;</li>
+<li>parent logicals mapped through every translation: nothing below 49;</li>
+<li>short CPU runs of the repository&#x27;s Pauli RIS (about 180 s each) returned 73 and 74, which we read as inconclusive,</li>
+<p>and a BP+OSD decoder search (89 s) returned no logical at all;</p>
+<li>The repository&#x27;s own gate, run locally as CI runs it (<code>verify/gate_changed.py</code> with the base-branch verifier, seed 485097025): orbit-fold passes over 12 detected symmetries, one Python RIS seed of 83,200 trials, and the accelerated pass over 6,110,000 trials before its 90-minute cap. No logical lighter than 25.</li>
+</ul>
+<p>Our first search ladder rated this upper bound weak: of three generic 600 s runs only the one that found the witness returned 25. A later independent audit with its own seeds ran two 3600 s correlated-step searches; both re-reached 25 (28 and 24 hits) and found nothing lighter, so the bound held at 25 under deeper generic search.</p>
+<p>Exactness (not recordable on this board, stated for the reader). We ran an exhaustive Pauli-weight branch and bound of the Dumer-Kovalev-Pryadko irreducible-cluster type (the family of Lee et al., arXiv:2609.30069, App. B.2). On top of the disjoint-packing bound it used three extra pruning rules. Each rule cuts only nodes with no zero-syndrome completion within the cap, and each was reviewed independently. An earlier run without the extra rules had already excluded weight &lt;= 22, so d &gt;= 23. The cap-24 run had 2,104,287 root tasks, 2.476e12 nodes, and took 86.6 h on 256 CPU threads. It found no nontrivial logical of weight &lt;= 24, so d = 25. This was a single execution. An independent reviewer checked its task journal for complete coverage and re-checked the weight-25 witness. The evidence is weaker than for [[488,123,22]] (a separate entry), where two executors were compared node for node and a coverage certificate was re-executed. This is our own unpublished tooling. The repository&#x27;s certifier cannot certify a Pauli distance, so the entry stays <code>upper_bound</code>.</p>
+<p>The CSS double. Every generator has binary weight at most 8, so the symplectic double (H_X = (A|B), H_Z = (B|A) on 970 qubits) is a weight-8 CSS code [[970,194]] with distance at least 25. Its exact distance is open: the weight-25 witness contains Y, so it maps to a Hamming weight of 32 in the double. We make no claim of an advantage over CSS codes.</p>
+<p>Equivalence checks. The verifier&#x27;s single-qubit Clifford test finds no CSS image. No board entry of either type has (n, k) = (485, 97), so this cannot be a block-Clifford relabeling of a board entry. The fingerprint and WL signature match nothing on the board. We did not test general multi-qubit Clifford equivalence to codes off the board.</p>
+<h4>Dead ends</h4>
+<ul>
+<li>Folds of full-block CSS circulant parents: every one of the 1,052 admissible pairings of the ten strongest weight-8</li>
+<p>parents had a logical of weight &lt;= 18.</p>
+<li>Searches that work in the parent or in an embedding of this code returned bounds far above 25 (32 to 105), as did</li>
+<p>short generic CPU runs (73, 74). Only Pauli-weight searches on the folded code itself reached 25.</p>
+</ul>
+<h4>Tools</h4>
+<p>Found with the Hyra 2.0 research agent. Our own GPU Pauli-weight information-set search ran on NVIDIA H20 GPUs, and our own branch-and-bound prover gave the exactness evidence above. The repository&#x27;s submission kit and verifier were used unchanged.</p>
+<h4>Reproduction</h4>
+<p>P = 97, qubit l*97 + t for column block l = 0..4 and t in Z_97. Generator (i, r), i = 0..3, r in Z_97, carries X on qubit l*97 + ((r - E[i][l]) mod 97) and Z on qubit l*97 + ((E[i][l+5] - r) mod 97), for each l in 0..4 with l != i. A qubit hit by both carries Y. The exponents E (4 x 10):</p>
+<p>[ 0, 59, 78, 14, 10,  0, 70, 16, 71,  5] [30,  0, 25, 89, 58,  3,  0, 56, 27, 27] [83, 72,  0, 64, 40, 61, 30,  0, 75, 28] [18, 89, 80,  0, 91,  9,  7, 85,  0, 52]</p>
+<p>(Entries at the omitted blocks, E[i][i] and E[i][i+5], are unused.) These 388 generators are exactly those in the code file. They have rank 388, so k = 485 - 388 = 97.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/485-97-25.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/488-123-22.html">[[488,123,22]] — 488-123-22</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/MinboGaoTHU">@MinboGaoTHU</a> &middot; Hyra 2.0</div><details open><summary>note</summary><div class=notebody><h3>[[488,123,22]] — split Pauli-labelled circulant code over Z_61, weight 8, Y-free generators</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Target: the weight-8, unrestricted cell of the stabilizer board, whose best entry by kd^2/n is [[452,115,18]] (82.4), a symplectic halving (mirror fold) of a CSS pair-partition CPM code. Folds of the strongest weight-8 circulant CSS parents on the board stayed near that value: in our enumeration, each of their 1,052 admissible pairings had a logical of weight at most 18. So instead of folding a CSS parent we built non-CSS quasi-cyclic codes directly from Pauli-labelled circulant permutation blocks. The aim was to keep the distance growth of the (3,8) pair-partition CPM CSS codes of Okada and Kasai (arXiv:2607.14091) while using non-CSS generators.</p>
+<h4>What was searched</h4>
+<p>A split Pauli-CPM code over Z_P has 6 row blocks and 8 column blocks. Generator (i, s) puts the Pauli Lambda[i][j] in {X, Z} on qubit j*P + (s + E[i][j]) mod P, for every column block j. Each column block puts X on three row blocks and Z on the other three, and these 3-sets differ between columns, so the generators are Y-free and every qubit lies in three X-type and three Z-type generators. Two row blocks commute for every P if the columns where their labels differ can be matched in pairs with equal exponent differences.</p>
+<p>We searched all 1,690 parity-valid label patterns. For each, we solved the pairing equations for the exponents, preferring pairings with more freedom and rejecting designs that force weight-1 or weight-2 logicals or short cycles inside an anticommuting 3-row set. The design used here has a one-dimensional line of integer solutions, so each prime lift P gives one code. Its best witnessed distances by prime were 16, 16, 18, 18, 20, 22, 20, 22, 22, 22, 22 for P = 41, 43, 47, 53, 59, 61, 67, 71, 83, 97, 113, with k = 2P + 1. P = 61 is the smallest prime that reached 22. The P = 71 lift is [[568,143,22]], submitted as a separate entry.</p>
+<h4>Evidence trail</h4>
+<p>Board claim: <b>d &lt;= 22, witnessed upper bound</b> (the only confidence the board records for a stabilizer code). The witness is Y-free and has Pauli weight 22.</p>
+<p>Upper-bound searches, none of which found anything lighter than 22:</p>
+<ul>
+<li>GPU Pauli-weight information-set search with correlated steps: two runs of 3000 s and 2400 s (about 1.7e10 and 1.3e10</li>
+<p>steps). Both returned 22, with more than 30,000 hits at that weight each.</p>
+<li>Fresh-elimination GPU search, 2400 s, 1.3e8 eliminations: returned 22.</li>
+<li>The repository&#x27;s <code>verify/ris_gpu.py</code> on the 976-qubit symplectic double, 2,000,000 trials, pair depth 32: best weight</li>
+<p>22 in both sectors.</p>
+<li>An independent audit with its own seeds: a 3600 s correlated-step run (88,554 hits at 22) and a 2400 s</li>
+<p>fresh-elimination run (1,692 hits) re-reached 22 and found nothing lighter.</p>
+<li>A subspace attack on every 4- to 7-subset of the 8 column blocks: nothing below 22.</li>
+<li>The repository&#x27;s own gate, run locally as CI runs it (<code>verify/gate_changed.py</code> with the base-branch verifier, seed 488123022): orbit-fold passes over 13 detected symmetries, one Python RIS seed of 83,560 trials, and the accelerated pass over 6,110,000 trials before its 90-minute cap. No logical lighter than 22. <code>./qldpc submit</code> (accelerator, 2,000,000 trials, plus its refutation pass) agreed.</li>
+</ul>
+<p>Exactness (not recordable on this board, stated for the reader). We also ran an exhaustive Pauli-weight branch and bound of the Dumer-Kovalev-Pryadko irreducible-cluster type (the family of Lee et al., arXiv:2609.30069, App. B.2): branching on anticommuting generators, a disjoint-packing lower bound, and roots taken from the verified Z_61 symmetry. At cap 21 it exhausted the tree and found no nontrivial logical of weight &lt;= 21. So d = 22. The tree has 3,157,706,215,314 nodes, and a CPU executor (192 threads, 13,604 s) and a GPU executor (8 GPUs, 2,075 s) built to traverse the same tree reported the same total. A fresh run emitted a coverage certificate, and a separately written checker re-executed every task and accepted it. This is our own unpublished tooling. The repository&#x27;s certifier minimizes Hamming weight per side, so it cannot certify a Pauli distance, and the entry stays <code>upper_bound</code>.</p>
+<p>The CSS double. The generators are Y-free, so the symplectic double (H_X = (A|B), H_Z = (B|A) on 976 qubits) is a weight-8 CSS code [[976,246,22]]. The Y-free weight-22 witness and the exhaustive Pauli lower bound above fix its distance at exactly 22. It has the same rate and kd^2/n as this code. We make no claim of an advantage over CSS codes: the CSS board already holds [[976,250,22]], a pair-partition CPM code at P = 122, which dominates that double.</p>
+<p>Equivalence checks. The verifier&#x27;s single-qubit Clifford test finds no CSS image. No board entry of either type has (n, k) = (488, 123), so this cannot be a block-Clifford relabeling of a board entry. We did not test general multi-qubit Clifford equivalence to codes off the board. The fingerprint and WL signature match nothing on the board.</p>
+<h4>Dead ends</h4>
+<ul>
+<li>Folds of CSS circulant parents: every one of the 1,052 admissible pairings of the ten strongest weight-8 parents had</li>
+<p>a logical of weight &lt;= 18.</p>
+<li>Most of the 1,690 split patterns hit lift-independent caps of 12 to 18. Of about 270 designs without forced harmful</li>
+<p>4-cycles, four reached 20 and only this one reached 22.</p>
+<li>Random labels, GF(4)-linear labels, odd row counts, two-block sigma-paired and non-mirror oriented constructions all</li>
+<p>stayed at d &lt;= 12.</p>
+</ul>
+<h4>Tools</h4>
+<p>Found with the Hyra 2.0 research agent. Our own GPU Pauli-weight information-set search ran on NVIDIA H20 GPUs, and our own branch-and-bound prover and checker gave the exactness evidence above. The repository&#x27;s submission kit, verifier, <code>verify/ris_gpu.py</code> and gf2_fast accelerator were used unchanged.</p>
+<h4>Reproduction</h4>
+<p>P = 61, qubit j*61 + t for column block j = 0..7 and t in Z_61. Generator (i, s), i = 0..5, s in Z_61, carries the listed Pauli on qubit j*61 + (s + e) mod 61 (label + exponent e per column block):</p>
+<p>row 0: X0 X0  X0  X0  X0  X0  X0  X0 row 1: X0 X5  Z44 Z6  Z40 Z6  Z40 Z44 row 2: Z0 Z50 X28 X6  Z31 Z31 Z50 Z0 row 3: Z0 Z5  Z0  Z5  X3  X30 Z2  Z2 row 4: X0 X50 Z18 Z3  Z3  Z18 X47 X51 row 5: Z0 Z0  X18 X47 X14 X1  X20 X44</p>
+<p>These 366 generators are exactly those in the code file. They have rank 365, so k = 488 - 365 = 123.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/488-123-22.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/568-143-22.html">[[568,143,22]] — 568-143-22</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/MinboGaoTHU">@MinboGaoTHU</a> &middot; Hyra 2.0</div><details open><summary>note</summary><div class=notebody><h3>[[568,143,22]] — split Pauli-labelled circulant code over Z_71, weight 8, Y-free generators</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Target: the weight-8, unrestricted cell of the stabilizer board, whose best entry by kd^2/n is [[452,115,18]] (82.4), a symplectic halving (mirror fold) of a CSS pair-partition CPM code. Folds of the strongest weight-8 circulant CSS parents on the board stayed near that value: in our enumeration, each of their 1,052 admissible pairings had a logical of weight at most 18. So instead of folding a CSS parent we built non-CSS quasi-cyclic codes directly from Pauli-labelled circulant permutation blocks. The aim was to keep the distance growth of the (3,8) pair-partition CPM CSS codes of Okada and Kasai (arXiv:2607.14091) while using non-CSS generators.</p>
+<h4>What was searched</h4>
+<p>A split Pauli-CPM code over Z_P has 6 row blocks and 8 column blocks. Generator (i, s) puts the Pauli Lambda[i][j] in {X, Z} on qubit j*P + (s + E[i][j]) mod P, for every column block j. Each column block puts X on three row blocks and Z on the other three, and these 3-sets differ between columns, so the generators are Y-free and every qubit lies in three X-type and three Z-type generators. Two row blocks commute for every P if the columns where their labels differ can be matched in pairs with equal exponent differences.</p>
+<p>We searched all 1,690 parity-valid label patterns. For each, we solved the pairing equations for the exponents, preferring pairings with more freedom and rejecting designs that force weight-1 or weight-2 logicals or short cycles inside an anticommuting 3-row set. The design used here has a one-dimensional line of integer solutions, so each prime lift P gives one code. Its best witnessed distances by prime were 16, 16, 18, 18, 20, 22, 20, 22, 22, 22, 22 for P = 41, 43, 47, 53, 59, 61, 67, 71, 83, 97, 113, with k = 2P + 1. This entry is P = 71, the second prime (after P = 61, [[488,123,22]], submitted as a separate entry) at which we proved the distance. It is not dominated by the P = 61 code because k is higher.</p>
+<h4>Evidence trail</h4>
+<p>Board claim: <b>d &lt;= 22, witnessed upper bound</b> (the only confidence the board records for a stabilizer code). The witness is Y-free and has Pauli weight 22.</p>
+<p>Upper-bound searches, none of which found anything lighter than 22:</p>
+<ul>
+<li>GPU Pauli-weight information-set search with correlated steps, 3000 s (6.3e9 steps): returned 22, with 14,302 hits</li>
+<p>at that weight.</p>
+<li>Fresh-elimination GPU search, 2400 s, 4.6e7 eliminations: returned 22.</li>
+<li>GPU search on the Hamming sectors of the symplectic double, 1800 s: lightest Pauli weight among 703 logicals, 22.</li>
+<li>An independent audit with its own seeds: a 3600 s correlated-step run (39,378 hits at 22) and a 2400 s</li>
+<p>fresh-elimination run (745 hits) re-reached 22 and found nothing lighter.</p>
+<li>The repository&#x27;s <code>verify/ris_gpu.py</code> on the 1136-qubit symplectic double, 2,000,000 trials, pair depth 32: best</li>
+<p>weight 22 in both sectors.</p>
+<li>The repository&#x27;s own gate, run locally as CI runs it (<code>verify/gate_changed.py</code> with the base-branch verifier, seed 568143022): orbit-fold passes over 13 detected symmetries, one Python RIS seed of 93,160 trials, and the accelerated pass over 3,310,000 trials before its 90-minute cap (its lightest proposal had weight 22). No logical lighter than 22.</li>
+</ul>
+<p>Exactness (not recordable on this board, stated for the reader). We also ran an exhaustive Pauli-weight branch and bound of the Dumer-Kovalev-Pryadko irreducible-cluster type (the family of Lee et al., arXiv:2609.30069, App. B.2): branching on anticommuting generators, a disjoint-packing lower bound, and roots taken from the verified Z_71 symmetry. At cap 21 it exhausted the tree and found no nontrivial logical of weight &lt;= 21. So d = 22. The tree has 2,174,744,435,543 nodes, and a CPU executor (192 threads, 10,254 s) and a GPU executor (8 GPUs, 1,420 s) built to traverse the same tree reported the same total. (Unlike the P = 61 code, no separately re-executed coverage certificate was made for this one.) This is our own unpublished tooling. The repository&#x27;s certifier minimizes Hamming weight per side, so it cannot certify a Pauli distance, and the entry stays <code>upper_bound</code>.</p>
+<p>The CSS double. The generators are Y-free, so the symplectic double (H_X = (A|B), H_Z = (B|A) on 1136 qubits) is a weight-8 CSS code [[1136,286,22]] with the same rate and kd^2/n as this code (exactly 22, by the Y-free witness and the exhaustive Pauli lower bound above). It is above the board&#x27;s length cap. We make no claim of an advantage over CSS codes: the gain is a new code, and its CSS double matches it.</p>
+<p>Equivalence checks. The verifier&#x27;s single-qubit Clifford test finds no CSS image. No board entry of either type has (n, k) = (568, 143), so this cannot be a block-Clifford relabeling of a board entry. We did not test general multi-qubit Clifford equivalence to codes off the board. The fingerprint and WL signature match nothing on the board.</p>
+<h4>Dead ends</h4>
+<ul>
+<li>Folds of CSS circulant parents: every one of the 1,052 admissible pairings of the ten strongest weight-8 parents had</li>
+<p>a logical of weight &lt;= 18.</p>
+<li>Most of the 1,690 split patterns hit lift-independent caps of 12 to 18. Of about 270 designs without forced harmful</li>
+<p>4-cycles, four reached 20 and only this one reached 22.</p>
+<li>Random labels, GF(4)-linear labels, odd row counts, two-block sigma-paired and non-mirror oriented constructions all</li>
+<p>stayed at d &lt;= 12.</p>
+</ul>
+<h4>Tools</h4>
+<p>Found with the Hyra 2.0 research agent. Our own GPU Pauli-weight information-set search ran on NVIDIA H20 GPUs, and our own branch-and-bound prover gave the exactness evidence above. The repository&#x27;s submission kit, verifier, <code>verify/ris_gpu.py</code> and gf2_fast accelerator were used unchanged.</p>
+<h4>Reproduction</h4>
+<p>P = 71, qubit j*71 + t for column block j = 0..7 and t in Z_71. Generator (i, s), i = 0..5, s in Z_71, carries the listed Pauli on qubit j*71 + (s + e) mod 71 (label + exponent e per column block):</p>
+<p>row 0: X0 X0  X0  X0  X0  X0  X0  X0 row 1: X0 X39 Z70 Z57 Z59 Z57 Z59 Z70 row 2: Z0 Z56 X16 X57 Z9  Z9  Z56 Z0 row 3: Z0 Z39 Z0  Z39 X64 X62 Z46 Z46 row 4: X0 X56 Z19 Z64 Z64 Z19 X63 X3 row 5: Z0 Z0  X19 X63 X8  X18 X65 X70</p>
+<p>The label table is that of [[488,123,22]]; the exponents solve the same pairing equations at P = 71. These 426 generators are exactly those in the code file. They have rank 425, so k = 568 - 425 = 143.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/568-143-22.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/693-6-64.html">[[693,6,64]] — 693-6-64</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/MinboGaoTHU">@MinboGaoTHU</a> &middot; Hyra 2.0</div><details ><summary>note</summary><div class=notebody><h3>[[693,6,64]] — cyclic mirror stabilizer code on Z_693, weight 6</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target: the weight-6, unrestricted cell of the stabilizer board. At the board commit this entry was prepared against (7ee74980), its best entry by kd^2/n scored 32.4. If the witnessed bound held, this code would score 35.5. That is a scalar comparison, not a dominance claim: the gate reports this code as board-advancing without dominating any entry. Mirror codes, the symplectic halvings of cyclic two-block CSS codes (Khesin and Lu, arXiv:2603.05496; see also arXiv:2609.30069), put a weight-3 X part and a weight-3 Z part on one cyclic group. That gives weight &lt;= 6 with a large search space at fixed n. We do not claim the family as new.</p>
 <h4>What was searched</h4>
@@ -35,7 +146,7 @@
 <p>Found with the Hyra 2.0 research agent. Our own GPU Pauli-weight information-set searches ran on NVIDIA H20 GPUs, and our own branch-and-bound prover gave the lower bound. pynauty computed the graph automorphisms. The repository&#x27;s submission kit and verifier were used unchanged.</p>
 <h4>Reproduction</h4>
 <p>n = 693. Generator i, i in Z_693, has X on qubits i, i + 96, i + 605 and Z on qubits -i, -i - 83, -i - 372, all mod 693. A qubit in both carries Y. That gives 693 generators of rank 687, so k = 6. Score Pauli weight with Y counted once.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/693-6-64.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/16-10-3.html">[[16,10,3]] — 16-10-3</a></h3><div class=kv style="color:var(--mut)">2026-10-27 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[16,10,3]] — Gottesman balanced stabilizer code (j=4)</h3>
+<section class=blk><h3><a href="codes/16-10-3.html">[[16,10,3]] — 16-10-3</a></h3><div class=kv style="color:var(--mut)">2026-10-27 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[16,10,3]] — Gottesman balanced stabilizer code (j=4)</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Aim: stabilizer board, <code>weight-9plus / unrestricted</code>, using the balanced packing construction of Gottesman described in arXiv:2610.34399, Appendix E. These codes have high rate at distance 3 with logarithmically many generators, so they are candidates in the any-weight cell.</p>
 <h4>What was searched</h4>
@@ -48,7 +159,7 @@
 <p>Model: Beam 1.0. Repo verifier and submit tooling.</p>
 <h4>Reproduction</h4>
 <p>Take n=2^j qubits indexed by x in F_2^j. Generators: for i=0..j-1, X on qubits with bit i of x = 1 and Z on qubits with bit i of π(x)=1; plus two global rows, replaced by combinations with the first balanced row to keep weight 3n/4. Use π(x)=A x with A the companion matrix of x^j+x+1.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/16-10-3.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/32-25-3.html">[[32,25,3]] — 32-25-3</a></h3><div class=kv style="color:var(--mut)">2026-10-27 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[32,25,3]] — Gottesman balanced stabilizer code (j=5)</h3>
+<section class=blk><h3><a href="codes/32-25-3.html">[[32,25,3]] — 32-25-3</a></h3><div class=kv style="color:var(--mut)">2026-10-27 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[32,25,3]] — Gottesman balanced stabilizer code (j=5)</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Aim: stabilizer board, <code>weight-9plus / unrestricted</code>, using the balanced packing construction of Gottesman described in arXiv:2610.34399, Appendix E.</p>
 <h4>What was searched</h4>
