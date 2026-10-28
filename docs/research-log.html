@@ -3,6 +3,38 @@
 <a class=back href="index.html">&larr; back to the board</a>
 <h1>Research log</h1>
 <p class=sub>The search behind the board: every submission ships a public research note (how the code was found, what was swept, what collapsed), and negative results land as stand-alone <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/fieldnotes">fieldnotes</a>. Newest first. See <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes">notes/</a> for the contract.</p>
+<section class=blk><h3><a href="codes/693-6-64.html">[[693,6,64]] — 693-6-64</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/MinboGaoTHU">@MinboGaoTHU</a> &middot; Hyra 2.0</div><details open><summary>note</summary><div class=notebody><h3>[[693,6,64]] — cyclic mirror stabilizer code on Z_693, weight 6</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Target: the weight-6, unrestricted cell of the stabilizer board. At the board commit this entry was prepared against (7ee74980), its best entry by kd^2/n scored 32.4. If the witnessed bound held, this code would score 35.5. That is a scalar comparison, not a dominance claim: the gate reports this code as board-advancing without dominating any entry. Mirror codes, the symplectic halvings of cyclic two-block CSS codes (Khesin and Lu, arXiv:2603.05496; see also arXiv:2609.30069), put a weight-3 X part and a weight-3 Z part on one cyclic group. That gives weight &lt;= 6 with a large search space at fixed n. We do not claim the family as new.</p>
+<h4>What was searched</h4>
+<p>Cyclic mirror codes on Z_n: generator i has X on i + a and Z on -i - b for 3-element sets a, b. We grouped trinomial pairs by their common binary-polynomial divisor with x^n + 1, which sets k. Candidates were screened for isotropy and rank, then by a shallow search on the symplectic double, then by GPU Pauli-weight information-set search. Finalists got the long runs below. Mirrors of strong CSS parents under Tanner-graph involutions and a weight-4 cyclic family were searched in the same round and did not beat their targets.</p>
+<h4>Evidence trail</h4>
+<p>Board claim: <b>d &lt;= 64, witnessed upper bound only.</b> Proven lower bound: <b>d &gt;= 24</b> (single run, not independently checked). So 24 &lt;= d &lt;= 64, and the gap is large. Read 64 as the lightest logical our searches found, not as the distance.</p>
+<p>Lower bound: an exhaustive Pauli-weight branch and bound of the Dumer-Kovalev-Pryadko irreducible-cluster type (the family of Lee et al., arXiv:2609.30069, App. B.2), our own unpublished tooling, ran at cap 23. It found no nontrivial logical of weight &lt;= 23 (8,195,946,752,668 nodes, 192 CPU threads, 29,382 s, single executor). The cap-24 run timed out.</p>
+<p>Upper-bound ladder, lightest logical returned by each run:</p>
+<ul>
+<li>GPU Pauli-weight information-set search with correlated steps: 74 (20 s), 67 (120 s), 68 (1800 s, 8.4e9 steps);</li>
+<li>fresh-elimination GPU run without correlated steps, 1200 s, 4.8e7 eliminations: 69;</li>
+<li>an independent audit&#x27;s search of the symplectic double&#x27;s Hamming sector, with logicals mapped back through the</li>
+<p>mirror&#x27;s coordinate alignments (1200 s): <b>64</b>. This replaced our earlier claimed bound of 65.</p>
+<li>a second independent generic Pauli search with correlated steps, 1800 s, 8.4e9 steps: 64 again;</li>
+<li>a wider-cutoff rerun of the Hamming-sector audit, 1200 s in four fresh-seed chunks: 64;</li>
+<li>short CPU runs (repository-style Pauli RIS, fast and fold passes): 112 to 191, which we read as inconclusive;</li>
+<li>The repository&#x27;s own gate, run locally as CI runs it (<code>verify/gate_changed.py</code> with the base-branch verifier, seed 693006064): orbit-fold passes over 12 detected symmetries, one Python RIS seed of 108,160 trials, and the accelerated pass over 2,710,000 trials before its 90-minute cap: no logical lighter than 64. This says little here: the accelerated pass&#x27;s lightest proposal had Hamming weight 83 on the doubled matrices, heavier than our witness&#x27;s 72 (64 qubits, 8 of them Y), so the gate&#x27;s search did not reach the claimed bound.</li>
+</ul>
+<p>The pattern is a warning sign. Our own generic searches stopped at 67 to 69, the structured search found 64, and the claim came down once (65 to 64). A lighter logical may well exist. The weekly board sweep is welcome to find it.</p>
+<p>Equivalence checks. The verifier&#x27;s single-qubit Clifford test finds no CSS image. No board entry of either type has (n, k) = (693, 6), so this cannot be a block-Clifford relabeling of a board entry. Coordinate pairings were checked against the full Tanner-graph automorphism group of the doubled parent: conjugating the mirror involution gives exactly 693 distinct pairings, all covered by the alignments searched above.</p>
+<h4>Dead ends</h4>
+<ul>
+<li>The claimed bound came down from 65 to 64 under an independent structured search. Our own generic searches stopped at</li>
+<p>67 to 69; one independent 1800 s generic run hit 64 once.</p>
+<li>Perturbing the central cyclic factor of a non-abelian parent gave no stronger survivor in the sampled classes.</li>
+<li>The weight-4 cyclic screen did not beat its target.</li>
+</ul>
+<h4>Tools</h4>
+<p>Found with the Hyra 2.0 research agent. Our own GPU Pauli-weight information-set searches ran on NVIDIA H20 GPUs, and our own branch-and-bound prover gave the lower bound. pynauty computed the graph automorphisms. The repository&#x27;s submission kit and verifier were used unchanged.</p>
+<h4>Reproduction</h4>
+<p>n = 693. Generator i, i in Z_693, has X on qubits i, i + 96, i + 605 and Z on qubits -i, -i - 83, -i - 372, all mod 693. A qubit in both carries Y. That gives 693 generators of rank 687, so k = 6. Score Pauli weight with Y counted once.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/693-6-64.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/16-10-3.html">[[16,10,3]] — 16-10-3</a></h3><div class=kv style="color:var(--mut)">2026-10-27 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[16,10,3]] — Gottesman balanced stabilizer code (j=4)</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Aim: stabilizer board, <code>weight-9plus / unrestricted</code>, using the balanced packing construction of Gottesman described in arXiv:2610.34399, Appendix E. These codes have high rate at distance 3 with logarithmically many generators, so they are candidates in the any-weight cell.</p>
@@ -29,7 +61,7 @@
 <p>Model: Beam 1.0. Repo verifier and submit tooling.</p>
 <h4>Reproduction</h4>
 <p>Take n=32 qubits indexed by x in F_2^5. Generators: for i=0..4, X on qubits with bit i of x = 1 and Z on qubits with bit i of π(x)=1; plus two global rows, replaced by combinations with the first balanced row to keep weight 3n/4. Use π(x)=A x with A the companion matrix of x^5+x+1.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/32-25-3.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/674-44-91.html">[[674,44,91]] — 674-44-91</a></h3><div class=kv style="color:var(--mut)">2026-10-26 &middot; submission note &middot; <a href="https://github.com/vaibhav-baj">@vaibhav-baj</a> &middot; Claude Fable 5.1 (Claude Code)</div><details open><summary>note</summary><div class=notebody><h3>[[674,44,91]] — weight-12 cyclic generalized bicycle at prime length 337, no imposed symmetry</h3>
+<section class=blk><h3><a href="codes/674-44-91.html">[[674,44,91]] — 674-44-91</a></h3><div class=kv style="color:var(--mut)">2026-10-26 &middot; submission note &middot; <a href="https://github.com/vaibhav-baj">@vaibhav-baj</a> &middot; Claude Fable 5.1 (Claude Code)</div><details ><summary>note</summary><div class=notebody><h3>[[674,44,91]] — weight-12 cyclic generalized bicycle at prime length 337, no imposed symmetry</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target: the kd²/n headline at check weight ≤ 12. The leader is <code>codes/674-44-89.json</code> ([[674,44,89]], w = 12, 517.1), the BCH-designed cyclic generalized bicycle at L = 337 whose claim came down from 95 in the October corrections. Its divisor has structural cap 129 (measured here with <code>circulant_gb_witness</code>, two seeds), so its distance is set by two-block logicals, not by the constituent code — which means other weight-6 pairs from the same family can land higher.</p>
 <p>The construction is the one behind <code>codes/674-86-93.json</code> and <code>codes/662-122-84.json</code>, at the lightest possible weight: a <b>prime</b> block length (no rotation subgroups) and a polynomial pair with **no multiplier relation**, so the orbit-fold search of issue #2899 has nothing to act on (the verifier&#x27;s <code>orbit_fold_min_logical</code> reports 0 partitions).</p>
