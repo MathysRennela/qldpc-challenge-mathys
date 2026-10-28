@@ -8,8 +8,9 @@
   "best_geometric_efficiency": 1.7555,
   "provenance": {
     "parameters_only": 376,
+    "no_match": 1746,
     "literature": 485,
-    "no_match": 1750,
+    "not_derived": 4,
     "method": "isomorphism against the literature index",
     "caveat": "no_match means the index holds no match, not that the code is unpublished: two sparse generating sets of one stabilizer group can have non-isomorphic Tanner graphs"
   },
@@ -20,9 +21,9 @@
   },
   "novelty_audited": 740,
   "board_screen": {
-    "distinct": 2497,
-    "not_screened": 77,
+    "distinct": 2493,
     "review": 37,
+    "not_screened": 81,
     "reference_entries": 771,
     "method": "fingerprint and Weisfeiler-Leman signature against the board's seeded and literature entries",
     "caveat": "distinct means not permutation-equivalent to any seeded or literature entry on this board, not that the code is unpublished; review is a flag, not a verdict; nothing here is a novelty claim"
@@ -369,9 +370,9 @@
         "hhi": 0.152,
         "members": 981,
         "leader": {
-          "slug": "960-24-40",
+          "slug": "960-24-38",
           "family": "2bga-coset",
-          "eff": 40.0
+          "eff": 36.1
         },
         "incumbent": {
           "slug": "360-20-20",
@@ -459,7 +460,7 @@
     },
     "caveat": "family is the one self-declared label on an entry, filterable and never ranked, so these shares measure the declared tag, not a property recovered from H; the derived provenance buckets are the computed axis wherever they cover an entry"
   },
-  "best_kd2_over_n_w6": 40.0,
+  "best_kd2_over_n_w6": 36.1,
   "best_kd2_over_n_w8": 216.0,
   "best_kd2_over_n_w12": 540.599
 }
