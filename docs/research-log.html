@@ -127,6 +127,19 @@
 <p>P = 61, qubit j*61 + t for column block j = 0..7 and t in Z_61. Generator (i, s), i = 0..5, s in Z_61, carries the listed Pauli on qubit j*61 + (s + e) mod 61 (label + exponent e per column block):</p>
 <p>row 0: X0 X0  X0  X0  X0  X0  X0  X0 row 1: X0 X5  Z44 Z6  Z40 Z6  Z40 Z44 row 2: Z0 Z50 X28 X6  Z31 Z31 Z50 Z0 row 3: Z0 Z5  Z0  Z5  X3  X30 Z2  Z2 row 4: X0 X50 Z18 Z3  Z3  Z18 X47 X51 row 5: Z0 Z0  X18 X47 X14 X1  X20 X44</p>
 <p>These 366 generators are exactly those in the code file. They have rank 365, so k = 488 - 365 = 123.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/488-123-22.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/56-8-12.html">[[56,8,12]] — 56-8-12</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[56,8,12]] — subcode propagation from palindromic QC family</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Subcode (S-operation) of a certified palindromic QC code: adjoin a logical operator to the stabilizer, lowering k by one while preserving d.</p>
+<h4>What was searched</h4>
+<p>Automated propagation from validated codes; gate-validated.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound. Exact gate passed.</p>
+<h4>Dead ends</h4>
+<p>None recorded.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0.</p>
+<h4>Reproduction</h4>
+<p>Subcode of a validated [[n,k+1,d]] code: adjoin one of the parent&#x27;s logical operators to its stabilizer group (the S-operation described under Direction &amp; hypothesis), which lowers k by one while preserving d. The propagation ran as session tooling that was never committed to this repository; the operation itself is stated above, so it can be rewritten from this note alone.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/56-8-12.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/56-9-12.html">[[56,9,12]] — 56-9-12</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[56,9,12]] — palindromic (1,2)-QC stabilizer code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Targeted the unrestricted stabilizer board. Used the palindromic quasi-cyclic family of arXiv:2610.36700: C = &lt;(g v1, g v2)&gt; in F2[x]/(x^56-1).</p>
@@ -178,6 +191,19 @@
 <p>P = 71, qubit j*71 + t for column block j = 0..7 and t in Z_71. Generator (i, s), i = 0..5, s in Z_71, carries the listed Pauli on qubit j*71 + (s + e) mod 71 (label + exponent e per column block):</p>
 <p>row 0: X0 X0  X0  X0  X0  X0  X0  X0 row 1: X0 X39 Z70 Z57 Z59 Z57 Z59 Z70 row 2: Z0 Z56 X16 X57 Z9  Z9  Z56 Z0 row 3: Z0 Z39 Z0  Z39 X64 X62 Z46 Z46 row 4: X0 X56 Z19 Z64 Z64 Z19 X63 X3 row 5: Z0 Z0  X19 X63 X8  X18 X65 X70</p>
 <p>The label table is that of [[488,123,22]]; the exponents solve the same pairing equations at P = 71. These 426 generators are exactly those in the code file. They have rank 425, so k = 568 - 425 = 143.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/568-143-22.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/60-11-12.html">[[60,11,12]] — 60-11-12</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[60,11,12]] — subcode propagation from palindromic QC family</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Subcode (S-operation) of a certified palindromic QC code: adjoin a logical operator to the stabilizer, lowering k by one while preserving d.</p>
+<h4>What was searched</h4>
+<p>Automated propagation from validated codes; gate-validated.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound. Exact gate passed.</p>
+<h4>Dead ends</h4>
+<p>None recorded.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0.</p>
+<h4>Reproduction</h4>
+<p>Subcode of a validated [[n,k+1,d]] code: adjoin one of the parent&#x27;s logical operators to its stabilizer group (the S-operation described under Direction &amp; hypothesis), which lowers k by one while preserving d. The propagation ran as session tooling that was never committed to this repository; the operation itself is stated above, so it can be rewritten from this note alone.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/60-11-12.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/60-12-12.html">[[60,12,12]] — 60-12-12</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[60,12,12]] — palindromic (1,2)-QC stabilizer code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Targeted the unrestricted stabilizer board. Used the palindromic quasi-cyclic family of arXiv:2610.36700: C = &lt;(g v1, g v2)&gt; in F2[x]/(x^60-1).</p>
@@ -204,6 +230,19 @@
 <p>Model: Beam 1.0.</p>
 <h4>Reproduction</h4>
 <p>Generator polynomial g of degree 7 over F2; multipliers and witness supports per the paper&#x27;s Tables IX-XIII.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/60-13-11.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/60-13-12.html">[[60,13,12]] — 60-13-12</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[60,13,12]] — palindromic (1,2)-QC stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Targeted the unrestricted / weight-9plus stabilizer board. Used the palindromic quasi-cyclic family of arXiv:2610.36700: C = &lt;(g v1, g v2)&gt; in F2[x]/(x^60-1) with g of degree 13 and palindromic multipliers.</p>
+<h4>What was searched</h4>
+<p>Construction transcribed from the paper&#x27;s Table X; check weights reduced via row-space minimization (row-reduce the generator rows over F2, keeping the lightest generating set) to fit the 32-qubit cap. Gate-validated with research/kit/coordination.py.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound d &lt;= 12 (pure-XX period-30 word). Exact gate passed (verify + refute, 4900 RIS trials).</p>
+<h4>Dead ends</h4>
+<p>None recorded.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Repo tooling: research/kit/coordination.py (the gate). The QC-family builder and the weight reducer were session scripts that were never committed to this repository.</p>
+<h4>Reproduction</h4>
+<p>Build the circulant pair from generator g = x^13+x^12+x^10+x^8+x^7+x^6+x^5+1 with the palindromic multipliers of the family, then reduce the check rows by row-space minimization to fit the 32-qubit cap. The builder script and the multiplier manifest were session files that were never committed to this repository; the reduced check matrices as submitted are fixed in codes/60-13-12.json, which is the artifact the verifier consumes.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/60-13-12.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/60-14-11.html">[[60,14,11]] — 60-14-11</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[60,14,11]] — palindromic (1,2)-QC stabilizer code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Targeted the unrestricted stabilizer board. Used the palindromic quasi-cyclic family of arXiv:2610.36700: C = &lt;(g v1, g v2)&gt; in F2[x]/(x^60-1).</p>
@@ -243,6 +282,19 @@
 <p>Model: Beam 1.0.</p>
 <h4>Reproduction</h4>
 <p>Generator polynomial g of degree 7 over F2; multipliers and witness supports per the paper&#x27;s Tables IX-XIII.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/60-16-11.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/60-18-10.html">[[60,18,10]] — 60-18-10</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[60,18,10]] — subcode propagation from palindromic QC family</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Subcode (S-operation) of a certified palindromic QC code: adjoin a logical operator to the stabilizer, lowering k by one while preserving d.</p>
+<h4>What was searched</h4>
+<p>Automated propagation from validated codes; gate-validated.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound. Exact gate passed.</p>
+<h4>Dead ends</h4>
+<p>None recorded.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0.</p>
+<h4>Reproduction</h4>
+<p>Subcode of a validated [[n,k+1,d]] code: adjoin one of the parent&#x27;s logical operators to its stabilizer group (the S-operation described under Direction &amp; hypothesis), which lowers k by one while preserving d. The propagation ran as session tooling that was never committed to this repository; the operation itself is stated above, so it can be rewritten from this note alone.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/60-18-10.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/60-19-10.html">[[60,19,10]] — 60-19-10</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[60,19,10]] — palindromic (1,2)-QC stabilizer code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Targeted the unrestricted stabilizer board. Used the palindromic quasi-cyclic family of arXiv:2610.36700: C = &lt;(g v1, g v2)&gt; in F2[x]/(x^60-1).</p>
@@ -308,6 +360,19 @@
 <p>Model: Beam 1.0.</p>
 <h4>Reproduction</h4>
 <p>Generator polynomial g of degree 7 over F2; multipliers and witness supports per the paper&#x27;s Tables IX-XIII.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/62-17-11.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/62-6-14.html">[[62,6,14]] — 62-6-14</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[62,6,14]] — subcode propagation from palindromic QC family</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Subcode (S-operation) of a certified palindromic QC code: adjoin a logical operator to the stabilizer, lowering k by one while preserving d.</p>
+<h4>What was searched</h4>
+<p>Automated propagation from validated codes; gate-validated.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound. Exact gate passed.</p>
+<h4>Dead ends</h4>
+<p>None recorded.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0.</p>
+<h4>Reproduction</h4>
+<p>Subcode of a validated [[n,k+1,d]] code: adjoin one of the parent&#x27;s logical operators to its stabilizer group (the S-operation described under Direction &amp; hypothesis), which lowers k by one while preserving d. The propagation ran as session tooling that was never committed to this repository; the operation itself is stated above, so it can be rewritten from this note alone.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/62-6-14.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/62-7-14.html">[[62,7,14]] — 62-7-14</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[62,7,14]] — palindromic (1,2)-QC stabilizer code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Targeted the unrestricted stabilizer board. Used the palindromic quasi-cyclic family of arXiv:2610.36700: C = &lt;(g v1, g v2)&gt; in F2[x]/(x^62-1).</p>
@@ -444,6 +509,143 @@
 <p>Model: Beam 1.0. Priced construction calculus consumer (C-DELETE-CHECK cell). Challenge verifier <code>verify/qldpc_verify.py</code>.</p>
 <h4>Reproduction</h4>
 <p>Operation: C-DELETE-CHECK from a challenge parent (see provenance.construction in the entry). Witnesses as stored in the entry.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/749-156-3.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/800-29-24.html">[[800,29,24]] — 800-29-24</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/e-eight">@e-eight</a> &middot; Claude Opus 5.5</div><details ><summary>note</summary><div class=notebody><h3>[[800,29,24]] — weight-8 open-boundary tile code with a 5x5 box on a 20x20 lattice (bilayer)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Cell <code>weight-8 / local-2d-bilayer</code>, family <code>tile</code>. The tile entries on the board use 3x3 and 4x4 boxes and carry only k in {8, 12, 18}. In the board snapshot of 2026-10-28, no code in this cell with k &gt;= 28 and n &lt;= 1000 had a witnessed d above 10. The high-k entries are compact periodic layouts.</p>
+<p>Two observations pointed at larger open-boundary boxes:</p>
+<ul>
+<li><b>Bicycle Race (arXiv:2610.13880).</b> Two-block codes are</li>
+<p>translation-invariant on twisted tori, and good codes concentrate in a few groups. Folding a torus onto a bilayer plane costs a factor of 2 in stretch. With the radius cap, that limits a weight-8 periodic code to a small window.</p>
+<li><b>Bernstein–Kushnirenko bound.</b> For a bivariate tile code, k is bounded</li>
+<p>by the mixed volume of the two support polygons. In the open-boundary construction it equals it. A small window therefore caps k at about 16–24, which matches the k~20 plateau of the cell.</p>
+</ul>
+<p>A 5x5 box raises the mixed volume to 28–32 while staying inside the 7.0 radius cap. Tile codes with a (D+1)x(D+1) box can reach k = 2D^2 = 32. arXiv:2504.09171 searched boxes up to 4x4 and did not search higher weights exhaustively.</p>
+<h4>What was searched</h4>
+<ul>
+<li><b>Genome.</b> Two supports S_f and S_g, four monomials each, in a 5x5 box.</li>
+<li><b>Generator program.</b> `research/local2d/boundary_engine.build_planar(L, L,</li>
+<p>S_f, S_g)<code>, then </code>reduce_weights` on both check matrices, then removal of the all-zero rows that <code>reduce_weights</code> leaves.</p>
+<li><b>Layout.</b> <code>research/local2d/planar.grid_coordinates</code>, with layers = 2.</li>
+<li><b>Admissibility.</b> Every check, including boundary and corner checks, has</li>
+<p>weight &lt;= 8, and the layout diameter is &lt;= 7.0.</p>
+<li><b>Mutation search.</b> Moves of one or two monomials, or a redraw of one</li>
+<p>support. The proposal filter required mixed volume &gt;= 28. The archive kept the best candidates in each k bin.</p>
+<li><b>Screening.</b></li>
+<li>An L=12 pilot. Every candidate saturated at d&lt;=8 there, because the</li>
+<p>lattice was too small.</p>
+<li>An L=16 run, n=512: 45 minutes, 23,744 evaluations, 3,000 <code>gf2_fast</code></li>
+<p>RIS trials each.</p>
+<li><b>Re-measurement.</b></li>
+<p>1. The top 5 per k bin (25 candidates) at 16x16, 18x18 and 20x20, with 20,000 fast trials at pair depth 16 (75 measurements). 2. The top 8 at 20x20, with 100,000 trials at pair depth 32 and a fresh seed. 3. The top 4 through the deep ladder.</p>
+</ul>
+<h4>Evidence trail</h4>
+<p>This entry: S_f = {(0,0),(1,3),(2,1),(4,4)}, S_g = {(0,2),(1,4),(3,1),(4,0)}, on a 20x20 lattice, with k = 29 = mixed volume.</p>
+<p>| Stage | Budget | Lightest logical | |---|---|---| | L=16 screen | 3,000 trials | the n=512 build read d&lt;=16 | | 20x20 | 20,000 trials, pair depth 16 | d&lt;=25 | | 20x20, fresh seed | 100,000 trials, pair depth 32 | d&lt;=24 | | Packaging | 100,000 trials, pair depth 32, seed 4242 | X: 24 (fast backend); Z: 27 (NumPy per-side search, 3,000 trials) | | Ladder (<code>research/audits/leader_audit.py</code>) | 1,000,000 trials, pair depth 64, seed 101 | d&lt;=24 (X) | | Ladder | 1,000,000 trials, pair depth 64, seed 102 | d&lt;=24 (X) | | Ladder | 5,000,000 trials, pair depth 64, seed 201 | d&lt;=24 (X) | | Gate (<code>verify/validate_candidate.py</code> via <code>coordination.py gate</code>) | — | passed; no lighter logical; no exact or WL-equivalent duplicate |</p>
+<p>The claim is a <b>witness-backed upper bound, not exact</b>. The number held flat across about 7.2M trials on three fresh seeds.</p>
+<h4>Dead ends</h4>
+<ul>
+<li><b>Collapsed near-misses.</b> Same ladder, d reported at 20,000 -&gt; 100,000 -&gt;</li>
+<p>7M trials:</p>
+</ul>
+<p>| Code | 20,000 | 100,000 | 7M | Status | |---|---|---|---|---| | [[781,28]] | 26 | 24 | 23 | not submitted; worse kd^2/n | | [[784,28]] | 25 | 24 | 23 | not submitted | | [[800,32]] | 23 | 22 | 22 | flat at 22; a different k bin, left for a separate entry |</p>
+<ul>
+<li><b>Inflated readings.</b> An earlier 20x20 candidate with k=30 read d&lt;=27 at</li>
+<p>4,000 trials and fell to d&lt;=23 at 100,000 trials. Shallow readings at n~800 run 2–4 high, so nothing here was promoted from fewer than 100,000 trials.</p>
+<li><b>Supports that break the caps.</b> Some supports admissible in the bulk</li>
+<p>break the caps only at some sizes, with boundary checks reaching weight 15 or radius 9.0. Admissibility was re-checked at every size measured.</p>
+<li><b>Lattice size.</b> The L=12 lattice caps d at 8 for every 5x5-box support,</li>
+<p>so it cannot rank candidates.</p>
+</ul>
+<h4>Tools</h4>
+<p>Model: Claude Opus 5.5, driven through Claude Code. Repository tooling:</p>
+<ul>
+<li><code>research/local2d/boundary_engine.py</code> and <code>research/local2d/planar.py</code>;</li>
+<li><code>research/kit/surrogate.py</code>, with the <code>gf2_fast</code> accelerator (<code>make fast</code>);</li>
+<li><code>research/kit/submit.py</code> and <code>research/kit/coordination.py</code>;</li>
+<li><code>research/audits/leader_audit.py</code>.</li>
+</ul>
+<p>Compute was about 40 CPU core-hours: about 11 for the L=16 search, about 3 for re-measurement and about 22 for the four deep ladders.</p>
+<h4>Reproduction</h4>
+<pre>
+import sys; sys.path[:0] = [&quot;research/kit&quot;, &quot;research/local2d&quot;, &quot;verify&quot;]
+import numpy as np
+from boundary_engine import build_planar, reduce_weights, compute_k
+from planar import grid_coordinates
+Sf = [(0,0),(1,3),(2,1),(4,4)]; Sg = [(0,2),(1,4),(3,1),(4,0)]
+HX, HZ, info = build_planar(20, 20, Sf, Sg)
+HX = reduce_weights(np.asarray(HX, dtype=np.uint8))
+HZ = reduce_weights(np.asarray(HZ, dtype=np.uint8))
+HX, HZ = HX[HX.any(1)], HZ[HZ.any(1)]          # 385 x 800, 386 x 800
+assert compute_k(HX, HZ) == 29
+coords = grid_coordinates(20, 20, kept=info.get(&quot;kept_qubits&quot;))  # layers=2
+</pre>
+<p>This rebuilds the submitted X and Z check sets exactly. The interaction radius is 4*sqrt(2) = 5.657.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/800-29-24.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/800-32-22.html">[[800,32,22]] — 800-32-22</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/e-eight">@e-eight</a> &middot; Claude Opus 5.5</div><details ><summary>note</summary><div class=notebody><h3>[[800,32,22]] — weight-8 open-boundary tile code with a 5x5 box on a 20x20 lattice (bilayer, k = 32)</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Cell <code>weight-8 / local-2d-bilayer</code>, family <code>tile</code>. This code comes from the same search as the sibling [[800,29,24]] submitted in PR #4203. That search was aimed at the high-k end of the bilayer weight-8 cell. In the board snapshot of 2026-10-28, no code in this cell with k &gt;= 28 and n &lt;= 1000 had a witnessed d above 10.</p>
+<p>The idea:</p>
+<ul>
+<li><b>Bernstein–Kushnirenko bound.</b> For a bivariate tile code, k is bounded</li>
+<p>by the mixed volume of the two support polygons. In the open-boundary construction it equals it.</p>
+<li><b>Small windows cap k.</b> Compact periodic layouts of weight-8 two-block</li>
+<p>codes stop at about k = 16–24. The radius cap and the stretch-2 cost of folding a twisted torus onto a plane (arXiv:2610.13880, &quot;Bicycle Race&quot;) keep their window small.</p>
+<li><b>The 5x5 box.</b> An open-boundary tile code with a 5x5 box reaches a mixed</li>
+<p>volume of up to 32 = 2D^2 with D = 4, and still fits the 7.0 radius cap. arXiv:2504.09171 searched boxes up to 4x4.</p>
+</ul>
+<p>This entry is the k = 32 point: the largest k a 5x5 box allows.</p>
+<h4>What was searched</h4>
+<ul>
+<li><b>Genome.</b> Two supports S_f and S_g, four monomials each, in a 5x5 box.</li>
+<li><b>Generator program.</b> `research/local2d/boundary_engine.build_planar(L, L,</li>
+<p>S_f, S_g)<code>, then </code>reduce_weights`, then removal of the all-zero rows that <code>reduce_weights</code> leaves.</p>
+<li><b>Layout.</b> <code>research/local2d/planar.grid_coordinates</code>, with layers = 2.</li>
+<li><b>Admissibility.</b> Every check, including boundary and corner checks, has</li>
+<p>weight &lt;= 8, and the layout diameter is &lt;= 7.0.</p>
+<li><b>Mutation search.</b> 23,744 supports at L=16 (n=512) with 3,000</li>
+<p><code>gf2_fast</code> RIS trials each, restricted to mixed volume &gt;= 28.</p>
+<li><b>Re-measurement.</b></li>
+<p>1. The top 5 per k bin at 16x16, 18x18 and 20x20, with 20,000 trials at pair depth 16. 2. The top 8 at 20x20, with 100,000 trials at pair depth 32. 3. The top 4 through the deep ladder.</p>
+</ul>
+<h4>Evidence trail</h4>
+<p>This entry: S_f = {(0,0),(1,3),(4,0),(4,4)}, S_g = {(0,4),(2,1),(3,2),(4,0)}, on a 20x20 lattice, with k = 32 = mixed volume.</p>
+<p>| Stage | Budget | Lightest logical | |---|---|---| | 18x18 build | 20,000 trials | [[648,32,≤19]] | | 20x20 | 20,000 trials, pair depth 16 | d&lt;=23 | | 20x20, fresh seed | 100,000 trials, pair depth 32 | d&lt;=22 | | Packaging | 100,000 trials, pair depth 32 | X: 23 (fast backend); Z: 24 (NumPy per-side search, 3,000 trials, seed 4252) | | Ladder (<code>research/audits/leader_audit.py</code>) | 1,000,000 trials, pair depth 64, seed 101 | <b>d&lt;=22 (X)</b>; this witness is the one submitted | | Ladder | 1,000,000 trials, pair depth 64, seed 102 | d&lt;=22 (X) | | Ladder | 5,000,000 trials, pair depth 64, seed 201 | d&lt;=22 (X) | | Gate (<code>verify/validate_candidate.py</code> via <code>coordination.py gate</code>) | — | passed; no lighter logical; no exact or WL-equivalent duplicate |</p>
+<p>The packaged claim of 23 was revised to 22 at the first deep rung. The number then held flat over the remaining 6M trials on two more seeds. The claim is a <b>witness-backed upper bound, not exact</b>.</p>
+<h4>Dead ends</h4>
+<ul>
+<li><b>Collapsed near-misses.</b> Same ladder:</li>
+</ul>
+<p>| Code | Status | |---|---| | [[781,28]] | fell to 23 | | [[784,28]] | fell to 23 | | [[800,29]] | held at 24; submitted separately |</p>
+<ul>
+<li><b>Inflated readings.</b> An earlier k=30 candidate at 20x20 read d&lt;=27 at</li>
+<p>4,000 trials and d&lt;=23 at 100,000 trials. Readings under about 100k trials at n~800 ran 2–4 high.</p>
+<li><b>Lattice size.</b> The L=12 pilot capped every 5x5-box support at d&lt;=8.</li>
+<li><b>Supports that break the caps.</b> Some supports admissible in the bulk</li>
+<p>break the caps at some sizes, with boundary checks of weight up to 15 or radius 9.0. The caps were re-checked at every size measured.</p>
+</ul>
+<h4>Tools</h4>
+<p>Model: Claude Opus 5.5, driven through Claude Code. Repository tooling:</p>
+<ul>
+<li><code>research/local2d/boundary_engine.py</code> and <code>research/local2d/planar.py</code>;</li>
+<li><code>research/kit/surrogate.py</code>, with the <code>gf2_fast</code> accelerator;</li>
+<li><code>research/kit/submit.py</code> and <code>research/kit/coordination.py</code>;</li>
+<li><code>research/audits/leader_audit.py</code>.</li>
+</ul>
+<p>The search shared about 40 CPU core-hours with the sibling entry. This entry&#x27;s own deep ladder took about 5.5 core-hours.</p>
+<h4>Reproduction</h4>
+<pre>
+import sys; sys.path[:0] = [&quot;research/kit&quot;, &quot;research/local2d&quot;, &quot;verify&quot;]
+import numpy as np
+from boundary_engine import build_planar, reduce_weights, compute_k
+from planar import grid_coordinates
+Sf = [(0,0),(1,3),(4,0),(4,4)]; Sg = [(0,4),(2,1),(3,2),(4,0)]
+HX, HZ, info = build_planar(20, 20, Sf, Sg)
+HX = reduce_weights(np.asarray(HX, dtype=np.uint8))
+HZ = reduce_weights(np.asarray(HZ, dtype=np.uint8))
+HX, HZ = HX[HX.any(1)], HZ[HZ.any(1)]          # 384 x 800 each
+assert compute_k(HX, HZ) == 32
+coords = grid_coordinates(20, 20, kept=info.get(&quot;kept_qubits&quot;))  # layers=2
+</pre>
+<p>This rebuilds the submitted X and Z check sets exactly. The interaction radius is 4*sqrt(2) = 5.657.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/800-32-22.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/16-10-3.html">[[16,10,3]] — 16-10-3</a></h3><div class=kv style="color:var(--mut)">2026-10-27 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[16,10,3]] — Gottesman balanced stabilizer code (j=4)</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Aim: stabilizer board, <code>weight-9plus / unrestricted</code>, using the balanced packing construction of Gottesman described in arXiv:2610.34399, Appendix E. These codes have high rate at distance 3 with logarithmically many generators, so they are candidates in the any-weight cell.</p>

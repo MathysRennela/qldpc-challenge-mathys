@@ -3673,6 +3673,14 @@
       "code_type": "CSS"
     },
     {
+      "id": "56-8-12",
+      "n": 56,
+      "k": 8,
+      "d": 12,
+      "tier": "ub",
+      "code_type": "stabilizer"
+    },
+    {
       "id": "56-9-12",
       "n": 56,
       "k": 9,
@@ -3905,6 +3913,14 @@
       "code_type": "stabilizer"
     },
     {
+      "id": "60-11-12",
+      "n": 60,
+      "k": 11,
+      "d": 12,
+      "tier": "ub",
+      "code_type": "stabilizer"
+    },
+    {
       "id": "60-12-6",
       "n": 60,
       "k": 12,
@@ -3937,6 +3953,14 @@
       "code_type": "stabilizer"
     },
     {
+      "id": "60-13-12",
+      "n": 60,
+      "k": 13,
+      "d": 12,
+      "tier": "ub",
+      "code_type": "stabilizer"
+    },
+    {
       "id": "60-14-11",
       "n": 60,
       "k": 14,
@@ -3965,6 +3989,14 @@
       "n": 60,
       "k": 16,
       "d": 11,
+      "tier": "ub",
+      "code_type": "stabilizer"
+    },
+    {
+      "id": "60-18-10",
+      "n": 60,
+      "k": 18,
+      "d": 10,
       "tier": "ub",
       "code_type": "stabilizer"
     },
@@ -4045,6 +4077,14 @@
       "n": 62,
       "k": 2,
       "d": 12,
+      "tier": "ub",
+      "code_type": "stabilizer"
+    },
+    {
+      "id": "62-6-14",
+      "n": 62,
+      "k": 6,
+      "d": 14,
       "tier": "ub",
       "code_type": "stabilizer"
     },
@@ -21717,6 +21757,22 @@
       "n": 800,
       "k": 18,
       "d": 27,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
+      "id": "800-29-24",
+      "n": 800,
+      "k": 29,
+      "d": 24,
+      "tier": "ub",
+      "code_type": "CSS"
+    },
+    {
+      "id": "800-32-22",
+      "n": 800,
+      "k": 32,
+      "d": 22,
       "tier": "ub",
       "code_type": "CSS"
     },
