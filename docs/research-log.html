@@ -3,6 +3,57 @@
 <a class=back href="index.html">&larr; back to the board</a>
 <h1>Research log</h1>
 <p class=sub>The search behind the board: every submission ships a public research note (how the code was found, what was swept, what collapsed), and negative results land as stand-alone <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/fieldnotes">fieldnotes</a>. Newest first. See <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes">notes/</a> for the contract.</p>
+<section class=blk><h3><a href="codes/424-106-20.html">[[424,106,20]] — 424-106-20</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/MinboGaoTHU">@MinboGaoTHU</a> &middot; Hyra 2.0</div><details open><summary>note</summary><div class=notebody><h3>[[424,106,20]] — split Pauli-labelled circulant code over Z_53, weight 8, Y-free generators</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Target: the weight-8, unrestricted cell of the stabilizer board, whose best entry by kd^2/n is [[452,115,18]] (82.4), a symplectic halving of a CSS pair-partition CPM code. Instead of folding a CSS parent, we built non-CSS quasi-cyclic codes directly from Pauli-labelled circulant permutation blocks, aiming to keep the distance growth of the (3,8) pair-partition CPM CSS codes of Okada and Kasai (arXiv:2607.14091). This entry is from the same search as [[488,123,22]] and [[568,143,22]], one design step below them.</p>
+<h4>What was searched</h4>
+<p>A split Pauli-CPM code over Z_P has 6 row blocks and 8 column blocks; generator (i, s) puts the Pauli Lambda[i][j] in {X, Z} on qubit j*P + (s + E[i][j]) mod P. Each column block puts X on three row blocks and Z on the other three, with 3-sets that differ between columns, so the generators are Y-free and no single-qubit Clifford makes them all pure. Two row blocks commute for every P if the columns where their labels differ can be matched in pairs with equal exponent differences. We searched all 1,690 parity-valid label patterns, solving the pairing equations and rejecting designs that force weight-1 or weight-2 logicals or short cycles inside an anticommuting 3-row set. This design has no forced harmful 4-cycles and a one-dimensional line of integer solutions, so each prime lift gives one code up to the relabeling x -&gt; x^u, with k = 2P. Short GPU screens (20 to 240 s per lift) found witnessed distance 20 at every lift we screened from P = 53 to 113 (P = 53, 59, 71, 83, 97, 101, 103, 107, 109, 113), so kd^2/n = 100 there, and 12 to 16 at the smaller lifts P = 29 to 47. This entry is P = 53, the smallest lift that reached 20; the larger screened lifts up to P = 113 behave the same.</p>
+<h4>Evidence trail</h4>
+<p>Board claim: <b>d &lt;= 20, witnessed upper bound.</b> We have no exact proof and no lower bound for this code; the number is the lightest logical our searches found. The witness is Y-free and has Pauli weight 20. Searches, none of which found anything lighter:</p>
+<ul>
+<li>GPU Pauli-weight information-set search with correlated steps, 2400 s (1.5e10 steps): returned 20, with 137,230 hits at that weight;</li>
+<li>fresh-elimination GPU search without correlated steps, 1800 s, 1.7e8 eliminations: returned 20;</li>
+<li>GPU search on the Hamming sectors of the symplectic double, 1500 s: lightest Pauli weight among 865 logicals, 20;</li>
+<li>the repository&#x27;s <code>verify/ris_gpu.py</code> on the 848-qubit symplectic double, 2,000,000 trials, pair depth 32: best weight 20 in both sectors;</li>
+<li>an independent audit with its own seeds: a 600 s correlated-step run (60,187 hits at 20) re-reached 20 and found nothing lighter;</li>
+<li>the repository&#x27;s own gate, run locally as CI runs it (<code>verify/gate_changed.py</code> with the base-branch verifier, seed</li>
+<p>424106020): orbit-fold passes over 13 symmetry-derived partitions, one Python RIS seed of 75,880 trials, and the accelerated pass over 6,510,000 trials before its 90-minute cap (lightest proposal 20): no logical lighter than 20.</p>
+</ul>
+<p>The symplectic double (H_X = (A|B), H_Z = (B|A)) is a weight-8 CSS code [[848,212]] with distance at least that of this code; we make no claim of an advantage over CSS codes. Our own symmetry-reweighting searches found nothing to use beyond the Z_P translations, and at prime P there is no cyclic quotient to attack.</p>
+<p>Equivalence checks. The verifier&#x27;s single-qubit Clifford test finds no CSS image. No board entry of either type has (n, k) = (424, 106), so this cannot be a block-Clifford relabeling of a board entry. The fingerprint and WL signature match nothing on the board. We did not test general multi-qubit Clifford equivalence to codes off the board.</p>
+<h4>Dead ends</h4>
+<p>Most of the 1,690 split patterns hit lift-independent caps of 12, 16 or 18. Random labels, GF(4)-linear labels, odd row counts, two-block sigma-paired and non-mirror oriented constructions all stayed at d &lt;= 12. The design that reached 22 is described with the [[488,123,22]] and [[568,143,22]] submissions.</p>
+<h4>Tools</h4>
+<p>Found with the Hyra 2.0 research agent. Our own GPU Pauli-weight information-set search ran on NVIDIA H20 GPUs. The repository&#x27;s submission kit, verifier, <code>verify/ris_gpu.py</code> and gf2_fast accelerator were used unchanged.</p>
+<h4>Reproduction</h4>
+<p>P = 53, qubit j*53 + t for column block j = 0..7 and t in Z_53. Generator (i, s), i = 0..5, s in Z_53, carries the listed Pauli on qubit j*53 + (s + e) mod 53 (label + exponent e per column block):</p>
+<p>row 0: X0  X0  X0  X0  X0  X0  X0  X0 row 1: X0  X12 X52 X18 Z30 Z10 Z10 Z30 row 2: X0  X16 Z49 Z15 X38 X18 Z49 Z15 row 3: Z0  Z32 Z0  Z38 Z38 Z32 X10 X31 row 4: Z0  Z21 X1  Z18 X39 Z18 Z0  Z21 row 5: Z0  Z16 Z16 X33 Z0  X27 X14 X30</p>
+<p>These 318 generators are exactly those in the code file; they have rank 318, so k = 424 - 318 = 106.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/424-106-20.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/472-119-20.html">[[472,119,20]] — 472-119-20</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/MinboGaoTHU">@MinboGaoTHU</a> &middot; Hyra 2.0</div><details open><summary>note</summary><div class=notebody><h3>[[472,119,20]] — split Pauli-labelled circulant code over Z_59, weight 8, Y-free generators</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Target: the weight-8, unrestricted cell of the stabilizer board, whose best entry by kd^2/n is [[452,115,18]] (82.4), a symplectic halving of a CSS pair-partition CPM code. Instead of folding a CSS parent, we built non-CSS quasi-cyclic codes directly from Pauli-labelled circulant permutation blocks, aiming to keep the distance growth of the (3,8) pair-partition CPM CSS codes of Okada and Kasai (arXiv:2607.14091). This entry is from the same search as [[488,123,22]] and [[568,143,22]], one design step below them.</p>
+<h4>What was searched</h4>
+<p>A split Pauli-CPM code over Z_P has 6 row blocks and 8 column blocks; generator (i, s) puts the Pauli Lambda[i][j] in {X, Z} on qubit j*P + (s + E[i][j]) mod P. Each column block puts X on three row blocks and Z on the other three, with 3-sets that differ between columns, so the generators are Y-free and no single-qubit Clifford makes them all pure. Two row blocks commute for every P if the columns where their labels differ can be matched in pairs with equal exponent differences. We searched all 1,690 parity-valid label patterns, solving the pairing equations and rejecting designs that force weight-1 or weight-2 logicals or short cycles inside an anticommuting 3-row set. This design has a two-dimensional solution space. In a sampled scan (four exponent draws per lift at P = 53, 59, 71 and 113, short GPU screens), three of the four draws at P = 59 gave witnessed distance 18 and this one gave 20, with k = 2P + 1 = 119; so the distance depends on the exponents, not only on the label pattern.</p>
+<h4>Evidence trail</h4>
+<p>Board claim: <b>d &lt;= 20, witnessed upper bound.</b> We have no exact proof and no lower bound for this code; the number is the lightest logical our searches found. The witness is Y-free and has Pauli weight 20. Searches, none of which found anything lighter:</p>
+<ul>
+<li>fresh-elimination GPU search without correlated steps, 1800 s, 9.1e7 eliminations: returned 20, with 3,234 hits at that weight;</li>
+<li>GPU search on the Hamming sectors of the symplectic double, 1200 s: lightest Pauli weight among 755 logicals, 20;</li>
+<li>the repository&#x27;s <code>verify/ris_gpu.py</code> on the 944-qubit symplectic double, 2,000,000 trials, pair depth 32: best weight 20 in both sectors;</li>
+<li>an independent audit with its own seeds: a 1200 s correlated-step run (168,314 hits at 20) re-reached 20 and found nothing lighter;</li>
+<li>the repository&#x27;s own gate, run locally as CI runs it (<code>verify/gate_changed.py</code> with the base-branch verifier, seed</li>
+<p>472119020): orbit-fold passes over 13 symmetry-derived partitions, one Python RIS seed of 81,640 trials, and the accelerated pass over 5,310,000 trials before its 90-minute cap (lightest proposal 20): no logical lighter than 20.</p>
+</ul>
+<p>The symplectic double (H_X = (A|B), H_Z = (B|A)) is a weight-8 CSS code [[944,238]] with distance at least that of this code; we make no claim of an advantage over CSS codes. Our own symmetry-reweighting searches found nothing to use beyond the Z_P translations, and at prime P there is no cyclic quotient to attack.</p>
+<p>Equivalence checks. The verifier&#x27;s single-qubit Clifford test finds no CSS image. No board entry of either type has (n, k) = (472, 119), so this cannot be a block-Clifford relabeling of a board entry. The fingerprint and WL signature match nothing on the board. We did not test general multi-qubit Clifford equivalence to codes off the board.</p>
+<h4>Dead ends</h4>
+<p>Most of the 1,690 split patterns hit lift-independent caps of 12, 16 or 18. Random labels, GF(4)-linear labels, odd row counts, two-block sigma-paired and non-mirror oriented constructions all stayed at d &lt;= 12. The design that reached 22 is described with the [[488,123,22]] and [[568,143,22]] submissions.</p>
+<h4>Tools</h4>
+<p>Found with the Hyra 2.0 research agent. Our own GPU Pauli-weight information-set search ran on NVIDIA H20 GPUs. The repository&#x27;s submission kit, verifier, <code>verify/ris_gpu.py</code> and gf2_fast accelerator were used unchanged.</p>
+<h4>Reproduction</h4>
+<p>P = 59, qubit j*59 + t for column block j = 0..7 and t in Z_59. Generator (i, s), i = 0..5, s in Z_59, carries the listed Pauli on qubit j*59 + (s + e) mod 59 (label + exponent e per column block):</p>
+<p>row 0: X0  X0  X0  X0  X0  X0  X0  X0 row 1: X0  X3  X30 X26 X11 X27 Z39 Z39 row 2: X0  X5  X35 X3  Z21 Z37 Z21 Z37 row 3: Z0  Z0  Z30 Z8  Z8  Z30 X21 X42 row 4: Z0  Z35 Z35 Z26 X51 Z0  X44 Z26 row 5: Z0  Z3  Z7  Z3  Z7  X9  Z0  X35</p>
+<p>These 354 generators are exactly those in the code file; they have rank 353, so k = 472 - 353 = 119.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/472-119-20.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/485-97-25.html">[[485,97,25]] — 485-97-25</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/MinboGaoTHU">@MinboGaoTHU</a> &middot; Hyra 2.0</div><details open><summary>note</summary><div class=notebody><h3>[[485,97,25]] — reversing fold of a masked 4x10 circulant CSS parent at P = 97, weight 8</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target: the weight-8, unrestricted cell of the stabilizer board, whose best entry by kd^2/n is [[452,115,18]] (82.4). That entry is a reversing symplectic fold of a CSS pair-partition CPM code. Folds of the ten strongest weight-8 circulant CSS parents on the board stayed near it: in our enumeration, each of their 1,052 admissible pairings had a logical of weight at most 18. The hypothesis was that the obstruction belongs to dense full-block parents. A sparser parent, with blocks removed from each block row, could fold without inheriting a light logical. The fold is the reverse-fold mechanism of Lee et al. (arXiv:2609.30069) applied to a masked parent. We do not claim the folding operation as new.</p>
@@ -38,7 +89,7 @@
 <p>P = 97, qubit l*97 + t for column block l = 0..4 and t in Z_97. Generator (i, r), i = 0..3, r in Z_97, carries X on qubit l*97 + ((r - E[i][l]) mod 97) and Z on qubit l*97 + ((E[i][l+5] - r) mod 97), for each l in 0..4 with l != i. A qubit hit by both carries Y. The exponents E (4 x 10):</p>
 <p>[ 0, 59, 78, 14, 10,  0, 70, 16, 71,  5] [30,  0, 25, 89, 58,  3,  0, 56, 27, 27] [83, 72,  0, 64, 40, 61, 30,  0, 75, 28] [18, 89, 80,  0, 91,  9,  7, 85,  0, 52]</p>
 <p>(Entries at the omitted blocks, E[i][i] and E[i][i+5], are unused.) These 388 generators are exactly those in the code file. They have rank 388, so k = 485 - 388 = 97.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/485-97-25.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/488-123-22.html">[[488,123,22]] — 488-123-22</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/MinboGaoTHU">@MinboGaoTHU</a> &middot; Hyra 2.0</div><details open><summary>note</summary><div class=notebody><h3>[[488,123,22]] — split Pauli-labelled circulant code over Z_61, weight 8, Y-free generators</h3>
+<section class=blk><h3><a href="codes/488-123-22.html">[[488,123,22]] — 488-123-22</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/MinboGaoTHU">@MinboGaoTHU</a> &middot; Hyra 2.0</div><details ><summary>note</summary><div class=notebody><h3>[[488,123,22]] — split Pauli-labelled circulant code over Z_61, weight 8, Y-free generators</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target: the weight-8, unrestricted cell of the stabilizer board, whose best entry by kd^2/n is [[452,115,18]] (82.4), a symplectic halving (mirror fold) of a CSS pair-partition CPM code. Folds of the strongest weight-8 circulant CSS parents on the board stayed near that value: in our enumeration, each of their 1,052 admissible pairings had a logical of weight at most 18. So instead of folding a CSS parent we built non-CSS quasi-cyclic codes directly from Pauli-labelled circulant permutation blocks. The aim was to keep the distance growth of the (3,8) pair-partition CPM CSS codes of Okada and Kasai (arXiv:2607.14091) while using non-CSS generators.</p>
 <h4>What was searched</h4>
@@ -76,7 +127,20 @@
 <p>P = 61, qubit j*61 + t for column block j = 0..7 and t in Z_61. Generator (i, s), i = 0..5, s in Z_61, carries the listed Pauli on qubit j*61 + (s + e) mod 61 (label + exponent e per column block):</p>
 <p>row 0: X0 X0  X0  X0  X0  X0  X0  X0 row 1: X0 X5  Z44 Z6  Z40 Z6  Z40 Z44 row 2: Z0 Z50 X28 X6  Z31 Z31 Z50 Z0 row 3: Z0 Z5  Z0  Z5  X3  X30 Z2  Z2 row 4: X0 X50 Z18 Z3  Z3  Z18 X47 X51 row 5: Z0 Z0  X18 X47 X14 X1  X20 X44</p>
 <p>These 366 generators are exactly those in the code file. They have rank 365, so k = 488 - 365 = 123.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/488-123-22.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/568-143-22.html">[[568,143,22]] — 568-143-22</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/MinboGaoTHU">@MinboGaoTHU</a> &middot; Hyra 2.0</div><details open><summary>note</summary><div class=notebody><h3>[[568,143,22]] — split Pauli-labelled circulant code over Z_71, weight 8, Y-free generators</h3>
+<section class=blk><h3><a href="codes/56-9-12.html">[[56,9,12]] — 56-9-12</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[56,9,12]] — palindromic (1,2)-QC stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Targeted the unrestricted stabilizer board. Used the palindromic quasi-cyclic family of arXiv:2610.36700: C = &lt;(g v1, g v2)&gt; in F2[x]/(x^56-1).</p>
+<h4>What was searched</h4>
+<p>Construction transcribed from the paper&#x27;s appendix; check weights reduced via row-space minimization to fit the 32-qubit cap. Gate-validated.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound d &lt;= 12. Exact gate passed (verify + refute).</p>
+<h4>Dead ends</h4>
+<p>None recorded.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0.</p>
+<h4>Reproduction</h4>
+<p>Generator polynomial g of degree 7 over F2; multipliers and witness supports per the paper&#x27;s Tables IX-XIII.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/56-9-12.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/568-143-22.html">[[568,143,22]] — 568-143-22</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/MinboGaoTHU">@MinboGaoTHU</a> &middot; Hyra 2.0</div><details ><summary>note</summary><div class=notebody><h3>[[568,143,22]] — split Pauli-labelled circulant code over Z_71, weight 8, Y-free generators</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target: the weight-8, unrestricted cell of the stabilizer board, whose best entry by kd^2/n is [[452,115,18]] (82.4), a symplectic halving (mirror fold) of a CSS pair-partition CPM code. Folds of the strongest weight-8 circulant CSS parents on the board stayed near that value: in our enumeration, each of their 1,052 admissible pairings had a logical of weight at most 18. So instead of folding a CSS parent we built non-CSS quasi-cyclic codes directly from Pauli-labelled circulant permutation blocks. The aim was to keep the distance growth of the (3,8) pair-partition CPM CSS codes of Okada and Kasai (arXiv:2607.14091) while using non-CSS generators.</p>
 <h4>What was searched</h4>
@@ -114,6 +178,162 @@
 <p>P = 71, qubit j*71 + t for column block j = 0..7 and t in Z_71. Generator (i, s), i = 0..5, s in Z_71, carries the listed Pauli on qubit j*71 + (s + e) mod 71 (label + exponent e per column block):</p>
 <p>row 0: X0 X0  X0  X0  X0  X0  X0  X0 row 1: X0 X39 Z70 Z57 Z59 Z57 Z59 Z70 row 2: Z0 Z56 X16 X57 Z9  Z9  Z56 Z0 row 3: Z0 Z39 Z0  Z39 X64 X62 Z46 Z46 row 4: X0 X56 Z19 Z64 Z64 Z19 X63 X3 row 5: Z0 Z0  X19 X63 X8  X18 X65 X70</p>
 <p>The label table is that of [[488,123,22]]; the exponents solve the same pairing equations at P = 71. These 426 generators are exactly those in the code file. They have rank 425, so k = 568 - 425 = 143.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/568-143-22.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/60-12-12.html">[[60,12,12]] — 60-12-12</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[60,12,12]] — palindromic (1,2)-QC stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Targeted the unrestricted stabilizer board. Used the palindromic quasi-cyclic family of arXiv:2610.36700: C = &lt;(g v1, g v2)&gt; in F2[x]/(x^60-1).</p>
+<h4>What was searched</h4>
+<p>Construction transcribed from the paper&#x27;s appendix; check weights reduced via row-space minimization to fit the 32-qubit cap. Gate-validated.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound d &lt;= 12. Exact gate passed (verify + refute).</p>
+<h4>Dead ends</h4>
+<p>None recorded.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0.</p>
+<h4>Reproduction</h4>
+<p>Generator polynomial g of degree 5 over F2; multipliers and witness supports per the paper&#x27;s Tables IX-XIII.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/60-12-12.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/60-13-11.html">[[60,13,11]] — 60-13-11</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[60,13,11]] — palindromic (1,2)-QC stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Targeted the unrestricted stabilizer board. Used the palindromic quasi-cyclic family of arXiv:2610.36700: C = &lt;(g v1, g v2)&gt; in F2[x]/(x^60-1).</p>
+<h4>What was searched</h4>
+<p>Construction transcribed from the paper&#x27;s appendix; check weights reduced via row-space minimization to fit the 32-qubit cap. Gate-validated.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound d &lt;= 11. Exact gate passed (verify + refute).</p>
+<h4>Dead ends</h4>
+<p>None recorded.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0.</p>
+<h4>Reproduction</h4>
+<p>Generator polynomial g of degree 7 over F2; multipliers and witness supports per the paper&#x27;s Tables IX-XIII.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/60-13-11.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/60-14-11.html">[[60,14,11]] — 60-14-11</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[60,14,11]] — palindromic (1,2)-QC stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Targeted the unrestricted stabilizer board. Used the palindromic quasi-cyclic family of arXiv:2610.36700: C = &lt;(g v1, g v2)&gt; in F2[x]/(x^60-1).</p>
+<h4>What was searched</h4>
+<p>Construction transcribed from the paper&#x27;s appendix; check weights reduced via row-space minimization to fit the 32-qubit cap. Gate-validated.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound d &lt;= 11. Exact gate passed (verify + refute).</p>
+<h4>Dead ends</h4>
+<p>None recorded.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0.</p>
+<h4>Reproduction</h4>
+<p>Generator polynomial g of degree 8 over F2; multipliers and witness supports per the paper&#x27;s Tables IX-XIII.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/60-14-11.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/60-15-11.html">[[60,15,11]] — 60-15-11</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[60,15,11]] — palindromic (1,2)-QC stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Targeted the unrestricted stabilizer board. Used the palindromic quasi-cyclic family of arXiv:2610.36700: C = &lt;(g v1, g v2)&gt; in F2[x]/(x^60-1).</p>
+<h4>What was searched</h4>
+<p>Construction transcribed from the paper&#x27;s appendix; check weights reduced via row-space minimization to fit the 32-qubit cap. Gate-validated.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound d &lt;= 11. Exact gate passed (verify + refute).</p>
+<h4>Dead ends</h4>
+<p>None recorded.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0.</p>
+<h4>Reproduction</h4>
+<p>Generator polynomial g of degree 7 over F2; multipliers and witness supports per the paper&#x27;s Tables IX-XIII.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/60-15-11.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/60-16-11.html">[[60,16,11]] — 60-16-11</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[60,16,11]] — palindromic (1,2)-QC stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Targeted the unrestricted stabilizer board. Used the palindromic quasi-cyclic family of arXiv:2610.36700: C = &lt;(g v1, g v2)&gt; in F2[x]/(x^60-1).</p>
+<h4>What was searched</h4>
+<p>Construction transcribed from the paper&#x27;s appendix; check weights reduced via row-space minimization to fit the 32-qubit cap. Gate-validated.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound d &lt;= 11. Exact gate passed (verify + refute).</p>
+<h4>Dead ends</h4>
+<p>None recorded.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0.</p>
+<h4>Reproduction</h4>
+<p>Generator polynomial g of degree 7 over F2; multipliers and witness supports per the paper&#x27;s Tables IX-XIII.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/60-16-11.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/60-19-10.html">[[60,19,10]] — 60-19-10</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[60,19,10]] — palindromic (1,2)-QC stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Targeted the unrestricted stabilizer board. Used the palindromic quasi-cyclic family of arXiv:2610.36700: C = &lt;(g v1, g v2)&gt; in F2[x]/(x^60-1).</p>
+<h4>What was searched</h4>
+<p>Construction transcribed from the paper&#x27;s appendix; check weights reduced via row-space minimization to fit the 32-qubit cap. Gate-validated.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound d &lt;= 10. Exact gate passed (verify + refute).</p>
+<h4>Dead ends</h4>
+<p>None recorded.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0.</p>
+<h4>Reproduction</h4>
+<p>Generator polynomial g of degree 9 over F2; multipliers and witness supports per the paper&#x27;s Tables IX-XIII.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/60-19-10.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/60-20-10.html">[[60,20,10]] — 60-20-10</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[60,20,10]] — palindromic (1,2)-QC stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Targeted the unrestricted stabilizer board. Used the palindromic quasi-cyclic family of arXiv:2610.36700: C = &lt;(g v1, g v2)&gt; in F2[x]/(x^60-1).</p>
+<h4>What was searched</h4>
+<p>Construction transcribed from the paper&#x27;s appendix; check weights reduced via row-space minimization to fit the 32-qubit cap. Gate-validated.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound d &lt;= 10. Exact gate passed (verify + refute).</p>
+<h4>Dead ends</h4>
+<p>None recorded.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0.</p>
+<h4>Reproduction</h4>
+<p>Generator polynomial g of degree 9 over F2; multipliers and witness supports per the paper&#x27;s Tables IX-XIII.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/60-20-10.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/60-8-13.html">[[60,8,13]] — 60-8-13</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[60,8,13]] — palindromic (1,2)-QC stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Targeted the unrestricted stabilizer board. Used the palindromic quasi-cyclic family of arXiv:2610.36700: C = &lt;(g v1, g v2)&gt; in F2[x]/(x^60-1).</p>
+<h4>What was searched</h4>
+<p>Construction transcribed from the paper&#x27;s appendix; check weights reduced via row-space minimization to fit the 32-qubit cap. Gate-validated.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound d &lt;= 13. Exact gate passed (verify + refute).</p>
+<h4>Dead ends</h4>
+<p>None recorded.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0.</p>
+<h4>Reproduction</h4>
+<p>Generator polynomial g of degree 2 over F2; multipliers and witness supports per the paper&#x27;s Tables IX-XIII.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/60-8-13.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/62-16-11.html">[[62,16,11]] — 62-16-11</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[62,16,11]] — palindromic (1,2)-QC stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Targeted the unrestricted stabilizer board. Used the palindromic quasi-cyclic family of arXiv:2610.36700: C = &lt;(g v1, g v2)&gt; in F2[x]/(x^62-1).</p>
+<h4>What was searched</h4>
+<p>Construction transcribed from the paper&#x27;s appendix; check weights reduced via row-space minimization to fit the 32-qubit cap. Gate-validated.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound d &lt;= 11. Exact gate passed (verify + refute).</p>
+<h4>Dead ends</h4>
+<p>None recorded.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0.</p>
+<h4>Reproduction</h4>
+<p>Generator polynomial g of degree 7 over F2; multipliers and witness supports per the paper&#x27;s Tables IX-XIII.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/62-16-11.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/62-17-11.html">[[62,17,11]] — 62-17-11</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[62,17,11]] — palindromic (1,2)-QC stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Targeted the unrestricted stabilizer board. Used the palindromic quasi-cyclic family of arXiv:2610.36700: C = &lt;(g v1, g v2)&gt; in F2[x]/(x^62-1).</p>
+<h4>What was searched</h4>
+<p>Construction transcribed from the paper&#x27;s appendix; check weights reduced via row-space minimization to fit the 32-qubit cap. Gate-validated.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound d &lt;= 11. Exact gate passed (verify + refute).</p>
+<h4>Dead ends</h4>
+<p>None recorded.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0.</p>
+<h4>Reproduction</h4>
+<p>Generator polynomial g of degree 7 over F2; multipliers and witness supports per the paper&#x27;s Tables IX-XIII.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/62-17-11.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/62-7-14.html">[[62,7,14]] — 62-7-14</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[62,7,14]] — palindromic (1,2)-QC stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Targeted the unrestricted stabilizer board. Used the palindromic quasi-cyclic family of arXiv:2610.36700: C = &lt;(g v1, g v2)&gt; in F2[x]/(x^62-1).</p>
+<h4>What was searched</h4>
+<p>Construction transcribed from the paper&#x27;s appendix; check weights reduced via row-space minimization to fit the 32-qubit cap. Gate-validated.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound d &lt;= 14. Exact gate passed (verify + refute).</p>
+<h4>Dead ends</h4>
+<p>None recorded.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0.</p>
+<h4>Reproduction</h4>
+<p>Generator polynomial g of degree 2 over F2; multipliers and witness supports per the paper&#x27;s Tables IX-XIII.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/62-7-14.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/63-7-14.html">[[63,7,14]] — 63-7-14</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[63,7,14]] — palindromic (1,2)-QC stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Targeted the unrestricted stabilizer board. Used the palindromic quasi-cyclic family of arXiv:2610.36700: C = &lt;(g v1, g v2)&gt; in F2[x]/(x^63-1).</p>
+<h4>What was searched</h4>
+<p>Construction transcribed from the paper&#x27;s appendix; check weights reduced via row-space minimization to fit the 32-qubit cap. Gate-validated.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound d &lt;= 14. Exact gate passed (verify + refute).</p>
+<h4>Dead ends</h4>
+<p>None recorded.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0.</p>
+<h4>Reproduction</h4>
+<p>Generator polynomial g of degree 2 over F2; multipliers and witness supports per the paper&#x27;s Tables IX-XIII.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/63-7-14.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/693-6-64.html">[[693,6,64]] — 693-6-64</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/MinboGaoTHU">@MinboGaoTHU</a> &middot; Hyra 2.0</div><details ><summary>note</summary><div class=notebody><h3>[[693,6,64]] — cyclic mirror stabilizer code on Z_693, weight 6</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Target: the weight-6, unrestricted cell of the stabilizer board. At the board commit this entry was prepared against (7ee74980), its best entry by kd^2/n scored 32.4. If the witnessed bound held, this code would score 35.5. That is a scalar comparison, not a dominance claim: the gate reports this code as board-advancing without dominating any entry. Mirror codes, the symplectic halvings of cyclic two-block CSS codes (Khesin and Lu, arXiv:2603.05496; see also arXiv:2609.30069), put a weight-3 X part and a weight-3 Z part on one cyclic group. That gives weight &lt;= 6 with a large search space at fixed n. We do not claim the family as new.</p>
@@ -146,6 +366,84 @@
 <p>Found with the Hyra 2.0 research agent. Our own GPU Pauli-weight information-set searches ran on NVIDIA H20 GPUs, and our own branch-and-bound prover gave the lower bound. pynauty computed the graph automorphisms. The repository&#x27;s submission kit and verifier were used unchanged.</p>
 <h4>Reproduction</h4>
 <p>n = 693. Generator i, i in Z_693, has X on qubits i, i + 96, i + 605 and Z on qubits -i, -i - 83, -i - 372, all mod 693. A qubit in both carries Y. That gives 693 generators of rank 687, so k = 6. Score Pauli weight with Y counted once.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/693-6-64.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/711-187-7.html">[[711,187,7]] — 711-187-7</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[711,187,7]] — priced-calculus C-DELETE-CHECK</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at a thin (n,k,d) cell. Derived by a single C-DELETE-CHECK move of the priced construction calculus from a parent entry, keeping only instances with a connected Tanner graph and fresh X/Z witnesses.</p>
+<h4>What was searched</h4>
+<p>Single-move C-DELETE-CHECK sweep over challenge parents with n &gt; 700 (20-parent probe, 2026-10-28); survivors screened for X and Z logical witnesses and validated with <code>verify/qldpc_verify.py</code> (8000 RIS trials per side, then accelerator pass).</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bounds: d_X &lt;= 7, d_Z &lt;= 20, so d &lt;= 7.</p>
+<h4>Dead ends</h4>
+<p>Instances whose inherited witnesses were refuted by a lighter logical were discarded; only survivors of the accelerator pass are submitted.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Priced construction calculus consumer (C-DELETE-CHECK cell). Challenge verifier <code>verify/qldpc_verify.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Operation: C-DELETE-CHECK from a challenge parent (see provenance.construction in the entry). Witnesses as stored in the entry.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/711-187-7.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/714-22-1.html">[[714,22,1]] — 714-22-1</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[714,22,1]] — priced-calculus C-DELETE-CHECK</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at a thin (n,k,d) cell. Derived by a single C-DELETE-CHECK move of the priced construction calculus from a parent entry, keeping only instances with a connected Tanner graph and fresh X/Z witnesses.</p>
+<h4>What was searched</h4>
+<p>Single-move C-DELETE-CHECK sweep over challenge parents with n &gt; 700 (20-parent probe, 2026-10-28); survivors screened for X and Z logical witnesses and validated with <code>verify/qldpc_verify.py</code> (8000 RIS trials per side, then accelerator pass).</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bounds: d_X &lt;= 7, d_Z &lt;= 7, so d &lt;= 7.</p>
+<h4>Dead ends</h4>
+<p>Instances whose inherited witnesses were refuted by a lighter logical were discarded; only survivors of the accelerator pass are submitted.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Priced construction calculus consumer (C-DELETE-CHECK cell). Challenge verifier <code>verify/qldpc_verify.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Operation: C-DELETE-CHECK from a challenge parent (see provenance.construction in the entry). Witnesses as stored in the entry.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/714-22-1.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/719-305-1.html">[[719,305,1]] — 719-305-1</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[719,305,1]] — priced-calculus C-DELETE-CHECK</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at a thin (n,k,d) cell. Derived by a single C-DELETE-CHECK move of the priced construction calculus from a parent entry, keeping only instances with a connected Tanner graph and fresh X/Z witnesses.</p>
+<h4>What was searched</h4>
+<p>Single-move C-DELETE-CHECK sweep over challenge parents with n &gt; 700 (20-parent probe, 2026-10-28); survivors screened for X and Z logical witnesses and validated with <code>verify/qldpc_verify.py</code> (8000 RIS trials per side, then accelerator pass).</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bounds: d_X &lt;= 1, d_Z &lt;= 4, so d &lt;= 1.</p>
+<h4>Dead ends</h4>
+<p>Instances whose inherited witnesses were refuted by a lighter logical were discarded; only survivors of the accelerator pass are submitted.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Priced construction calculus consumer (C-DELETE-CHECK cell). Challenge verifier <code>verify/qldpc_verify.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Operation: C-DELETE-CHECK from a challenge parent (see provenance.construction in the entry). Witnesses as stored in the entry.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/719-305-1.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/73-10-15.html">[[73,10,15]] — 73-10-15</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[73,10,15]] — palindromic (1,2)-QC stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Targeted the unrestricted stabilizer board. Used the palindromic quasi-cyclic family of arXiv:2610.36700: C = &lt;(g v1, g v2)&gt; in F2[x]/(x^73-1).</p>
+<h4>What was searched</h4>
+<p>Construction transcribed from the paper&#x27;s appendix; check weights reduced via row-space minimization to fit the 32-qubit cap. Gate-validated.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound d &lt;= 15. Exact gate passed (verify + refute).</p>
+<h4>Dead ends</h4>
+<p>None recorded.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0.</p>
+<h4>Reproduction</h4>
+<p>Generator polynomial g of degree 4 over F2; multipliers and witness supports per the paper&#x27;s Tables IX-XIII.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/73-10-15.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/749-155-3.html">[[749,155,3]] — 749-155-3</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[749,155,3]] — priced-calculus C-DELETE-CHECK</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at a thin (n,k,d) cell. Derived by a single C-DELETE-CHECK move of the priced construction calculus from a parent entry, keeping only instances with a connected Tanner graph and fresh X/Z witnesses.</p>
+<h4>What was searched</h4>
+<p>Single-move C-DELETE-CHECK sweep over challenge parents with n &gt; 700 (20-parent probe, 2026-10-28); survivors screened for X and Z logical witnesses and validated with <code>verify/qldpc_verify.py</code> (8000 RIS trials per side, then accelerator pass).</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bounds: d_X &lt;= 3, d_Z &lt;= 3, so d &lt;= 3.</p>
+<h4>Dead ends</h4>
+<p>Instances whose inherited witnesses were refuted by a lighter logical were discarded; only survivors of the accelerator pass are submitted.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Priced construction calculus consumer (C-DELETE-CHECK cell). Challenge verifier <code>verify/qldpc_verify.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Operation: C-DELETE-CHECK from a challenge parent (see provenance.construction in the entry). Witnesses as stored in the entry.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/749-155-3.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/749-156-3.html">[[749,156,3]] — 749-156-3</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[749,156,3]] — priced-calculus C-DELETE-CHECK</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at a thin (n,k,d) cell. Derived by a single C-DELETE-CHECK move of the priced construction calculus from a parent entry, keeping only instances with a connected Tanner graph and fresh X/Z witnesses.</p>
+<h4>What was searched</h4>
+<p>Single-move C-DELETE-CHECK sweep over challenge parents with n &gt; 700 (20-parent probe, 2026-10-28); survivors screened for X and Z logical witnesses and validated with <code>verify/qldpc_verify.py</code> (8000 RIS trials per side, then accelerator pass).</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bounds: d_X &lt;= 3, d_Z &lt;= 3, so d &lt;= 3.</p>
+<h4>Dead ends</h4>
+<p>Instances whose inherited witnesses were refuted by a lighter logical were discarded; only survivors of the accelerator pass are submitted.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Priced construction calculus consumer (C-DELETE-CHECK cell). Challenge verifier <code>verify/qldpc_verify.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Operation: C-DELETE-CHECK from a challenge parent (see provenance.construction in the entry). Witnesses as stored in the entry.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/749-156-3.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/16-10-3.html">[[16,10,3]] — 16-10-3</a></h3><div class=kv style="color:var(--mut)">2026-10-27 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[16,10,3]] — Gottesman balanced stabilizer code (j=4)</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Aim: stabilizer board, <code>weight-9plus / unrestricted</code>, using the balanced packing construction of Gottesman described in arXiv:2610.34399, Appendix E. These codes have high rate at distance 3 with logarithmically many generators, so they are candidates in the any-weight cell.</p>
