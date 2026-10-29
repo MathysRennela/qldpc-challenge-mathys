@@ -646,6 +646,32 @@ assert compute_k(HX, HZ) == 32
 coords = grid_coordinates(20, 20, kept=info.get(&quot;kept_qubits&quot;))  # layers=2
 </pre>
 <p>This rebuilds the submitted X and Z check sets exactly. The interaction radius is 4*sqrt(2) = 5.657.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/800-32-22.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/999-417-2.html">[[999,417,2]] — 999-417-2</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[999,417,2]] — priced-calculus C-DELETE-CHECK</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at a thin (n,k,d) cell. Derived by a single C-DELETE-CHECK move of the priced construction calculus from a parent entry, keeping only instances with a connected Tanner graph and fresh X/Z witnesses.</p>
+<h4>What was searched</h4>
+<p>Single-move C-DELETE-CHECK sweep over challenge parents with n &gt; 700 (20-parent probe, 2026-10-28); survivors screened for X and Z logical witnesses and validated with <code>verify/qldpc_verify.py</code> (8000 RIS trials per side, then accelerator pass).</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bounds: d_X &lt;= 2, d_Z &lt;= 2, so d &lt;= 2.</p>
+<h4>Dead ends</h4>
+<p>Instances whose inherited witnesses were refuted by a lighter logical were discarded; only survivors of the accelerator pass are submitted.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Priced construction calculus consumer (C-DELETE-CHECK cell). Challenge verifier <code>verify/qldpc_verify.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Operation: C-DELETE-CHECK from a challenge parent (see provenance.construction in the entry). Witnesses as stored in the entry.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/999-417-2.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/999-418-2.html">[[999,418,2]] — 999-418-2</a></h3><div class=kv style="color:var(--mut)">2026-10-28 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[999,418,2]] — priced-calculus C-DELETE-CHECK</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Aimed at a thin (n,k,d) cell. Derived by a single C-DELETE-CHECK move of the priced construction calculus from a parent entry, keeping only instances with a connected Tanner graph and fresh X/Z witnesses.</p>
+<h4>What was searched</h4>
+<p>Single-move C-DELETE-CHECK sweep over challenge parents with n &gt; 700 (20-parent probe, 2026-10-28); survivors screened for X and Z logical witnesses and validated with <code>verify/qldpc_verify.py</code> (8000 RIS trials per side, then accelerator pass).</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bounds: d_X &lt;= 2, d_Z &lt;= 2, so d &lt;= 2.</p>
+<h4>Dead ends</h4>
+<p>Instances whose inherited witnesses were refuted by a lighter logical were discarded; only survivors of the accelerator pass are submitted.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Priced construction calculus consumer (C-DELETE-CHECK cell). Challenge verifier <code>verify/qldpc_verify.py</code>.</p>
+<h4>Reproduction</h4>
+<p>Operation: C-DELETE-CHECK from a challenge parent (see provenance.construction in the entry). Witnesses as stored in the entry.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/999-418-2.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/16-10-3.html">[[16,10,3]] — 16-10-3</a></h3><div class=kv style="color:var(--mut)">2026-10-27 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[16,10,3]] — Gottesman balanced stabilizer code (j=4)</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Aim: stabilizer board, <code>weight-9plus / unrestricted</code>, using the balanced packing construction of Gottesman described in arXiv:2610.34399, Appendix E. These codes have high rate at distance 3 with logarithmically many generators, so they are candidates in the any-weight cell.</p>
