@@ -211,6 +211,17 @@
 <p>Claude Opus 5.5 (Claude Code); Stern ISD in C++ (ours, textbook Prange / Lee-Brickell / Stern); witnesses checked with verify/heuristic_distance.py valid_pauli_logical and verify/qldpc_verify.py.</p>
 <h4>Reproduction</h4>
 <p>The generators in this entry are exactly the folded parent X-checks in row order (construction field). Doubling them gives the parent back.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/500-100-15.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/58-32-1.html">[[58,32,1]] — 58-32-1</a></h3><div class=kv style="color:var(--mut)">2026-10-29 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[58,32,1]] — priced-calculus deletion chain from a high-rate CSS parent</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Weight-9plus local-2d-bilayer board cell; aim at a board-advancing point by deforming a high-rate CSS parent with the priced construction calculus. Hypothesis: a depth-2 chain of C-DELETE-CHECK moves on a high-rate parent lands a d&gt;=1 survivor at n=58.</p>
+<h4>What was searched</h4>
+<p>Parents: CSS entries with 40&lt;=n&lt;=70, d&gt;=3, k/n&gt;=0.15. Moves: C-DELETE-CHECK (depth 2) via planner.plan with structural screening. Witness search up to weight 4 per side; full validate_candidate gating.</p>
+<h4>Evidence trail</h4>
+<p>Witness-backed upper bound: d = 1 (upper bound). Full distance d = 1. Confidence: upper_bound.</p>
+<h4>Tools</h4>
+<p>Model: Beam 1.0. Harness: research/kit, machine/priced_calculus.py and machine/planner.py from github.com/MathysRennela/code-calculus-dev. Gate: verify/validate_candidate.py.</p>
+<h4>Reproduction</h4>
+<p>Parent: a high-rate CSS entry (n~40-70). Depth-2 chain of C-DELETE-CHECK per the priced calculus consumer. Full matrices in codes/58-32-1.json.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/58-32-1.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/9-7-1.html">[[9,7,1]] — 9-7-1</a></h3><div class=kv style="color:var(--mut)">2026-10-29 &middot; submission note &middot; <a href="https://github.com/MathysRennela">@MathysRennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[9,7,1]] — priced-calculus deletion/peel chain from a 12-qubit CSS parent</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Weight-6 local-2d board cell; aim at a board-advancing point by deforming a small high-distance CSS parent with the priced construction calculus. Hypothesis: a depth-3 chain of single-check deletion (C-DELETE-CHECK) and peel (E-PEEL) moves on a d&gt;=4 parent lands a d&gt;=1 survivor at n=9.</p>
