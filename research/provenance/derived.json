@@ -2,8 +2,8 @@
  "caveat": "no_match means the index holds no match, not that the code is unpublished: two sparse generating sets of one stabilizer group can have non-isomorphic Tanner graphs",
  "counts": {
   "literature": 490,
-  "no_match": 2032,
-  "not_derived": 507,
+  "no_match": 1978,
+  "not_derived": 743,
   "parameters_only": 431
  },
  "derivation_version": 1,
@@ -765,6 +765,10 @@
     }
    ]
   },
+  "109-35-6": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "11-3-3": {
    "bucket": "no_match",
    "matches": []
@@ -1108,6 +1112,10 @@
      "xz_swapped": false
     }
    ]
+  },
+  "115-23-1": {
+   "bucket": "not_derived",
+   "matches": []
   },
   "116-18-6": {
    "bucket": "no_match",
@@ -2540,6 +2548,10 @@
     }
    ]
   },
+  "129-25-1": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "13-1-5": {
    "bucket": "not_derived",
    "matches": []
@@ -2577,6 +2589,14 @@
    "matches": []
   },
   "131-22-2": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "131-39-7": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "131-53-1": {
    "bucket": "not_derived",
    "matches": []
   },
@@ -3521,6 +3541,10 @@
     }
    ]
   },
+  "145-18-8": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "145-32-6": {
    "bucket": "not_derived",
    "matches": []
@@ -3858,6 +3882,14 @@
    "bucket": "not_derived",
    "matches": []
   },
+  "155-62-1": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "155-80-1": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "156-2-17": {
    "bucket": "literature",
    "matches": [
@@ -4028,6 +4060,14 @@
      "source": "codetables"
     }
    ]
+  },
+  "16-5-2": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "16-6-2-b": {
+   "bucket": "not_derived",
+   "matches": []
   },
   "16-6-3": {
    "bucket": "parameters_only",
@@ -4741,6 +4781,10 @@
    "matches": []
   },
   "169-13-8": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "169-49-3": {
    "bucket": "not_derived",
    "matches": []
   },
@@ -5647,7 +5691,15 @@
    "bucket": "not_derived",
    "matches": []
   },
+  "189-122-1": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "189-27-6": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "189-29-1": {
    "bucket": "not_derived",
    "matches": []
   },
@@ -6417,6 +6469,10 @@
     }
    ]
   },
+  "199-102-1": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "20-10-2": {
    "bucket": "literature",
    "matches": [
@@ -6762,6 +6818,42 @@
    "bucket": "no_match",
    "matches": []
   },
+  "209-10-15": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "209-10-21": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "209-24-19": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "209-28-15": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "209-39-23": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "209-42-20": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "209-43-15": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "209-57-7": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "209-60-7": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "21-1-7": {
    "bucket": "not_derived",
    "matches": []
@@ -6934,6 +7026,10 @@
     }
    ]
   },
+  "213-2-24": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "214-2-25": {
    "bucket": "literature",
    "matches": [
@@ -7053,6 +7149,10 @@
     }
    ]
   },
+  "217-35-1": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "219-31-3": {
    "bucket": "parameters_only",
    "matches": [
@@ -7123,6 +7223,10 @@
    "bucket": "no_match",
    "matches": []
   },
+  "221-79-2": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "222-4-21": {
    "bucket": "no_match",
    "matches": []
@@ -7135,12 +7239,20 @@
    "bucket": "no_match",
    "matches": []
   },
+  "223-112-1": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "224-112-2": {
    "bucket": "no_match",
    "matches": []
   },
   "224-12-16": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "224-12-16-b": {
+   "bucket": "not_derived",
    "matches": []
   },
   "224-12-19": {
@@ -7221,6 +7333,10 @@
   },
   "226-2-15": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "227-94-6": {
+   "bucket": "not_derived",
    "matches": []
   },
   "228-34-6": {
@@ -7353,6 +7469,10 @@
    ]
   },
   "230-94-8": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "231-62-11": {
    "bucket": "not_derived",
    "matches": []
   },
@@ -7927,6 +8047,10 @@
    "bucket": "no_match",
    "matches": []
   },
+  "243-12-4": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "244-12-5": {
    "bucket": "parameters_only",
    "matches": [
@@ -8114,6 +8238,10 @@
    "bucket": "no_match",
    "matches": []
   },
+  "250-100-3": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "250-40-8": {
    "bucket": "no_match",
    "matches": []
@@ -8127,6 +8255,14 @@
      "source": "codetables"
     }
    ]
+  },
+  "251-128-1": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "251-168-1": {
+   "bucket": "not_derived",
+   "matches": []
   },
   "252-10-12": {
    "bucket": "no_match",
@@ -8352,6 +8488,26 @@
    "bucket": "no_match",
    "matches": []
   },
+  "255-125-7": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "255-132-6": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "255-133-5": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "255-161-3": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "255-197-1": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "255-8-22": {
    "bucket": "not_derived",
    "matches": []
@@ -8402,6 +8558,10 @@
   },
   "256-68-12": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "257-89-5": {
+   "bucket": "not_derived",
    "matches": []
   },
   "258-32-22": {
@@ -8491,6 +8651,18 @@
     }
    ]
   },
+  "263-4-27": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "263-73-7": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "263-8-11": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "264-4-19": {
    "bucket": "no_match",
    "matches": []
@@ -8545,6 +8717,18 @@
   },
   "268-8-12": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "269-24-11": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "269-34-13": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "269-40-32": {
+   "bucket": "not_derived",
    "matches": []
   },
   "27-10-1": {
@@ -8670,6 +8854,10 @@
    "bucket": "no_match",
    "matches": []
   },
+  "273-43-1": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "275-39-3": {
    "bucket": "no_match",
    "matches": []
@@ -8729,6 +8917,14 @@
     }
    ]
   },
+  "277-14-4": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "277-44-7": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "278-14-5": {
    "bucket": "no_match",
    "matches": []
@@ -8757,6 +8953,22 @@
   },
   "278-44-8": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "279-12-29": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "279-4-32": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "279-74-11": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "279-77-7": {
+   "bucket": "not_derived",
    "matches": []
   },
   "28-10-3": {
@@ -9031,12 +9243,44 @@
    "bucket": "no_match",
    "matches": []
   },
+  "285-2-32": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "286-2-29": {
    "bucket": "no_match",
    "matches": []
   },
   "286-88-4": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "287-12-17": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "287-148-5": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "287-16-15": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "287-33-37": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "287-34-26": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "287-36-14": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "287-6-28": {
+   "bucket": "not_derived",
    "matches": []
   },
   "288-100-3": {
@@ -9319,6 +9563,10 @@
    "bucket": "no_match",
    "matches": []
   },
+  "293-103-4": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "294-10-14": {
    "bucket": "no_match",
    "matches": []
@@ -9395,6 +9643,10 @@
    "bucket": "no_match",
    "matches": []
   },
+  "295-81-7": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "296-78-12": {
    "bucket": "no_match",
    "matches": []
@@ -9409,6 +9661,10 @@
      "xz_swapped": false
     }
    ]
+  },
+  "299-10-28": {
+   "bucket": "not_derived",
+   "matches": []
   },
   "3-2-1": {
    "bucket": "no_match",
@@ -9851,6 +10107,30 @@
    "bucket": "no_match",
    "matches": []
   },
+  "301-133-21": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "301-138-18": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "301-141-20": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "301-144-19": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "301-145-18": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "301-32-33": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "302-120-20": {
    "bucket": "no_match",
    "matches": []
@@ -9873,6 +10153,10 @@
   },
   "303-43-3": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "305-204-1": {
+   "bucket": "not_derived",
    "matches": []
   },
   "306-106-3": {
@@ -10026,6 +10310,10 @@
    "bucket": "no_match",
    "matches": []
   },
+  "311-208-1": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "312-10-26": {
    "bucket": "no_match",
    "matches": []
@@ -10048,6 +10336,10 @@
   },
   "312-96-4": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "314-254-1": {
+   "bucket": "not_derived",
    "matches": []
   },
   "315-254-2": {
@@ -10112,6 +10404,22 @@
   },
   "318-6-38": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "319-12-29": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "319-65-2": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "319-67-1": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "319-87-9": {
+   "bucket": "not_derived",
    "matches": []
   },
   "32-10-2": {
@@ -10479,6 +10787,10 @@
    "bucket": "not_derived",
    "matches": []
   },
+  "33-10-2": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "33-2-7": {
    "bucket": "not_derived",
    "matches": []
@@ -10543,8 +10855,8 @@
    "bucket": "no_match",
    "matches": []
   },
-  "330-2-42": {
-   "bucket": "no_match",
+  "330-2-40": {
+   "bucket": "not_derived",
    "matches": []
   },
   "330-22-9": {
@@ -10691,6 +11003,10 @@
    "bucket": "no_match",
    "matches": []
   },
+  "339-16-17": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "34-11-1": {
    "bucket": "not_derived",
    "matches": []
@@ -10812,6 +11128,18 @@
    "bucket": "no_match",
    "matches": []
   },
+  "341-40-46": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "341-56-43": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "341-61-40": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "342-118-3": {
    "bucket": "no_match",
    "matches": []
@@ -10838,6 +11166,10 @@
   },
   "342-76-4": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "343-8-6": {
+   "bucket": "not_derived",
    "matches": []
   },
   "344-6-40": {
@@ -10881,6 +11213,10 @@
      "xz_swapped": false
     }
    ]
+  },
+  "347-2-54": {
+   "bucket": "not_derived",
+   "matches": []
   },
   "348-2-41": {
    "bucket": "no_match",
@@ -11096,12 +11432,20 @@
    "bucket": "no_match",
    "matches": []
   },
+  "351-95-9": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "352-6-32": {
    "bucket": "no_match",
    "matches": []
   },
   "352-88-16": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "353-18-4": {
+   "bucket": "not_derived",
    "matches": []
   },
   "354-18-5": {
@@ -11145,6 +11489,14 @@
   },
   "358-2-46": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "359-153-3": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "359-155-2": {
+   "bucket": "not_derived",
    "matches": []
   },
   "36-10-4": {
@@ -11636,6 +11988,10 @@
    "bucket": "no_match",
    "matches": []
   },
+  "360-25-4": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "360-38-8": {
    "bucket": "no_match",
    "matches": []
@@ -11730,6 +12086,10 @@
    "bucket": "no_match",
    "matches": []
   },
+  "366-19-4": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "367-19-5": {
    "bucket": "no_match",
    "matches": []
@@ -11740,6 +12100,14 @@
   },
   "368-8-8": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "369-50-2": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "369-53-1": {
+   "bucket": "not_derived",
    "matches": []
   },
   "37-1-7": {
@@ -11848,6 +12216,22 @@
    "bucket": "no_match",
    "matches": []
   },
+  "371-10-41": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "371-130-18": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "371-136-11": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "371-137-9": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "372-10-30": {
    "bucket": "no_match",
    "matches": []
@@ -11888,6 +12272,18 @@
    "bucket": "no_match",
    "matches": []
   },
+  "375-102-5": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "375-192-3": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "375-193-2": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "376-190-4": {
    "bucket": "no_match",
    "matches": []
@@ -11898,6 +12294,38 @@
   },
   "376-98-8": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "377-12-32": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "377-129-5": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "377-131-2": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "377-18-34": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "377-23-58": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "377-24-15": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "377-39-54": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "377-4-62": {
+   "bucket": "not_derived",
    "matches": []
   },
   "378-10-48": {
@@ -12012,6 +12440,10 @@
    "bucket": "not_derived",
    "matches": []
   },
+  "38-17-3": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "38-2-10": {
    "bucket": "not_derived",
    "matches": []
@@ -12056,6 +12488,10 @@
    "bucket": "no_match",
    "matches": []
   },
+  "383-199-3": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "384-12-17": {
    "bucket": "no_match",
    "matches": []
@@ -12088,12 +12524,48 @@
    "bucket": "no_match",
    "matches": []
   },
+  "384-96-15": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "384-96-4": {
    "bucket": "no_match",
    "matches": []
   },
+  "387-20-4": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "388-20-5": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "389-110-43": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "389-27-60": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "389-67-50": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "389-69-48": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "389-70-48": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "389-72-48": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "389-73-46": {
+   "bucket": "not_derived",
    "matches": []
   },
   "39-13-1": {
@@ -12206,6 +12678,10 @@
    "bucket": "no_match",
    "matches": []
   },
+  "390-11-6": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "390-14-35": {
    "bucket": "no_match",
    "matches": []
@@ -12222,12 +12698,12 @@
    "bucket": "no_match",
    "matches": []
   },
-  "390-50-42": {
-   "bucket": "no_match",
+  "390-50-41": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "390-54-41": {
-   "bucket": "no_match",
+  "390-54-37": {
+   "bucket": "not_derived",
    "matches": []
   },
   "390-6-48": {
@@ -12337,6 +12813,18 @@
     }
    ]
   },
+  "395-10-59": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "395-202-5": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "395-207-3": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "396-10-33": {
    "bucket": "no_match",
    "matches": []
@@ -12355,6 +12843,14 @@
   },
   "396-88-4": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "397-54-2": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "397-57-1": {
+   "bucket": "not_derived",
    "matches": []
   },
   "398-54-3": {
@@ -12725,6 +13221,26 @@
    "bucket": "no_match",
    "matches": []
   },
+  "407-216-4": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "407-216-7": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "407-221-2": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "407-225-3": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "407-251-2": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "408-18-32": {
    "bucket": "no_match",
    "matches": []
@@ -12735,6 +13251,10 @@
   },
   "408-216-8": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "409-2-57": {
+   "bucket": "not_derived",
    "matches": []
   },
   "41-10-5": {
@@ -12811,6 +13331,10 @@
    "bucket": "no_match",
    "matches": []
   },
+  "413-137-7": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "414-136-8": {
    "bucket": "no_match",
    "matches": []
@@ -12821,6 +13345,14 @@
   },
   "414-92-4": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "415-104-17": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "415-111-9": {
+   "bucket": "not_derived",
    "matches": []
   },
   "416-104-17": {
@@ -12837,6 +13369,10 @@
   },
   "416-4-50": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "417-10-6": {
+   "bucket": "not_derived",
    "matches": []
   },
   "418-10-7": {
@@ -13158,6 +13694,10 @@
    "bucket": "no_match",
    "matches": []
   },
+  "421-2-47": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "422-2-20": {
    "bucket": "literature",
    "matches": [
@@ -13200,8 +13740,24 @@
    "bucket": "no_match",
    "matches": []
   },
+  "427-23-67": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "428-4-54": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "429-22-4": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "429-56-45": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "429-77-56": {
+   "bucket": "not_derived",
    "matches": []
   },
   "43-6-2": {
@@ -13216,16 +13772,28 @@
    "bucket": "no_match",
    "matches": []
   },
-  "430-56-42": {
-   "bucket": "no_match",
+  "430-56-38": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "430-56-46": {
-   "bucket": "no_match",
+  "430-56-42-b": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "430-58-48": {
-   "bucket": "no_match",
+  "430-58-46": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "431-117-7": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "431-223-5": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "431-4-23": {
+   "bucket": "not_derived",
    "matches": []
   },
   "432-112-14": {
@@ -13250,6 +13818,22 @@
   },
   "432-96-4": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "433-2-59": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "433-30-52": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "433-58-2": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "433-61-1": {
+   "bucket": "not_derived",
    "matches": []
   },
   "434-10-28": {
@@ -13294,6 +13878,10 @@
   },
   "436-4-54": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "437-22-22": {
+   "bucket": "not_derived",
    "matches": []
   },
   "438-18-12": {
@@ -13394,6 +13982,14 @@
     }
    ]
   },
+  "440-258-2": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "440-261-1": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "441-1-21": {
    "bucket": "no_match",
    "matches": []
@@ -13434,6 +14030,34 @@
    "bucket": "no_match",
    "matches": []
   },
+  "445-68-7": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "445-85-59": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "445-89-58": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "445-92-54": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "445-93-53": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "445-95-57": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "445-96-57": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "446-13-13": {
    "bucket": "no_match",
    "matches": []
@@ -13442,12 +14066,12 @@
    "bucket": "no_match",
    "matches": []
   },
-  "446-74-50": {
-   "bucket": "no_match",
+  "446-74-48": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "446-76-48": {
-   "bucket": "no_match",
+  "446-76-47": {
+   "bucket": "not_derived",
    "matches": []
   },
   "447-7-9": {
@@ -13524,6 +14148,10 @@
    "bucket": "no_match",
    "matches": []
   },
+  "451-228-1": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "452-115-18": {
    "bucket": "not_derived",
    "matches": []
@@ -13534,6 +14162,10 @@
   },
   "452-228-2": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "453-2-35": {
+   "bucket": "not_derived",
    "matches": []
   },
   "454-2-21": {
@@ -13609,6 +14241,10 @@
    "bucket": "no_match",
    "matches": []
   },
+  "461-10-66": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "462-10-11": {
    "bucket": "no_match",
    "matches": []
@@ -13645,8 +14281,12 @@
    "bucket": "no_match",
    "matches": []
   },
-  "466-118-46": {
-   "bucket": "no_match",
+  "465-76-64": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "466-118-42": {
+   "bucket": "not_derived",
    "matches": []
   },
   "466-2-65": {
@@ -13657,24 +14297,24 @@
    "bucket": "no_match",
    "matches": []
   },
-  "466-58-52": {
-   "bucket": "no_match",
+  "466-58-50-b": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "466-58-56": {
-   "bucket": "no_match",
+  "466-58-52-b": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "466-60-53": {
-   "bucket": "no_match",
+  "466-60-50": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "466-60-56": {
-   "bucket": "no_match",
+  "466-60-52": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "466-60-57": {
-   "bucket": "no_match",
+  "466-60-53-b": {
+   "bucket": "not_derived",
    "matches": []
   },
   "467-63-3": {
@@ -13691,6 +14331,14 @@
   },
   "468-36-20": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "469-192-11": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "469-197-6": {
+   "bucket": "not_derived",
    "matches": []
   },
   "47-1-11": {
@@ -13769,6 +14417,14 @@
   },
   "470-2-62": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "471-122-15": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "471-127-7": {
+   "bucket": "not_derived",
    "matches": []
   },
   "472-119-20": {
@@ -14313,20 +14969,20 @@
    "bucket": "no_match",
    "matches": []
   },
-  "482-48-56": {
-   "bucket": "no_match",
+  "482-48-50": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "482-50-60": {
-   "bucket": "no_match",
+  "482-50-59": {
+   "bucket": "not_derived",
    "matches": []
   },
   "482-96-48": {
    "bucket": "no_match",
    "matches": []
   },
-  "482-98-51": {
-   "bucket": "no_match",
+  "482-98-49": {
+   "bucket": "not_derived",
    "matches": []
   },
   "483-282-3": {
@@ -14678,8 +15334,8 @@
    "bucket": "no_match",
    "matches": []
   },
-  "504-18-40": {
-   "bucket": "no_match",
+  "504-18-38": {
+   "bucket": "not_derived",
    "matches": []
   },
   "504-24-34": {
@@ -14857,8 +15513,8 @@
    "bucket": "no_match",
    "matches": []
   },
-  "514-128-52": {
-   "bucket": "no_match",
+  "514-128-50": {
+   "bucket": "not_derived",
    "matches": []
   },
   "514-130-38": {
@@ -14869,52 +15525,52 @@
    "bucket": "no_match",
    "matches": []
   },
-  "514-130-51": {
-   "bucket": "no_match",
+  "514-130-49": {
+   "bucket": "not_derived",
    "matches": []
   },
   "514-162-29": {
    "bucket": "no_match",
    "matches": []
   },
-  "514-32-46": {
-   "bucket": "no_match",
+  "514-32-42": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "514-32-62": {
-   "bucket": "no_match",
+  "514-32-60": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "514-32-68": {
-   "bucket": "no_match",
+  "514-32-62-b": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "514-32-70": {
-   "bucket": "no_match",
+  "514-32-66": {
+   "bucket": "not_derived",
    "matches": []
   },
   "514-34-59": {
    "bucket": "no_match",
    "matches": []
   },
-  "514-64-64": {
-   "bucket": "no_match",
+  "514-64-60-b": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "514-64-64-b": {
-   "bucket": "no_match",
+  "514-64-62": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "514-66-59": {
-   "bucket": "no_match",
+  "514-66-58": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "514-66-63": {
-   "bucket": "no_match",
+  "514-66-59-b": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "514-96-58": {
-   "bucket": "no_match",
+  "514-96-56": {
+   "bucket": "not_derived",
    "matches": []
   },
   "514-98-54": {
@@ -15021,6 +15677,10 @@
   },
   "52-29-2": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "52-3-4": {
+   "bucket": "not_derived",
    "matches": []
   },
   "52-4-9": {
@@ -15410,12 +16070,24 @@
    "bucket": "no_match",
    "matches": []
   },
+  "544-10-78": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "544-136-17": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "544-18-76": {
    "bucket": "no_match",
    "matches": []
   },
   "544-20-80": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "544-8-76": {
+   "bucket": "not_derived",
    "matches": []
   },
   "545-73-3": {
@@ -16683,6 +17355,10 @@
    "bucket": "no_match",
    "matches": []
   },
+  "608-152-19": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "608-2-36": {
    "bucket": "no_match",
    "matches": []
@@ -17379,6 +18055,10 @@
    "bucket": "no_match",
    "matches": []
   },
+  "639-91-3": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "64-10-4": {
    "bucket": "parameters_only",
    "matches": [
@@ -17701,6 +18381,10 @@
     }
    ]
   },
+  "640-128-3": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "640-132-7": {
    "bucket": "no_match",
    "matches": []
@@ -17984,11 +18668,11 @@
    "bucket": "no_match",
    "matches": []
   },
-  "662-122-77": {
-   "bucket": "no_match",
+  "662-122-75": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "662-122-84": {
+  "662-122-77": {
    "bucket": "no_match",
    "matches": []
   },
@@ -18004,20 +18688,20 @@
    "bucket": "no_match",
    "matches": []
   },
-  "662-60-94": {
-   "bucket": "no_match",
+  "662-60-92": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "662-60-96": {
-   "bucket": "no_match",
+  "662-60-92-b": {
+   "bucket": "not_derived",
    "matches": []
   },
   "662-62-89": {
    "bucket": "no_match",
    "matches": []
   },
-  "662-62-93": {
-   "bucket": "no_match",
+  "662-62-92": {
+   "bucket": "not_derived",
    "matches": []
   },
   "663-351-10": {
@@ -18080,8 +18764,8 @@
    "bucket": "no_match",
    "matches": []
   },
-  "672-14-56": {
-   "bucket": "no_match",
+  "672-14-44": {
+   "bucket": "not_derived",
    "matches": []
   },
   "672-16-48": {
@@ -18176,11 +18860,11 @@
    "bucket": "no_match",
    "matches": []
   },
-  "674-170-76": {
-   "bucket": "no_match",
+  "674-170-73-b": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "674-170-76-b": {
+  "674-170-76": {
    "bucket": "no_match",
    "matches": []
   },
@@ -18188,11 +18872,11 @@
    "bucket": "no_match",
    "matches": []
   },
-  "674-44-89": {
-   "bucket": "no_match",
+  "674-44-86": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "674-44-91": {
+  "674-44-89": {
    "bucket": "no_match",
    "matches": []
   },
@@ -18200,27 +18884,27 @@
    "bucket": "no_match",
    "matches": []
   },
-  "674-84-92": {
-   "bucket": "no_match",
+  "674-84-82": {
+   "bucket": "not_derived",
    "matches": []
   },
   "674-86-56": {
    "bucket": "no_match",
    "matches": []
   },
+  "674-86-87": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "674-86-89": {
    "bucket": "no_match",
    "matches": []
   },
+  "674-86-89-b": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "674-86-90": {
-   "bucket": "no_match",
-   "matches": []
-  },
-  "674-86-91": {
-   "bucket": "no_match",
-   "matches": []
-  },
-  "674-86-92": {
    "bucket": "no_match",
    "matches": []
   },
@@ -18348,8 +19032,8 @@
    "bucket": "no_match",
    "matches": []
   },
-  "682-102-90": {
-   "bucket": "no_match",
+  "682-102-88": {
+   "bucket": "not_derived",
    "matches": []
   },
   "682-122-44": {
@@ -18388,8 +19072,8 @@
    "bucket": "no_match",
    "matches": []
   },
-  "682-142-81": {
-   "bucket": "no_match",
+  "682-142-79": {
+   "bucket": "not_derived",
    "matches": []
   },
   "682-172-50": {
@@ -18428,12 +19112,12 @@
    "bucket": "no_match",
    "matches": []
   },
-  "682-40-66": {
-   "bucket": "no_match",
+  "682-40-56": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "682-62-100": {
-   "bucket": "no_match",
+  "682-62-92": {
+   "bucket": "not_derived",
    "matches": []
   },
   "682-82-35": {
@@ -18452,8 +19136,8 @@
    "bucket": "no_match",
    "matches": []
   },
-  "684-12-108": {
-   "bucket": "no_match",
+  "684-12-102": {
+   "bucket": "not_derived",
    "matches": []
   },
   "684-12-45": {
@@ -18488,20 +19172,24 @@
    "bucket": "no_match",
    "matches": []
   },
-  "684-4-104": {
-   "bucket": "no_match",
+  "684-4-100": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "684-4-81": {
-   "bucket": "no_match",
+  "684-4-73": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "684-6-77": {
-   "bucket": "no_match",
+  "684-6-75": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "684-8-110": {
-   "bucket": "no_match",
+  "684-8-106": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "684-8-107": {
+   "bucket": "not_derived",
    "matches": []
   },
   "684-8-54": {
@@ -18660,6 +19348,10 @@
    "matches": []
   },
   "70-48-1": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "70-48-2": {
    "bucket": "not_derived",
    "matches": []
   },
@@ -19512,6 +20204,10 @@
    "bucket": "not_derived",
    "matches": []
   },
+  "75-38-1": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "75-7-10": {
    "bucket": "not_derived",
    "matches": []
@@ -19806,6 +20502,10 @@
   },
   "787-8-21": {
    "bucket": "no_match",
+   "matches": []
+  },
+  "789-21-7": {
+   "bucket": "not_derived",
    "matches": []
   },
   "79-11-3": {
@@ -20172,6 +20872,10 @@
    "bucket": "no_match",
    "matches": []
   },
+  "80-5-4": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "80-6-10": {
    "bucket": "literature",
    "matches": [
@@ -20295,6 +20999,10 @@
    "matches": []
   },
   "812-20-7": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "813-13-9": {
    "bucket": "not_derived",
    "matches": []
   },
@@ -20846,12 +21554,16 @@
    "bucket": "no_match",
    "matches": []
   },
+  "863-23-7": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "864-146-8": {
    "bucket": "no_match",
    "matches": []
   },
-  "864-20-36": {
-   "bucket": "no_match",
+  "864-20-34": {
+   "bucket": "not_derived",
    "matches": []
   },
   "864-434-6": {
@@ -21110,8 +21822,8 @@
    "bucket": "no_match",
    "matches": []
   },
-  "899-18-31": {
-   "bucket": "no_match",
+  "899-18-30": {
+   "bucket": "not_derived",
    "matches": []
   },
   "899-47-5": {
@@ -21445,7 +22157,15 @@
    "bucket": "not_derived",
    "matches": []
   },
+  "91-15-1": {
+   "bucket": "not_derived",
+   "matches": []
+  },
   "91-19-6": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "91-46-1": {
    "bucket": "not_derived",
    "matches": []
   },
@@ -21469,8 +22189,8 @@
    "bucket": "no_match",
    "matches": []
   },
-  "914-18-31": {
-   "bucket": "no_match",
+  "914-18-30": {
+   "bucket": "not_derived",
    "matches": []
   },
   "918-14-9": {
@@ -21537,12 +22257,12 @@
    "bucket": "no_match",
    "matches": []
   },
-  "920-18-31": {
-   "bucket": "no_match",
+  "920-18-30": {
+   "bucket": "not_derived",
    "matches": []
   },
-  "921-18-31": {
-   "bucket": "no_match",
+  "921-18-30": {
+   "bucket": "not_derived",
    "matches": []
   },
   "922-18-30": {
@@ -22157,8 +22877,8 @@
    "bucket": "no_match",
    "matches": []
   },
-  "960-20-40": {
-   "bucket": "no_match",
+  "960-20-38": {
+   "bucket": "not_derived",
    "matches": []
   },
   "960-24-38": {
@@ -22321,6 +23041,14 @@
    "matches": []
   },
   "99-17-7": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "99-50-1": {
+   "bucket": "not_derived",
+   "matches": []
+  },
+  "99-53-1": {
    "bucket": "not_derived",
    "matches": []
   },
