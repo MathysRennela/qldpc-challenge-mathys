@@ -201,7 +201,7 @@
    "notes": "deterministic PP-SCALE SNF-bundle grid; connectivity via Tanner block structure; gate verdict board_advancing before submission"
   }
  },
- "family": "other",
+ "family": "pair-partition-cpm",
  "circuit": {
   "d_circ": {
    "Z": {
