@@ -129,7 +129,7 @@
    "notes": "deterministic PP-SCALE mixed-slope SNF-bundle grid; fingerprint new to dedup index; gate verdict board_advancing before submission"
   }
  },
- "family": "other",
+ "family": "pair-partition-cpm",
  "circuit": {
   "d_circ": {
    "Z": {
