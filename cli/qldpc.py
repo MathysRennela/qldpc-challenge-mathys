@@ -1524,7 +1524,11 @@ def _peer_audit_check(doc, report, args, res, slug):
     if staged:
         print(f"  the verified document was staged at {staged} for the audit")
         res["staged"] = staged
-    res["error"] = {"stage": "peer-audit", "message": "; ".join(problems)}
+    hint = (
+        f"Run: {peer_audit.pair_command(staged or '<candidate>.json', trials=trials, pair_depth=pair_depth)}, "
+        f"then re-run submit with --peer-audit peer-audit.json"
+    )
+    res["error"] = {"stage": "peer-audit", "message": "; ".join(problems), "hint": hint}
     return 1
 
 
@@ -1652,7 +1656,12 @@ def _revision_check(doc, report, args, res, slug=None):
     print("\nsubmission refused; nothing written to the board:")
     for p in problems:
         print(f"  {p}")
-    res["error"] = {"stage": "revision", "class": "revision", "message": "; ".join(problems)}
+    res["error"] = {
+        "stage": "revision",
+        "class": "revision",
+        "message": "; ".join(problems),
+        "hint": "re-run with --slug %s" % _suggested_slug_doc(slug, out_dir),
+    }
     return 1
 
 
@@ -1704,8 +1713,136 @@ def _frontier_check(doc, report, args, res):
     print("\nsubmission refused; nothing written to the board:")
     for p in problems:
         print(f"  {p}")
-    res["error"] = {"stage": "frontier", "message": "; ".join(problems)}
+    res["error"] = {
+        "stage": "frontier",
+        "message": "; ".join(problems),
+        "hint": "re-run submit with --allow-non-frontier to file it as a non-frontier record",
+    }
     return 1
+
+
+def _fmt_hours(h):
+    """Format a number of hours for the note: 2 significant figures, no trailing zeros."""
+    return f"{float(h):.2g}" if float(h) < 10 else f"{float(h):.0f}"
+
+
+def note_stub(doc, report, args, slug):
+    """Return the Markdown of the note stub ``qldpc submit`` stages without --note-file.
+
+    Every section of notes/TEMPLATE.md is present, seeded from what the run
+    already knows (issue #7384): the header's one-line description from
+    --name, then the construction text; the track cell the verifier computed;
+    the search budget the --budget-* flags or --budget-json recorded under
+    provenance.search_budget (candidates screened, RIS trials per side, the
+    harness, compute, model tokens) in "What was searched"; and the witness
+    ladder of each side (the found weight, the samples it was found at and
+    survived, the tool and seeds) in "Evidence trail". What the run cannot
+    know stays a TODO line, so the author edits measured numbers instead of
+    writing them from scratch, and a TODO left in is visible at review.
+    """
+    n, k, d = doc["n"], doc["k"], doc["distance"]["d"]
+    prov = doc.get("provenance") or {}
+    comp = (report or {}).get("computed") or {}
+    construction = (prov.get("construction") or getattr(args, "construction", "") or "").strip()
+    name = (getattr(args, "name", "") or "").strip()
+    if name and name != f"[[{n},{k},{d}]]":
+        headline = name
+    elif construction and construction != "contributed via qldpc submit":
+        headline = construction.split(". ")[0].split("; ")[0][:90].rstrip(" .")
+    else:
+        headline = "submitted via qldpc submit"
+    family = doc.get("family") or (getattr(args, "family", "") or "").strip() or "TODO"
+    model = (prov.get("model") or "").strip() or "TODO"
+    harness = (prov.get("harness") or "").strip() or "TODO"
+    authors = " ".join(prov.get("authors") or getattr(args, "authors", []) or []) or "TODO"
+    w = comp.get("max_check_weight")
+    if w is None:
+        rows = [r for side in ("X", "Z") for r in ((doc.get("checks") or {}).get(side) or [])]
+        w = max((len(r) for r in rows), default="TODO")
+    cell = ""
+    if comp.get("weight_class") and comp.get("locality_class"):
+        cell = f"Track cell as the verifier computed it: {comp['weight_class']} x {comp['locality_class']}.\n"
+
+    # What was searched: the recorded budget, one sentence per figure.
+    budget = prov.get("search_budget") or {}
+    searched = []
+    if budget.get("candidates_screened") is not None:
+        searched.append(f"{int(budget['candidates_screened']):,} candidates were built and screened before this one.")
+    if budget.get("ris_trials_per_side") is not None:
+        searched.append(f"Screening ran to {int(budget['ris_trials_per_side']):,} RIS trials per side at the deepest.")
+    if budget.get("tool"):
+        searched.append(f"Search harness: {budget['tool']}.")
+    compute = []
+    if budget.get("cpu_hours") is not None:
+        compute.append(f"{_fmt_hours(budget['cpu_hours'])} CPU core-hours")
+    if budget.get("gpu_hours") is not None:
+        compute.append(f"{_fmt_hours(budget['gpu_hours'])} GPU-hours")
+    if budget.get("wall_clock_hours") is not None:
+        compute.append(f"{_fmt_hours(budget['wall_clock_hours'])} h of wall clock")
+    if compute:
+        searched.append("Compute: " + ", ".join(compute) + ".")
+    if budget.get("llm_tokens"):
+        toks = ", ".join(f"{m} {int(t):,}" for m, t in sorted(budget["llm_tokens"].items()))
+        searched.append(f"Model tokens: {toks}.")
+    if budget.get("notes"):
+        searched.append(f"Budget notes: {budget['notes']}")
+    searched.append(
+        "TODO: the constructions tried, the sweep's parameter ranges, the screening method, and the seeds."
+        if searched
+        else "TODO: constructions, sweep sizes, screening method, trial counts, seeds."
+    )
+
+    # Evidence trail: the witness ladder per side, from the document itself.
+    evidence = []
+    exact = False
+    for side, rec in (doc.get("distance") or {}).items():
+        if not isinstance(rec, dict) or "value" not in rec:
+            continue
+        conf = rec.get("confidence", "upper_bound")
+        exact = exact or conf == "exact"
+        line = f"{side} side: d_{side} {'=' if conf == 'exact' else '<='} {rec['value']} ({conf})"
+        wit = rec.get("witness")
+        if isinstance(wit, list) and wit:
+            line += f"; lightest logical found has weight {len(wit)}"
+        wp = rec.get("witness_provenance") or {}
+        found, survived = wp.get("found_at_samples"), wp.get("survived_samples")
+        if found is not None:
+            line += f", found at {int(found):,} samples"
+            if survived is not None:
+                line += f" and survived {int(survived):,}"
+        if wp.get("tool"):
+            seeds = f", seeds {', '.join(str(x) for x in wp['seeds'])}" if wp.get("seeds") else ""
+            line += f" ({wp['tool']}{seeds})"
+        evidence.append(line + ".")
+    evidence.append(
+        f"The claim d = {d} is certified exact."
+        if exact
+        else f"The claim d = {d} is a witness-backed upper bound, not an exact value."
+    )
+    evidence.append("TODO: near-miss candidates that collapsed under the same ladder, with their trial counts.")
+
+    tools = f"Authors: {authors}. Model: {model}. Harness: {harness}. Max check weight: {w}."
+    if budget.get("tool"):
+        tools += f" Search harness: {budget['tool']}."
+    else:
+        tools += "\nTODO: tooling used (kit modules, accelerators, decoders)."
+    repro = (
+        f"Construction: {construction}.\n" if construction and construction != "contributed via qldpc submit" else ""
+    ) + "TODO: exact parameters or a committed script path to rebuild H_X and H_Z."
+
+    return (
+        f"# [[{n},{k},{d}]] \u2014 {headline}\n\n"
+        "## Direction & hypothesis\n\n"
+        f"Family: {family}. Construction: {construction or 'TODO'}.\n"
+        f"{cell}"
+        "TODO: why this cell and this construction looked like an opening.\n\n"
+        "## What was searched\n\n" + "\n".join(searched) + "\n\n"
+        "## Evidence trail\n\n" + "\n".join(evidence) + "\n\n"
+        "## Dead ends\n\n"
+        "TODO: families or approaches that screened well and collapsed, with numbers.\n\n"
+        "## Tools\n\n" + tools + "\n\n"
+        "## Reproduction\n\n" + repro + "\n"
+    )
 
 
 def cmd_submit(args):
@@ -1758,6 +1895,7 @@ def cmd_submit(args):
             "stage": "verify",
             "message": "verification failed",
             "failed_checks": [{"check": c["check"], "detail": c["detail"]} for c in report["checks"] if not c["ok"]],
+            "hint": "fix the failed checks above, then re-run submit",
         }
         return 1
     n, k, d = doc["n"], doc["k"], doc["distance"]["d"]
@@ -1840,12 +1978,32 @@ def cmd_submit(args):
             f.write(note_md)
         print(f"  wrote {note_out}")
     else:
-        print(
-            "\n  note: no --note-file given. Submissions should ship a "
-            "research note\n  (notes/{}.md) — the search story, sweep "
-            "sizes, ladder, dead ends.\n  See notes/TEMPLATE.md; the site "
-            "renders it beside your code.".format(slug)
-        )
+        # Auto-stage a minimal note stub so a one-command submission still
+        # ships a notes/<slug>.md (makes submission simple for models/harnesses).
+        # The stub carries the required [[n,k,d]] header and placeholder
+        # sections; the author replaces them before review. Only write into the
+        # repo's notes/ when submitting to the repo's own codes/ (a real
+        # submission); otherwise just warn, so tests and custom --out runs do
+        # not pollute the tree.
+        if os.path.abspath(args.out) == os.path.join(os.path.abspath(_ROOT), "codes"):
+            note_out = os.path.join(_ROOT, "notes", f"{slug}.md")
+            os.makedirs(os.path.dirname(note_out), exist_ok=True)
+            stub = note_stub(doc, report, args, slug)
+            with open(note_out, "w", encoding="utf-8", newline="\n") as f:
+                f.write(stub)
+            print(
+                "\n  note: no --note-file given; staged a minimal stub at "
+                "{}\n  (replace the TODO sections before review; see "
+                "notes/TEMPLATE.md).".format(note_out)
+            )
+            res["note_stub"] = True
+        else:
+            print(
+                "\n  note: no --note-file given. Submissions should ship a "
+                "research note\n  (notes/{}.md) — the search story, sweep "
+                "sizes, ladder, dead ends.\n  See notes/TEMPLATE.md; the site "
+                "renders it beside your code.".format(slug)
+            )
 
     res["note_path"] = note_out
     res["stage"] = "draft"
@@ -3567,7 +3725,11 @@ def main(argv=None):
         if hasattr(stream, "reconfigure") and (stream.encoding or "").lower().replace("-", "") != "utf8":
             stream.reconfigure(encoding="utf-8", errors="replace")
 
-    p = argparse.ArgumentParser(prog="qldpc", description="qLDPC challenge submission tool")
+    p = argparse.ArgumentParser(
+        prog="qldpc",
+        description="qLDPC challenge submission tool",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
     sub = p.add_subparsers(dest="cmd", required=True)
 
     s = sub.add_parser("submit", help="build, verify, and prepare a code submission")
@@ -3717,12 +3879,25 @@ def main(argv=None):
         metavar="N",
         help="schedules screened at two rounds before the deep search settles on one (default 6)",
     )
+    # The gate searches each committed DEM for CIRCUIT_SECONDS worth of trials
+    # and stops at 1.5x that wall clock (gate_changed._circuit_budget); the
+    # deep search here runs twice the gate's trial budget under that same cap,
+    # so a witness that survives it is one the gate is unlikely to beat. The
+    # default is read from the gate so the two cannot drift (issue #7383). A
+    # shorter cap does not make the claim safer: the search finds the
+    # lightest fault set it can, so less search means a higher d_circ, which
+    # the gate then lowers.
+    from gate_changed import _circuit_budget  # noqa: E402
+
+    _, circuit_cap = _circuit_budget(1, True)
     c.add_argument(
         "--circuit-seconds",
         type=float,
-        default=180.0,
+        default=circuit_cap,
         metavar="S",
-        help="wall-clock cap per basis for the deep witness search (default 180; the CI gate targets 120)",
+        help=f"wall-clock cap per basis for the deep witness search (default {circuit_cap:g}, "
+        "the CI gate's own cap; the search runs twice the gate's trial budget under it, "
+        "so a shorter cap on a slow machine risks a d_circ the gate then lowers)",
     )
     c.add_argument("--circuit-seed", type=int, default=0)
     s.add_argument("--trials", type=int, default=20000, help="RIS trials for the distance witness search")
@@ -3812,6 +3987,11 @@ def main(argv=None):
         "origin/main) and return to the current branch "
         "afterwards, so successive --open-pr runs from one "
         "checkout produce independent one-code PRs",
+    )
+    s.epilog = (
+        "Fast path (code tier only, no circuits, no accelerator tightening):\n"
+        "  ./qldpc submit code.npz --authors @handle --no-circuit --fast-trials 0 --json\n"
+        "Machine mode: pass --json for one record on stdout (errors carry a 'hint')."
     )
     s.set_defaults(func=cmd_submit)
 
@@ -4022,10 +4202,67 @@ def main(argv=None):
     b.add_argument("--json", action="store_true", help="print one JSON record instead")
     b.set_defaults(func=cmd_brief)
 
+    p.epilog = _json_epilog(sub)
     args = p.parse_args(argv)
     if getattr(args, "json", False):
         return _run_json(args)
+    tip = _json_tip(args)
+    if tip:
+        print(tip, file=sys.stderr, flush=True)
     return args.func(args)
+
+
+# Discoverability of --json (issue #7382). A harness that does not know the
+# flag parses the prose and fails or wastes tokens, and nothing in a failed
+# parse points it at the contract. Two pointers, neither changing what a run
+# prints on stdout: the top-level --help names the flag and the subcommands
+# that take it, and a run that did not pass it while stdout is not a terminal
+# (the one signal a harness gives) gets one line on stderr. Defaulting to
+# JSON when stdout is not a terminal would change every scripted human run
+# and CI step, so it is not done.
+JSON_TIP_ENV = "QLDPC_NO_JSON_TIP"
+
+
+def _json_subcommands(sub):
+    """Return the names of the subcommands that take --json, in help order."""
+    return [
+        name
+        for name, parser in sub.choices.items()
+        if any("--json" in action.option_strings for action in parser._actions)
+    ]
+
+
+def _json_epilog(sub):
+    return (
+        "machine mode: pass --json for exactly one JSON record on stdout, with the\n"
+        "prose on stderr; a usage error is a record too, with exit code 2. Taken by:\n"
+        "  " + ", ".join(_json_subcommands(sub)) + "\n"
+        "A harness should pass it. A run that does not, while stdout is not a\n"
+        f"terminal, gets a one-line reminder on stderr ({JSON_TIP_ENV}=1 silences it)."
+    )
+
+
+def _json_tip(args, stdout=None):
+    """Return the stderr reminder for a run that could have passed --json, or None.
+
+    None when the subcommand has no --json, when it was passed, when stdout
+    is a terminal (a person is reading the prose), or when QLDPC_NO_JSON_TIP
+    is set (a caller that parses the prose on purpose).
+    """
+    if not hasattr(args, "json") or getattr(args, "json", False):
+        return None
+    if os.environ.get(JSON_TIP_ENV, "").strip() not in ("", "0"):
+        return None
+    stream = sys.stdout if stdout is None else stdout
+    try:
+        if stream.isatty():
+            return None
+    except (AttributeError, ValueError):
+        pass
+    return (
+        f"qldpc {args.cmd}: stdout is not a terminal; add --json for exactly one JSON record on "
+        f"stdout with the prose on stderr (see ./qldpc --help; {JSON_TIP_ENV}=1 silences this line)"
+    )
 
 
 def _run_json(args):
