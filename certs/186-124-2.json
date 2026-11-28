@@ -1,0 +1,62 @@
+{
+  "d": 2,
+  "d_exact": true,
+  "d_lower": 2,
+  "encoding": "selector",
+  "ladder": {
+    "budget_per_side": 300.0,
+    "start": 1
+  },
+  "logical_classes": 124,
+  "name": "[[186,124,2]]",
+  "sides": {
+    "X": {
+      "exact": true,
+      "ladder": [
+        {
+          "W": 1,
+          "cnf_sha256": "d4595403153b6efd161fd60ec1f8380371d3967f38c7e75b35f66d75d9c56e84",
+          "proof": "verified",
+          "secs": 0.2,
+          "status": "UNSAT"
+        }
+      ],
+      "note": "no logical < 2 exists",
+      "proved_min": 2,
+      "secs": 0.3,
+      "status": "UNSAT",
+      "value": 2
+    },
+    "Z": {
+      "exact": true,
+      "ladder": [
+        {
+          "W": 1,
+          "cnf_sha256": "4e2914e3ad67cb2b0d91f12bf2f1c7b6f179bd4326963ace9888fbcdbb8167f7",
+          "proof": "verified",
+          "secs": 0.1,
+          "status": "UNSAT"
+        }
+      ],
+      "note": "no logical < 2 exists",
+      "proved_min": 2,
+      "secs": 0.2,
+      "status": "UNSAT",
+      "value": 2
+    }
+  },
+  "solver": "CryptoMiniSat 5.14 SAT",
+  "symmetry": false,
+  "tlim_per_solve": 1200,
+  "verification": {
+    "checker": "drat-trim sha256:d38f0c10da6718bf",
+    "cnf_sha256": "X=d4595403153b6efd161fd60ec1f8380371d3967f38c7e75b35f66d75d9c56e84;Z=4e2914e3ad67cb2b0d91f12bf2f1c7b6f179bd4326963ace9888fbcdbb8167f7",
+    "level": "proof_log",
+    "note": "pure-CNF re-encoding refuted by kissat 4.0.4 and checked by drat-trim; the XOR path agrees. Confirms the CNF is unsatisfiable, not that it asks the distance question",
+    "replay": {
+      "check": "kissat --no-binary <side>.cnf <side>.proof; drat-trim <side>.cnf <side>.proof",
+      "emit": "python verify/replay_proofs.py 186-124-2",
+      "emitter": "verify/sat_certify.py side_cnf, XOR chunk arity 5, no symmetry prefix"
+    }
+  }
+}

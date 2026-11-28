@@ -1,0 +1,25 @@
+{
+  "d": 96,
+  "d_exact": false,
+  "d_lower": 10,
+  "encoding": "pauli-mechanisms",
+  "logical_classes": 348,
+  "name": "[[692,348,96]] alternating-sum obstructed telescoping reversing-fold prime-CPM stabilizer code, P=173, w=32",
+  "sides": {
+    "P": {
+      "exact": false,
+      "note": "lower bound 10 after 1200.0 s",
+      "proved_min": 10,
+      "secs": 1200.1,
+      "status": "TIMEOUT",
+      "value": 96
+    }
+  },
+  "solver": "tropidist b03ec2d4077f (arXiv:2611.08247) exhaustive search",
+  "tlim_per_solve": 1200.0,
+  "verification": {
+    "checks_sha256": "bac32a8a75cd9855854f9461e8ecc87cbc58c3d77a648e6ff208a54271a4b813",
+    "level": "solver",
+    "note": "tropidist's lower bound is exhaustion inside its kernel (cut-rank dynamic program, weight-truncated DP, weight-bounded search; completeness proved in the paper, no replayable artifact), so this is a solver verdict; the vector it returned was re-verified by verify/heuristic_distance.py"
+  }
+}

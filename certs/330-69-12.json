@@ -1,0 +1,35 @@
+{
+  "d": 12,
+  "d_exact": true,
+  "name": "[[330,69,12]] plain-fold CPM pair-partition, (J,L)=(4,10), P=66",
+  "sides": {
+    "P": {
+      "exact": true,
+      "lower_bound": 12,
+      "secs": 152.2,
+      "status": "UNSAT",
+      "upper_bound": 12,
+      "value": 12,
+      "witness": [
+        66,
+        102,
+        108,
+        145,
+        146,
+        147,
+        148,
+        266,
+        267,
+        282,
+        285,
+        299
+      ]
+    }
+  },
+  "solver": "QEDist 0.1 aeb7006147b7 (yeon-lee/QEDist) exhaustive search (stabilizer)",
+  "tlim_per_solve": 1200.0,
+  "verification": {
+    "level": "solver",
+    "note": "QEDist Pauli-weight exhaustive search; witness re-checked by audit."
+  }
+}

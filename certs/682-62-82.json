@@ -1,0 +1,33 @@
+{
+  "d": 82,
+  "d_exact": false,
+  "d_lower": 21,
+  "encoding": "css-sides",
+  "logical_classes": 62,
+  "name": "[[682,62,82]] cyclic generalized-bicycle CSS code over Z_341, w=12",
+  "sides": {
+    "X": {
+      "exact": false,
+      "note": "lower bound 21 after 3600.0 s",
+      "proved_min": 21,
+      "secs": 3600.1,
+      "status": "TIMEOUT",
+      "value": 82
+    },
+    "Z": {
+      "exact": false,
+      "note": "lower bound 21 after 3600.0 s",
+      "proved_min": 21,
+      "secs": 3600.1,
+      "status": "TIMEOUT",
+      "value": 82
+    }
+  },
+  "solver": "tropidist b03ec2d4077f (arXiv:2611.08247) exhaustive search",
+  "tlim_per_solve": 3600.0,
+  "verification": {
+    "checks_sha256": "984fe8e50eb348841f588aa92931249a9bd852219140cb88a138dea9153479d4",
+    "level": "solver",
+    "note": "tropidist's lower bound is exhaustion inside its kernel (cut-rank dynamic program, weight-truncated DP, weight-bounded search; completeness proved in the paper, no replayable artifact), so this is a solver verdict; the vector it returned was re-verified by verify/heuristic_distance.py"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "d": 12,
+  "d_exact": true,
+  "name": "[[240,62,12]] reversing-fold CPM pair-partition, (J,L)=(3,8), P=60",
+  "sides": {
+    "P": {
+      "exact": true,
+      "lower_bound": 12,
+      "secs": 78.1,
+      "status": "UNSAT",
+      "upper_bound": 12,
+      "value": 12,
+      "witness": [
+        49,
+        73,
+        88,
+        95,
+        105,
+        120,
+        131,
+        152,
+        159,
+        170,
+        214,
+        220
+      ]
+    }
+  },
+  "solver": "QEDist 0.1 aeb7006147b7 (yeon-lee/QEDist) exhaustive search (stabilizer)",
+  "tlim_per_solve": 1200.0,
+  "verification": {
+    "level": "solver",
+    "note": "QEDist Pauli-weight exhaustive search; witness re-checked by audit."
+  }
+}
