@@ -373,7 +373,7 @@
       "n": 9,
       "k": 3,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -1685,7 +1685,7 @@
       "n": 21,
       "k": 7,
       "d": 4,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -1781,7 +1781,7 @@
       "n": 23,
       "k": 10,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -1869,7 +1869,7 @@
       "n": 24,
       "k": 6,
       "d": 4,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -2213,7 +2213,7 @@
       "n": 27,
       "k": 15,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -2357,7 +2357,7 @@
       "n": 28,
       "k": 14,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -2373,7 +2373,7 @@
       "n": 28,
       "k": 15,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -2509,7 +2509,7 @@
       "n": 29,
       "k": 17,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -2893,7 +2893,7 @@
       "n": 31,
       "k": 16,
       "d": 5,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -3229,7 +3229,7 @@
       "n": 33,
       "k": 8,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -3261,7 +3261,7 @@
       "n": 33,
       "k": 11,
       "d": 7,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -3269,7 +3269,7 @@
       "n": 33,
       "k": 22,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -3397,7 +3397,7 @@
       "n": 34,
       "k": 9,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -3413,7 +3413,7 @@
       "n": 34,
       "k": 12,
       "d": 7,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -3445,7 +3445,7 @@
       "n": 34,
       "k": 21,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -3885,7 +3885,7 @@
       "n": 36,
       "k": 18,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -3957,7 +3957,7 @@
       "n": 36,
       "k": 26,
       "d": 4,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -4277,7 +4277,7 @@
       "n": 38,
       "k": 26,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -5173,7 +5173,7 @@
       "n": 44,
       "k": 22,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -5773,7 +5773,7 @@
       "n": 49,
       "k": 33,
       "d": 5,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -5997,7 +5997,7 @@
       "n": 52,
       "k": 26,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -6349,7 +6349,7 @@
       "n": 54,
       "k": 36,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -7773,7 +7773,7 @@
       "n": 66,
       "k": 44,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -7821,7 +7821,7 @@
       "n": 68,
       "k": 34,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -8677,7 +8677,7 @@
       "n": 76,
       "k": 38,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -9365,7 +9365,7 @@
       "n": 84,
       "k": 6,
       "d": 6,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -10125,7 +10125,7 @@
       "n": 92,
       "k": 46,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -10973,7 +10973,7 @@
       "n": 102,
       "k": 68,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -11093,7 +11093,7 @@
       "n": 104,
       "k": 70,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -11141,7 +11141,7 @@
       "n": 105,
       "k": 69,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -11173,7 +11173,7 @@
       "n": 106,
       "k": 66,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -11781,7 +11781,7 @@
       "n": 114,
       "k": 76,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -11853,7 +11853,7 @@
       "n": 116,
       "k": 58,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -12069,7 +12069,7 @@
       "n": 120,
       "k": 4,
       "d": 16,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -12989,7 +12989,7 @@
       "n": 128,
       "k": 36,
       "d": 6,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -13517,7 +13517,7 @@
       "n": 138,
       "k": 92,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -13645,7 +13645,7 @@
       "n": 140,
       "k": 92,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -13661,7 +13661,7 @@
       "n": 141,
       "k": 89,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -13685,7 +13685,7 @@
       "n": 142,
       "k": 84,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -14141,7 +14141,7 @@
       "n": 148,
       "k": 74,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -14877,7 +14877,7 @@
       "n": 164,
       "k": 82,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -16133,7 +16133,7 @@
       "n": 186,
       "k": 124,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -16277,7 +16277,7 @@
       "n": 190,
       "k": 78,
       "d": 9,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -16461,7 +16461,7 @@
       "n": 192,
       "k": 50,
       "d": 11,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -16885,7 +16885,7 @@
       "n": 203,
       "k": 90,
       "d": 11,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -16941,7 +16941,7 @@
       "n": 204,
       "k": 104,
       "d": 7,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -17229,7 +17229,7 @@
       "n": 210,
       "k": 122,
       "d": 6,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -17245,7 +17245,7 @@
       "n": 212,
       "k": 55,
       "d": 12,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -17493,7 +17493,7 @@
       "n": 222,
       "k": 148,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -17789,7 +17789,7 @@
       "n": 230,
       "k": 94,
       "d": 10,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -17917,7 +17917,7 @@
       "n": 234,
       "k": 119,
       "d": 7,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -17941,7 +17941,7 @@
       "n": 235,
       "k": 96,
       "d": 7,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -17965,7 +17965,7 @@
       "n": 236,
       "k": 61,
       "d": 14,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -18245,7 +18245,7 @@
       "n": 240,
       "k": 62,
       "d": 12,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -18341,7 +18341,7 @@
       "n": 245,
       "k": 100,
       "d": 9,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -18381,7 +18381,7 @@
       "n": 246,
       "k": 164,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -18469,7 +18469,7 @@
       "n": 248,
       "k": 186,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -18941,7 +18941,7 @@
       "n": 256,
       "k": 68,
       "d": 12,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -19021,7 +19021,7 @@
       "n": 257,
       "k": 121,
       "d": 10,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -19237,7 +19237,7 @@
       "n": 264,
       "k": 134,
       "d": 8,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -19293,7 +19293,7 @@
       "n": 268,
       "k": 69,
       "d": 14,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -19445,7 +19445,7 @@
       "n": 270,
       "k": 110,
       "d": 10,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -19781,7 +19781,7 @@
       "n": 280,
       "k": 162,
       "d": 7,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -20245,7 +20245,7 @@
       "n": 292,
       "k": 75,
       "d": 14,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -20437,7 +20437,7 @@
       "n": 296,
       "k": 222,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -20605,7 +20605,7 @@
       "n": 300,
       "k": 122,
       "d": 10,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -20621,7 +20621,7 @@
       "n": 300,
       "k": 152,
       "d": 9,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -20893,7 +20893,7 @@
       "n": 310,
       "k": 126,
       "d": 11,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -21557,7 +21557,7 @@
       "n": 330,
       "k": 69,
       "d": 12,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -21597,7 +21597,7 @@
       "n": 332,
       "k": 85,
       "d": 14,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -21733,7 +21733,7 @@
       "n": 336,
       "k": 86,
       "d": 14,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -21829,7 +21829,7 @@
       "n": 340,
       "k": 138,
       "d": 11,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -22045,7 +22045,7 @@
       "n": 348,
       "k": 176,
       "d": 9,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -22213,7 +22213,7 @@
       "n": 350,
       "k": 142,
       "d": 11,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -22221,7 +22221,7 @@
       "n": 350,
       "k": 202,
       "d": 7,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -22309,7 +22309,7 @@
       "n": 356,
       "k": 91,
       "d": 14,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -22581,7 +22581,7 @@
       "n": 360,
       "k": 78,
       "d": 18,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -22773,7 +22773,7 @@
       "n": 370,
       "k": 150,
       "d": 12,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -23781,7 +23781,7 @@
       "n": 400,
       "k": 162,
       "d": 12,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -23829,7 +23829,7 @@
       "n": 402,
       "k": 203,
       "d": 9,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -24237,7 +24237,7 @@
       "n": 420,
       "k": 242,
       "d": 8,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -24405,7 +24405,7 @@
       "n": 430,
       "k": 174,
       "d": 12,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -24957,7 +24957,7 @@
       "n": 450,
       "k": 227,
       "d": 10,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -25309,7 +25309,7 @@
       "n": 470,
       "k": 190,
       "d": 13,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -25405,7 +25405,7 @@
       "n": 476,
       "k": 274,
       "d": 9,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -25573,7 +25573,7 @@
       "n": 485,
       "k": 196,
       "d": 9,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -25765,7 +25765,7 @@
       "n": 497,
       "k": 286,
       "d": 9,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -25797,7 +25797,7 @@
       "n": 498,
       "k": 251,
       "d": 10,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -25861,7 +25861,7 @@
       "n": 500,
       "k": 127,
       "d": 13,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -25877,7 +25877,7 @@
       "n": 500,
       "k": 203,
       "d": 11,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "stabilizer"
     },
     {
@@ -26237,7 +26237,7 @@
       "n": 512,
       "k": 132,
       "d": 16,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -32021,7 +32021,7 @@
       "n": 999,
       "k": 417,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -32029,7 +32029,7 @@
       "n": 999,
       "k": 418,
       "d": 2,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
