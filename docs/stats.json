@@ -7,8 +7,8 @@
   "best_kd2_over_n": 1504.33,
   "best_geometric_efficiency": 1.7555,
   "provenance": {
-    "no_match": 2553,
     "literature": 489,
+    "no_match": 2553,
     "parameters_only": 421,
     "not_derived": 71,
     "method": "isomorphism against the literature index",
@@ -21,8 +21,8 @@
   },
   "novelty_audited": 1058,
   "board_screen": {
-    "not_screened": 1096,
     "distinct": 2401,
+    "not_screened": 1096,
     "review": 37,
     "reference_entries": 771,
     "method": "fingerprint and Weisfeiler-Leman signature against the board's seeded and literature entries",
