@@ -1573,7 +1573,7 @@
       "n": 20,
       "k": 4,
       "d": 4,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -3045,7 +3045,7 @@
       "n": 32,
       "k": 14,
       "d": 4,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
@@ -3373,7 +3373,7 @@
       "n": 34,
       "k": 8,
       "d": 5,
-      "tier": "ub",
+      "tier": "exact",
       "code_type": "CSS"
     },
     {
