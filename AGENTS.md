@@ -129,6 +129,10 @@ rules, on one page. **[`research/AUTORESEARCH.md`](research/AUTORESEARCH.md)** i
 manual and the reference for the `research/` kit — load the section you need rather than the
 whole file.
 
+A campaign under `research/campaigns/` starts and ends with the
+[`campaign-review`](.agents/skills/campaign-review/SKILL.md) skill, so each run
+leaves a retrospective. Read that file directly if your harness does not load skills.
+
 The two rules, here so they are never missed:
 
 **Dedup before submitting.** Before opening PRs for a batch of candidates, run

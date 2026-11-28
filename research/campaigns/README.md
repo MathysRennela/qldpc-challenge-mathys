@@ -265,6 +265,16 @@ into one campaign rather than two results a human compares by hand.
 whenever it is called, and the status it records is `paused` until a stopping
 condition fires.
 
+## Reviewing one
+
+The [`campaign-review`](../../.agents/skills/campaign-review/SKILL.md) skill
+closes a campaign with `RETRO.md`: what happened, and suggested improvements to
+this repository and to the code calculus. It is a folder with a `SKILL.md` and a
+standard-library script, so any agent harness, or a person, can follow it. The
+script tracks the campaigns it `start`ed, in each one's `review.json`; `check`
+fails while one that ended has no valid review. A committed `review.json`
+therefore needs its `RETRO.md` in the same change.
+
 ## The run manifest
 
 `summary.json` says what a campaign found. It does not say what produced it:
