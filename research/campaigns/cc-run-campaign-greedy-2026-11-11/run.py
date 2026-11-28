@@ -71,7 +71,7 @@ def main():
                     support_search={"budget": args.budget, "max_weight": 3},
                     sector_swap=True,
                     ranking="pareto",
-                    deep_verify=False,
+                    deep_verify=True,
                 )
             except Exception as e:
                 print(f"  {slug} step{step}: plan error {e}", flush=True)
