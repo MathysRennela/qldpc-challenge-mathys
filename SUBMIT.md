@@ -16,7 +16,7 @@ Dry runs and staging only: `--no-circuit --fast-trials 0` skips the circuit sear
 
 ## Performance notes
 
-- First run on a fresh worktree loads the board (about five minutes on a laptop, about four seconds warm). The
+- First run on a fresh worktree loads the board (about five minutes on a laptop, about four seconds warm; `submit-batch` loads it once for the whole batch). The
   per-entry memo lives inside the checkout; `./qldpc targets`/`submit` print
   the measured time so you can tell warm from cold.
 - A full checkout is ~8 GB (mostly `circuits/`). Use the sparse checkout in
@@ -55,7 +55,7 @@ the shared flags, and with `--open-pr` files each one as its own PR from
 ```
 
 - Code tier only by default (`--circuit` adds circuits); the accelerator pass runs at `submit`'s own depth. `--fast-trials 0` files shallow claims knowingly, and CI refutes shallow claims.
-- A second code with the same (n, k, d, w) as one already filed in the batch is dropped as a `parameter-tie` (one PR per (n, k, d, w)); `--keep-parameter-ties` files it.
+- The batch gates every survivor before it files any, and files only board-advancing codes of distance at least 2 that are distinct in (n, k, d, w) and track cell (issue #7564): a d = 1 placeholder is dropped (`placeholder`), a candidate another candidate of the batch dominates in its cell is dropped (`dominated`), a second code at the same (n, k, d, w) in the same cell is dropped (`parameter-tie`; `--keep-parameter-ties` files it), and a declared point the board already dominates is refused before its search is spent (`refused`).
 - `--against-open-prs` also dedups against the codes in open PRs (fetched with `gh`).
 - `--note-dir DIR` passes `DIR/<candidate stem>.md` as the note when it exists.
 - The record lists every candidate with a status: `filed`, `written`, `dry-run`, `duplicate`, `parameter-tie`, `refused`, `error`, or `not-run`. An `--open-pr` failure stops the batch, because the files it wrote are in the tree unfiled; finish that one by hand and re-run on the `not-run` ones. Exit 0 when every candidate was filed, written, or dropped as a duplicate.
@@ -100,4 +100,4 @@ Both must exit 0. In a fork, add `upstream` first:
 - Do not edit anything under `verify/` in a submission PR.
 - Do not claim `"human"` for a model-produced code.
 - Do not put a distance in the filename the JSON does not support.
-- Do not open multiple PRs for the same `(n,k,d)`; run `research/kit/dedup_submissions.py` first, or let `./qldpc submit-batch` do the dedup.
+- Do not open multiple PRs for the same `(n,k,d)`; run `research/kit/dedup_submissions.py` first, or let `./qldpc submit-batch` do the dedup and the frontier filter.

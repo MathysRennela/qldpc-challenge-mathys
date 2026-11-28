@@ -18,6 +18,18 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FAST = ["--trials", "300", "--fast-trials", "0"]
 
 
+def _draft(tmp, slug, name=None, d=None, layout=True):
+    """Write a .json candidate from a board entry: its checks, its declared distance (or ``d``), and its layout."""
+    doc = json.load(open(os.path.join(ROOT, "codes", f"{slug}.json")))
+    if d is not None:
+        doc["distance"]["d"] = d
+    if not layout:
+        doc.pop("locality", None)
+    path = tmp / f"{name or slug}.json"
+    path.write_text(json.dumps(doc))
+    return str(path)
+
+
 def _npz(tmp, slug, name=None, perm=None):
     doc = json.load(open(os.path.join(ROOT, "codes", f"{slug}.json")))
     n = doc["n"]
@@ -81,7 +93,12 @@ def test_keep_wl_matches_files_the_probable_permutation(tmp_path, capsys):
     # gated like any other candidate, then dropped: the same (n, k, d, w) as the first
     assert rows["12-4-2.npz"]["status"] == "dry-run"
     assert rows["permuted.npz"]["status"] == "parameter-tie"
-    assert rows["permuted.npz"]["duplicate_of"] == {"path": a, "kind": "parameters", "axes": [12, 4, 2, 6]}
+    assert rows["permuted.npz"]["duplicate_of"] == {
+        "path": a,
+        "kind": "parameters",
+        "axes": [12, 4, 2, 6],
+        "cell": ["weight-6", "unrestricted"],
+    }
     assert rc == 0 and record["counts"] == {"dry-run": 1, "parameter-tie": 1}
 
 
@@ -152,9 +169,12 @@ def test_open_pr_files_each_code_from_the_base_ref_and_stops_on_a_failure(tmp_pa
     assert rows["7-1-3.npz"]["status"] == "error" and rows["7-1-3.npz"]["unfiled_files"] == [
         os.path.join(out, "7-1-3.json")
     ]
-    assert rows["15-7-3.npz"]["status"] == "not-run"
+    # the batch gated and wrote every code before filing any, so the row after the failure is unfiled
+    assert rows["15-7-3.npz"]["status"] == "unfiled"
+    assert rows["15-7-3.npz"]["unfiled_files"] == [os.path.join(out, "15-7-3.json")]
     assert record["stopped_early"] and rc == 1 and record["error"]["stage"] == "open-pr"
-    assert record["error"]["unfiled_files"] == [os.path.join(out, "7-1-3.json")]
+    assert record["error"]["unfiled_files"] == [os.path.join(out, "7-1-3.json"), os.path.join(out, "15-7-3.json")]
+    assert sorted(os.listdir(out)) == ["12-4-2.json", "15-7-3.json", "7-1-3.json"]
     assert record["filed"] == ["https://github.com/o/r/pull/1"]
     assert [c["base_ref"] for c in calls] == ["origin/main", "origin/main"]  # the default, per code
     assert all(c["pr_author"] == "me" for c in calls)
@@ -238,3 +258,95 @@ def test_commands_in_messages_are_shell_quoted():
     args = qldpc.build_parser().parse_args(["submit-batch", "x y.npz", "--authors", "@me", "--model", "Beam 1.0"])
     argv = qldpc._batch_submit_argv(args, "x y.npz")
     assert "'x y.npz'" in qldpc.shell_words(argv) and "'Beam 1.0'" in qldpc.shell_words(argv)
+
+
+# issue #7564: what the batch files is board-advancing, of distance at least 2, and distinct in point and cell
+
+
+def test_a_declared_d_1_placeholder_is_dropped_before_its_search(tmp_path, capsys):
+    placeholder = _draft(tmp_path, "12-4-2", name="placeholder", d=1)
+    other = _npz(tmp_path, "7-1-3")
+    out = str(tmp_path / "codes")
+    rc = qldpc.main(["submit-batch", placeholder, other, "--authors", "@me", "--out", out, "--json", *FAST])
+    record, _ = _record(capsys)
+    rows = _by_path(record)
+    assert rows["placeholder.json"]["status"] == "placeholder" and "submit" not in rows["placeholder.json"]
+    assert "declared distance 1" in rows["placeholder.json"]["detail"]
+    assert rows["placeholder.json"]["claimed"] == {"k": 4, "d": 1, "w": 6}  # k and w from the matrices
+    assert rows["7-1-3.npz"]["status"] == "written"
+    assert rc == 0 and record["ok"] and record["counts"] == {"placeholder": 1, "written": 1}
+    assert os.listdir(out) == ["7-1-3.json"]
+
+
+def test_a_declared_point_the_board_dominates_is_refused_before_its_search(tmp_path, capsys, monkeypatch):
+    better = {"slug": "10-4-2", "n": 10, "k": 4, "d": 2, "w": 5, "code_type": "CSS"}
+    better.update(weight_class="weight-6", locality_class="unrestricted")
+    monkeypatch.setattr(qldpc, "_load_board_entries", lambda: [better])
+    bare = _draft(tmp_path, "12-4-2", name="bare", layout=False)  # declares [[12,4,2]] w=6, no coordinates
+    out = str(tmp_path / "codes")
+    rc = qldpc.main(["submit-batch", bare, "--authors", "@me", "--out", out, "--json", *FAST])
+    record, err = _record(capsys)
+    row = record["candidates"][0]
+    assert row["status"] == "refused" and row["error"]["stage"] == "frontier"
+    assert "10-4-2" in row["error"]["message"] and "declared distance 2" in row["error"]["message"]
+    assert row["novelty"]["decided_at"] == "declared distance" and "submit" not in row
+    assert "verifying" not in err and rc == 1 and not os.path.exists(out)  # no search was spent
+    # --allow-non-frontier asks for dominated codes as records, so the decision is submit's
+    rc = qldpc.main(["submit-batch", bare, "--authors", "@me", "--out", out, "--json", "--allow-non-frontier", *FAST])
+    record, _ = _record(capsys)
+    row = record["candidates"][0]
+    assert rc == 0 and row["status"] == "written" and row["submit"]["novelty"]["filed_as_non_frontier"]
+    # a candidate that brings coordinates waits for the verifier's layout: in its own (local) cell the
+    # unrestricted [[10,4,2]] is no rival, so it is board-advancing and the pre-screen must not refuse it
+    laid_out = _draft(tmp_path, "12-4-2", name="laid-out")
+    rc = qldpc.main(["submit-batch", laid_out, "--authors", "@me", "--out", str(tmp_path / "c2"), "--json", *FAST])
+    record, _ = _record(capsys)
+    row = record["candidates"][0]
+    assert rc == 0 and row["status"] == "written" and row["cell"][1].startswith("local-2d")
+    assert row["submit"]["novelty"]["board_advancing"]
+
+
+def test_a_candidate_another_candidate_of_the_batch_dominates_is_dropped_after_the_gate(tmp_path, capsys):
+    worse = _npz(tmp_path, "12-4-2")  # [[12,4,2]] w=6, gated first
+    better = _npz(tmp_path, "10-4-2")  # [[10,4,2]] w=5 dominates it in the same cell
+    out = str(tmp_path / "codes")
+    rc = qldpc.main(["submit-batch", worse, better, "--authors", "@me", "--out", out, "--json", *FAST])
+    record, _ = _record(capsys)
+    rows = _by_path(record)
+    assert rows["12-4-2.npz"]["status"] == "dominated"
+    assert rows["12-4-2.npz"]["dominated_by"] == [{"path": better, "entry": "[[10,4,2]] w=5 10-4-2.json"}]
+    assert rows["12-4-2.npz"]["removed"] == [os.path.join(out, "12-4-2.json")]
+    assert rows["10-4-2.npz"]["status"] == "written"
+    assert rc == 0 and record["ok"] and record["counts"] == {"dominated": 1, "written": 1}
+    assert os.listdir(out) == ["10-4-2.json"]
+
+
+def test_the_same_point_in_a_tighter_cell_is_not_a_parameter_tie(tmp_path, capsys):
+    laid_out = _draft(tmp_path, "12-4-2", name="laid-out")  # local-2d cell
+    permuted = _npz(tmp_path, "12-4-2", name="permuted", perm=np.random.default_rng(3).permutation(12))
+    out = str(tmp_path / "codes")
+    argv = ["submit-batch", laid_out, permuted, "--authors", "@me", "--out", out, "--json", "--keep-wl-matches"]
+    rc = qldpc.main(argv + ["--dry-run", *FAST])
+    record, _ = _record(capsys)
+    rows = _by_path(record)
+    # the same (12, 4, 2, 6), one in a local cell and one unrestricted: two frontier points, so the
+    # second is stopped by the slug it shares, not dropped as a tie of the first
+    assert rows["laid-out.json"]["status"] == "dry-run" and rows["laid-out.json"]["cell"][1].startswith("local-2d")
+    assert rows["permuted.npz"]["cell"] == ["weight-6", "unrestricted"]
+    assert rows["permuted.npz"]["status"] == "error" and rows["permuted.npz"]["error"]["stage"] == "slug"
+    assert rc == 1
+    cell = {"n": 12, "k": 4, "d": 2, "w": 6, "code_type": "CSS", "cell": ["weight-6", "local-2d-single"]}
+    assert qldpc._batch_point(cell) != qldpc._batch_point({**cell, "cell": ["weight-6", "unrestricted"]})
+    assert qldpc._batch_point(cell) == qldpc._batch_point({**cell, "slug": "other"})
+
+
+def test_a_code_the_gate_finds_to_have_distance_1_is_dropped_as_a_placeholder(tmp_path, capsys):
+    # X on qubit 3 commutes with the lone Z check and is no stabilizer: a weight-1 logical
+    path = tmp_path / "trivial.npz"
+    np.savez(path, hx=np.array([[1, 1, 1, 1]], dtype=np.int8), hz=np.array([[1, 1, 0, 0]], dtype=np.int8))
+    out = str(tmp_path / "codes")
+    rc = qldpc.main(["submit-batch", str(path), "--authors", "@me", "--out", out, "--json", *FAST])
+    record, _ = _record(capsys)
+    row = record["candidates"][0]
+    assert row["status"] == "placeholder" and row["d"] == 1 and "earned distance 1" in row["detail"]
+    assert rc == 0 and not os.listdir(out) if os.path.exists(out) else True

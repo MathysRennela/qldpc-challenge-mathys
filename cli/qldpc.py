@@ -44,6 +44,7 @@ Input:
 import argparse
 import datetime
 import glob
+import hashlib
 import json
 import math
 import os
@@ -1135,10 +1136,57 @@ def _default_board_memo():
     return path
 
 
+# One process, one board (issue #7563). site/build.load_entries() costs about
+# 5 s over 3,974 entries even when the verifier's structural pass is memoized
+# (0.6 s warm), because the site loader also scores layouts, reads the
+# certificates, and parses the circuits, none of which the CLI reads: it
+# compares a candidate to the board on n, k, d, w, and the two classes.
+# ``submit`` asks for the board three times per candidate (the body's frontier
+# section, the peer audit, the frontier check) and ``submit-batch`` runs
+# ``submit`` once per candidate, so a batch of thirty re-derived one unchanged
+# list ninety times, about 450 s. The memo below keeps the loaded entries by
+# the state of codes/ (every entry's name, size, and mtime), so an unchanged
+# board is answered from memory and a changed one, such as the entry a
+# write-mode batch just filed, is loaded again. The key costs one stat per
+# entry and serves this process only; the memo that crosses processes is the
+# verifier's, which hashes the bytes.
+_BOARD_ENTRIES_MEMO = {}
+_BOARD_MEMO_KEEP = 4
+
+
+def _board_state(code_dir=None):
+    """Return a digest of codes/ as a listing (each entry's name, size, and mtime), or None when unreadable."""
+    code_dir = code_dir or os.path.join(_ROOT, "codes")
+    try:
+        names = sorted(os.listdir(code_dir))
+    except OSError:
+        return None
+    h = hashlib.sha256()
+    for name in names:
+        if not name.endswith(".json"):
+            continue
+        try:
+            st = os.stat(os.path.join(code_dir, name))
+        except OSError:
+            continue
+        h.update(f"{name}\0{st.st_size}\0{st.st_mtime_ns}\n".encode())
+    return h.hexdigest()
+
+
+def forget_board():
+    """Drop the in-process board memo, for a test or a caller that rewrote codes/ without changing a listing."""
+    _BOARD_ENTRIES_MEMO.clear()
+
+
 def _load_board_entries(quiet=False):
     """The board's current entries as the site sees them (verified, earned
     distance). Returns [] if the site builder cannot be imported or the board
     is empty, so the frontier section degrades gracefully to a TODO.
+
+    Memoized in this process on the state of codes/ (issue #7563): the first
+    call loads, later calls against an unchanged board return the same
+    entries without a pass, and a board that changed under the process is
+    loaded again. The entries are shared between callers and read-only.
 
     This runs a structural verification pass over ``codes/`` and is the
     single most expensive thing the CLI does. ``verify/qldpc_verify.py`` already
@@ -1156,6 +1204,9 @@ def _load_board_entries(quiet=False):
 
     ``quiet`` suppresses them for library callers that do their own reporting.
     """
+    state = _board_state()
+    if state is not None and state in _BOARD_ENTRIES_MEMO:
+        return list(_BOARD_ENTRIES_MEMO[state])
     try:
         from build import load_entries
     except Exception as e:
@@ -1175,6 +1226,10 @@ def _load_board_entries(quiet=False):
             f"comparison ({e}); leaving the frontier section as a TODO"
         )
         return []
+    if state is not None and entries:
+        while len(_BOARD_ENTRIES_MEMO) >= _BOARD_MEMO_KEEP:
+            _BOARD_ENTRIES_MEMO.pop(next(iter(_BOARD_ENTRIES_MEMO)))
+        _BOARD_ENTRIES_MEMO[state] = list(entries)
     if not quiet:
         took = time.time() - t0
         print(f"  loaded {_plural(len(entries), 'entry', 'entries')} in {took:.1f}s", file=sys.stderr)
@@ -1723,7 +1778,9 @@ def _frontier_check(doc, report, args, res):
     record. Returns an exit code; 0 means proceed. A dry run reports what the
     real run would refuse and proceeds, as the peer audit's does.
     """
-    doms = frontier.dominators(_entry_for(doc, report), _load_board_entries())
+    entry = _entry_for(doc, report)
+    res["entry"] = entry  # the row the rule read: n, k, d, w, and the cell (submit-batch reads it back)
+    doms = frontier.dominators(entry, _load_board_entries())
     allowed = bool(getattr(args, "allow_non_frontier", False))
     args._non_frontier = list(doms) if (doms and allowed) else []
     res["novelty"] = {
@@ -2251,11 +2308,16 @@ def open_pr(
 # ---------------------------------------------------------------------------
 # submit-batch (issue #7449): the bulk path as one command. Each candidate is
 # run through `submit` with the shared flags (the argument list is parsed by
-# the real parser, so the defaults are submit's), and the PR is opened by
-# `open_pr` only after the batch has checked the result against what it has
-# already filed. A dropped or refused candidate costs nothing beyond its own
-# search; an --open-pr failure stops the batch, because the files it wrote are
-# then in the working tree unfiled and the next PR must not carry them.
+# the real parser, so the defaults are submit's). The batch gates every
+# survivor before it opens any PR, so the frontier it files is decided on the
+# gated parameters of the whole batch (issue #7564): a d = 1 placeholder, a
+# candidate another candidate of the batch dominates in its cell, and a second
+# code at the same (n, k, d, w) in the same cell are dropped first, and a
+# candidate whose declared distance the board already dominates is refused
+# before its search is spent. Only then does `open_pr` file what is left. A
+# dropped or refused candidate costs nothing beyond its own search; an
+# --open-pr failure stops the batch, because the files it wrote are then in
+# the working tree unfiled and the next PR must not carry them.
 
 FAMILY_CHOICES = (
     "bivariate-bicycle",
@@ -2315,7 +2377,7 @@ def shell_words(argv):
     return shlex.join(str(a) for a in argv)
 
 
-BATCH_DROPPED = ("duplicate", "parameter-tie")
+BATCH_DROPPED = ("duplicate", "parameter-tie", "placeholder", "dominated")
 BATCH_OK = ("filed", "written", "dry-run") + BATCH_DROPPED
 _BATCH_REFUSAL_STAGES = ("verify", "frontier", "peer-audit", "revision", "structure")
 _BATCH_SUBMIT_KEYS = (
@@ -2390,6 +2452,110 @@ def _batch_identity(HX, HZ, draft):
             "signatures": set(),
         }
     return dedup_oracle.identity_matrices(HX, HZ)
+
+
+def _batch_claim(HX, HZ, coords, draft):
+    """Return what a candidate declares about itself, as a board-shaped row.
+
+    ``n`` and the check weight come from the matrices and ``k`` from their
+    ranks, so a wrong declared ``k`` cannot put a wrong row in front of the
+    frontier rule. ``d`` is the draft's declared distance, an upper bound the
+    gate can only lower, or None for bare matrices. The locality class is
+    ``unrestricted`` when no coordinates came with the candidate (the verifier
+    lays out only a candidate that brings some) and None otherwise, since the
+    class is then the verifier's to decide.
+    """
+    HX = np.asarray(HX, dtype=np.int8) % 2
+    HZ = np.asarray(HZ, dtype=np.int8) % 2
+    stabilizer = isinstance(draft, dict) and draft.get("code_type") == "stabilizer"
+    n = int(HX.shape[1])
+    if stabilizer:
+        k = n - gf2.rank(np.concatenate([HX, HZ], axis=1))
+        w = int(max(((HX[i] | HZ[i]).sum() for i in range(HX.shape[0])), default=0))
+    else:
+        k = n - gf2.rank(HX) - gf2.rank(HZ)
+        w = int(max((row.sum() for row in np.vstack([HX, HZ])), default=0))
+    d = (draft.get("distance") or {}).get("d") if isinstance(draft, dict) else None
+    d = int(d) if isinstance(d, (int, float)) and not isinstance(d, bool) else None
+    return {
+        "n": n,
+        "k": int(k),
+        "d": d,
+        "w": w,
+        "code_type": "stabilizer" if stabilizer else "CSS",
+        "weight_class": frontier.weight_class(w),
+        "locality_class": "unrestricted" if coords is None else None,
+    }
+
+
+def _batch_prescreen(row, claim, args, board):
+    """Settle a candidate on its declared parameters when the gate could only agree.
+
+    Returns True when the row got its status here. A declared distance below
+    2 is a placeholder: the gate can only lower a distance, so the code
+    cannot end up one the board ranks. A declared point an entry in the
+    candidate's cell dominates is refused as ``submit`` would refuse the
+    gated code, because n, k, and w are the matrices' own and a lower earned
+    d only widens the dominance; ``--allow-non-frontier`` asks for dominated
+    codes as records, so it leaves the decision to ``submit``. A candidate
+    whose cell is not yet known (one that brings coordinates) waits for the
+    verifier's layout (issue #7564).
+    """
+    d = claim["d"]
+    if d is None:
+        return False
+    if d < 2:
+        row.update(
+            status="placeholder",
+            detail=f"declared distance {d}: a d = 1 placeholder is not a code the board ranks, "
+            "and the gate can only lower a distance",
+        )
+        return True
+    if args.allow_non_frontier or claim["locality_class"] is None or claim["k"] < 1 or not board:
+        return False
+    doms = frontier.dominators(claim, board)
+    if not doms:
+        return False
+    hint = "re-run submit with --allow-non-frontier to file it as a non-frontier record"
+    problems = frontier.blockers(doms, False, attach=hint)
+    row.update(
+        status="refused",
+        error={
+            "stage": "frontier",
+            "message": "; ".join(problems)
+            + f" (decided at the declared distance {d}, an upper bound the gate can only lower; no search was spent)",
+            "hint": hint,
+        },
+        novelty={"board_advancing": False, "dominated_by": list(doms), "decided_at": "declared distance"},
+    )
+    return True
+
+
+def _batch_entry(row):
+    """Return a gated candidate as the row `research/kit/frontier.py` compares: its point and its cell."""
+    wc, lc = row.get("cell") or (frontier.weight_class(row["w"]), "unrestricted")
+    return {
+        "slug": row.get("slug"),
+        "n": row["n"],
+        "k": row["k"],
+        "d": row["d"],
+        "w": row["w"],
+        "code_type": row.get("code_type", "CSS"),
+        "weight_class": wc,
+        "locality_class": lc,
+    }
+
+
+def _batch_point(row):
+    """Return the frontier point a gated candidate occupies: (n, k, d, w), its board, and its locality class.
+
+    Two codes at the same point in the same cell make one frontier claim, so
+    the batch files one of them. The weight class is a function of w and the
+    board is the code type, so the locality class is what the cell adds: a
+    laid-out code at the parameters of an unrestricted one is a record in a
+    tighter cell, not a tie (issue #7564).
+    """
+    return (row["n"], row["k"], row["d"], row["w"], row.get("code_type", "CSS"), (row.get("cell") or [None, None])[1])
 
 
 def _batch_index(args):
@@ -2499,13 +2665,21 @@ def _batch_table(rows):
     lines = []
     for row in rows:
         what = row.get("pr_url") or row.get("slug") or ""
-        if row["status"] in BATCH_DROPPED:
+        if row["status"] in ("duplicate", "parameter-tie"):
             dup = row.get("duplicate_of") or {}
             what = "same as " + str(dup.get("path") or dup.get("name") or "?")
             if dup.get("kind") == "wl":
                 what += " (probable permutation)"
             elif dup.get("kind") == "parameters":
-                what += " on (n, k, d, w)"
+                what += " on (n, k, d, w) in the same cell"
+        elif row["status"] == "dominated":
+            what = "dominated by " + ", ".join(
+                str(d.get("path") or d.get("entry")) for d in row.get("dominated_by", [])
+            )
+        elif row["status"] == "placeholder":
+            what = row.get("detail", "d = 1")
+        elif row["status"] == "unfiled":
+            what = "gated and written; the batch stopped before its PR"
         elif row["status"] in ("refused", "error"):
             err = row.get("error") or {}
             what = f"{err.get('stage', 'error')}: {err.get('message', '')}"[:160]
@@ -2533,8 +2707,9 @@ def cmd_submit_batch(args):
         row = {"path": path, "status": None}
         rows.append(row)
         try:
-            HX, HZ, _coords, draft = load_checks(path)
+            HX, HZ, coords, draft = load_checks(path)
             ident = _batch_identity(HX, HZ, draft)
+            claim = _batch_claim(HX, HZ, coords, draft)
         except SystemExit as e:
             row.update(status="error", error={"stage": "load", "message": str(e)})
             continue
@@ -2544,14 +2719,14 @@ def cmd_submit_batch(args):
         row["n"] = ident.get("n")
         row["fingerprint"] = ident.get("fingerprint")
         if isinstance(draft, dict):
-            row["claimed"] = {"k": draft.get("k"), "d": (draft.get("distance") or {}).get("d")}
-        loaded.append((row, ident))
+            row["claimed"] = {"k": claim["k"], "d": claim["d"], "w": claim["w"]}
+        loaded.append((row, ident, claim))
     say(f"submit-batch: {len(paths)} candidate(s), {len(loaded)} loaded")
 
     # 2. dedup inside the batch (same code first, then probable permutations), then against the board
     res["stage"] = "dedup"
     by_fp, by_sig = {}, {}
-    for row, ident in loaded:
+    for row, ident, _claim in loaded:
         first = next((by_fp[fp] for fp in ident["fingerprints"] if fp in by_fp), None)
         kind = "exact"
         if first is None and not args.keep_wl_matches:
@@ -2564,7 +2739,7 @@ def cmd_submit_batch(args):
             by_fp.setdefault(fp, row)
         for sg in ident["signatures"]:
             by_sig.setdefault(sg, row)
-    survivors = [(row, ident) for row, ident in loaded if row["status"] is None]
+    survivors = [(row, ident) for row, ident, _claim in loaded if row["status"] is None]
     if survivors:
         import dedup_oracle
 
@@ -2581,17 +2756,30 @@ def cmd_submit_batch(args):
             elif hit["wl"]:
                 row["wl_matches"] = [{"name": e["name"], "source": e["source"], "pr": e.get("pr")} for e in hit["wl"]]
     dropped = sum(1 for row in rows if row["status"] == "duplicate")
-    say(f"  dedup: {dropped} duplicate(s) dropped, {sum(1 for r in rows if r['status'] is None)} to gate")
+    say(f"  dedup: {dropped} duplicate(s) dropped, {sum(1 for r in rows if r['status'] is None)} to screen")
 
-    # 3. gate and file, one candidate at a time
+    # 2b. one board for the batch: its one full load, which each candidate's submit then reads from the
+    # memo until a filed entry changes codes/ (issue #7563). The declared parameters settle what they can
+    # before a search is spent (issue #7564): a d = 1 placeholder, or a declared point an entry in the
+    # candidate's cell already dominates
+    res["stage"] = "prescreen"
+    board = []
+    if any(row["status"] is None for row in rows):
+        t0 = time.time()
+        with quiet:
+            board = _load_board_entries()
+        say(f"  board: {_plural(len(board), 'entry', 'entries')} loaded once in {time.time() - t0:.1f}s for the batch")
+    for row, _ident, claim in loaded:
+        if row["status"] is None and claim["d"] is not None:
+            _batch_prescreen(row, claim, args, board)
+    settled = sum(1 for row in rows if row["status"] in ("placeholder", "refused"))
+    say(f"  prescreen: {settled} settled on declared parameters, {sum(1 for r in rows if r['status'] is None)} to gate")
+
+    # 3. gate every survivor through `submit`, one at a time, writing its files and opening no PR yet
     res["stage"] = "submit"
-    filed_axes, filed_slugs = {}, {}
-    stopped = False
-    for row, _ident in loaded:
+    recs = {}
+    for row, _ident, _claim in loaded:
         if row["status"] is not None:
-            continue
-        if stopped:
-            row["status"] = "not-run"
             continue
         say(f"\n== {row['path']}")
         with quiet:
@@ -2602,18 +2790,56 @@ def cmd_submit_batch(args):
             row["error"] = err
             row["status"] = "refused" if err.get("stage") in _BATCH_REFUSAL_STAGES else "error"
             continue
-        slug = rec.get("slug")
-        row.update(slug=slug, n=rec.get("n"), k=rec.get("k"), d=rec.get("d"), w=_batch_weight(rec))
-        axes = (row["n"], row["k"], row["d"], row["w"])
-        if axes in filed_axes and not args.keep_parameter_ties:
+        recs[row["path"]] = rec
+        entry = rec.get("entry") or {}
+        row.update(
+            slug=rec.get("slug"),
+            n=rec.get("n"),
+            k=rec.get("k"),
+            d=rec.get("d"),
+            w=_batch_weight(rec),
+            code_type=rec.get("code_type", "CSS"),
+        )
+        row["cell"] = [
+            entry.get("weight_class") or (frontier.weight_class(row["w"]) if row["w"] is not None else None),
+            entry.get("locality_class", "unrestricted"),
+        ]
+        if row["d"] is not None and row["d"] < 2:
             row["removed"] = [] if args.dry_run else _batch_discard(rec)
             row.update(
+                status="placeholder",
+                detail=f"the gate earned distance {row['d']}: a d = 1 placeholder is not a code the board ranks",
+            )
+
+    # 4. the batch's own frontier, on the gated parameters: a candidate another candidate dominates in its
+    # cell is dropped, then a second code at the same point in the same cell, then a slug used twice
+    res["stage"] = "frontier"
+    live = [row for row in rows if row["status"] is None]
+    entries = [_batch_entry(row) for row in live]
+    by_desc = {frontier.describe(e): row["path"] for e, row in zip(entries, live)}
+    for i, doms in frontier.within_batch(entries).items():
+        row = live[i]
+        row["removed"] = [] if args.dry_run else _batch_discard(recs[row["path"]])
+        row.update(status="dominated", dominated_by=[{"path": by_desc.get(desc), "entry": desc} for desc in doms])
+    filed_points, filed_slugs = {}, {}
+    for row in live:
+        if row["status"] is not None:
+            continue
+        slug, point = row["slug"], _batch_point(row)
+        if point in filed_points and not args.keep_parameter_ties:
+            row["removed"] = [] if args.dry_run else _batch_discard(recs[row["path"]])
+            row.update(
                 status="parameter-tie",
-                duplicate_of={"path": filed_axes[axes], "kind": "parameters", "axes": list(axes)},
+                duplicate_of={
+                    "path": filed_points[point],
+                    "kind": "parameters",
+                    "axes": list(point[:4]),
+                    "cell": row["cell"],
+                },
             )
             continue
         if slug in filed_slugs:
-            row["removed"] = [] if args.dry_run else _batch_discard(rec)
+            row["removed"] = [] if args.dry_run else _batch_discard(recs[row["path"]])
             row.update(
                 status="error",
                 error={
@@ -2626,8 +2852,22 @@ def cmd_submit_batch(args):
                 },
             )
             continue
-        filed_axes.setdefault(axes, row["path"])
+        filed_points.setdefault(point, row["path"])
         filed_slugs.setdefault(slug, row["path"])
+    pruned = sum(1 for row in live if row["status"] in ("dominated", "parameter-tie"))
+    say(f"\n  frontier: {pruned} dropped inside the batch, {sum(1 for r in live if r['status'] is None)} to file")
+
+    # 5. file what is left, in the order given
+    stopped = False
+    for row in live:
+        if row["status"] is not None:
+            continue
+        rec = recs[row["path"]]
+        if stopped:
+            written = (rec.get("code_path"), rec.get("note_path"), rec.get("circuits_dir"))
+            row["status"] = "unfiled"
+            row["unfiled_files"] = [path for path in written if path]
+            continue
         if args.dry_run:
             row["status"] = "dry-run"
             continue
@@ -2684,7 +2924,8 @@ def cmd_submit_batch(args):
             "the files already written",
             "unfiled_files": unfiled,
             "hint": "finish that candidate's steps by hand (its error names the command), then re-run the batch "
-            "on the candidates marked not-run",
+            "on the candidates marked unfiled: they are gated and written, and the same code re-gates as a "
+            "revision of its own file",
         }
     elif bad:
         res["error"] = {
@@ -4540,14 +4781,20 @@ def build_parser():
             "loaded, deduplicated inside the batch (same code, or a probable "
             "permutation of one) and against the board, then each survivor is "
             "run through `submit` with the shared flags and, with --open-pr, "
-            "filed as its own pull request from --base-ref. A second code with "
-            "the same (n, k, d, w) as one already filed in the batch is dropped "
-            "(AGENTS.md: one PR per (n, k, d, w)). The record lists every "
+            "filed as its own pull request from --base-ref. The batch gates every "
+            "survivor before it files any, and what it files is board-advancing, "
+            "of distance at least 2, and distinct in (n, k, d, w) and track cell "
+            "(issue #7564): a d = 1 placeholder is dropped, a declared point the "
+            "board already dominates is refused before its search, a candidate "
+            "another candidate of the batch dominates in its cell is dropped, and "
+            "a second code at the same (n, k, d, w) in the same cell is dropped "
+            "(AGENTS.md: one PR per frontier point). The record lists every "
             "candidate with its status: filed, written, dry-run, duplicate, "
-            "parameter-tie, refused (the gate or the frontier rule), error, or "
-            "not-run (after an --open-pr failure stopped the batch). Exit 0 when "
-            "every candidate was filed, written, or dropped as a duplicate; 1 "
-            "otherwise."
+            "parameter-tie, dominated, placeholder, refused (the gate or the "
+            "frontier rule), error, or unfiled (gated and written, but an "
+            "--open-pr failure stopped the batch before its PR). Exit 0 when "
+            "every candidate was filed, written, or dropped by the batch's own "
+            "rules; 1 otherwise."
         ),
         epilog=(
             "Typical run (code tier only; circuits are added later with the circuit tools):\n"
@@ -4595,7 +4842,7 @@ def build_parser():
     sb.add_argument(
         "--keep-parameter-ties",
         action="store_true",
-        help="file a second code with the same (n, k, d, w) as one already filed in this batch",
+        help="file a second code with the same (n, k, d, w) in the same track cell as one already filed in this batch",
     )
     sb.add_argument(
         "--against-open-prs",

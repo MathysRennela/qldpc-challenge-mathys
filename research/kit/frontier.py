@@ -40,6 +40,15 @@ RULE = "AGENTS.md, The motto"
 FLAG = "--allow-non-frontier"
 
 
+def weight_class(w):
+    """Return the weight class of a code whose heaviest check touches ``w`` qubits.
+
+    The verifier's thresholds (``verify/qldpc_verify.py``): weight-4 up to 4,
+    weight-6 up to 6, weight-8 up to 8, and weight-9plus above that.
+    """
+    return "weight-4" if w <= 4 else "weight-6" if w <= 6 else "weight-8" if w <= 8 else "weight-9plus"
+
+
 def describe(entry):
     """Return a row as the gate's novelty block describes an entry.
 
@@ -159,7 +168,7 @@ def within_batch(rows):
     out = {}
     for i, cand in enumerate(rows):
         others = [r for j, r in enumerate(rows) if j != i]
-        doms = dominators(cand, others)
+        doms = dominators(cand, others) if cand.get("w") is not None else []
         if doms:
             out[i] = doms
     return out
