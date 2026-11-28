@@ -288,7 +288,7 @@ everything that closed. It records:
 | `params` | the depth, ladder, seeds and workers actually invoked, recorded as given rather than re-derived from the campaign file |
 | `seeds`, `experiments`, `consumed` | what was run and what it cost |
 | `negative_results` | the dead ends: collapsed ladders and closed routes. A stage-only run drafts no note (`../AUTORESEARCH.md`, "Output & housekeeping"), so if these are not here they are lost with the staging directory |
-| `survivor_verdicts` | `(n, k, d)` and a fingerprint of each survivor's gate verdict, enough to detect one whose verdict changed between the run and the PR |
+| `survivor_verdicts` | `(n, k, d)` and a fingerprint of each survivor's gate verdict, enough to tell whether a saved verdict is the one the run recorded. A rerun of the gate draws a new seed and does not reproduce it. Null for a survivor recorded before the ledger stored it |
 | `logs` | excerpts promoted out of gitignored `*.log` files |
 
 `snapshot` and `params` are also written into `summary.json`, so a summary

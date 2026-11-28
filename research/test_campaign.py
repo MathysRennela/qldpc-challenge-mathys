@@ -1316,3 +1316,24 @@ def test_at_least_one_committed_summary_carries_a_discovery_block():
     assert any("discovery" in json.load(open(p, encoding="utf-8")) for p in paths), (
         "issue #7445 asks for one conforming report"
     )
+
+
+def test_the_manifest_fingerprints_each_survivor_s_gate_verdict(tmp_path):
+    """A survivor whose verdict differs must read differently, including after a journal replay."""
+    journal = tmp_path / "j.jsonl"
+    c = Campaign(validate_campaign(camp()))
+    led = Ledger(c, journal=str(journal))
+    led.start_experiment("bivariate-bicycle", seed=1)
+    led.record_candidate(doc(), survivor_verdict("fp-a"))
+    led.record_candidate(doc(), survivor_verdict("fp-b"))
+    led.end_experiment()
+
+    prints = [row["fingerprint"] for row in led.manifest()["survivor_verdicts"]]
+    assert all(prints) and prints[0] != prints[1]
+    again = Ledger(c)
+    again.start_experiment("bivariate-bicycle", seed=1)
+    again.record_candidate(doc(), survivor_verdict("fp-a"))
+    assert again.manifest()["survivor_verdicts"][0]["fingerprint"] == prints[0]
+    replayed = Ledger.from_journal(c, str(journal))
+    assert [row["fingerprint"] for row in replayed.manifest()["survivor_verdicts"]] == prints
+    validate_summary(led.summary())

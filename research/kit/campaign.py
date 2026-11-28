@@ -1085,6 +1085,9 @@ class Ledger:
             "fingerprint": (verdict.get("candidate") or {}).get("fingerprint"),
             "advanced_frontier": bool(advanced_frontier),
             "labels": list(verdict.get("labels") or []),
+            # the manifest's record of the whole verdict, which the row does
+            # not keep
+            "verdict_fingerprint": _verdict_fingerprint(verdict),
         }
         self.survivors.append(row)
         self._current["survivors"] += 1
@@ -1338,10 +1341,10 @@ class Ledger:
         reviewer checking a claim needs this one, and it has to be committed
         next to the note for that to be worth anything.
 
-        Verdicts are fingerprinted rather than copied: the full verdict lives
-        in the summary's survivor rows, and what the manifest owes is enough
-        to detect a survivor whose verdict changed between the run and the
-        PR.
+        Verdicts are fingerprinted rather than copied: the manifest owes only
+        enough to tell whether a saved verdict is the one the run recorded.
+        The gate refutes with a random seed unless given one, so a rerun does
+        not reproduce the fingerprint.
         """
         return {
             "manifest_version": MANIFEST_VERSION,
@@ -1363,7 +1366,7 @@ class Ledger:
             "errors": list(self.errors),
             "aborted_experiments": sum(1 for e in self.experiments if e.get("aborted")),
             "survivor_verdicts": [
-                {"n": s.get("n"), "k": s.get("k"), "d": s.get("d"), "fingerprint": _verdict_fingerprint(s)}
+                {"n": s.get("n"), "k": s.get("k"), "d": s.get("d"), "fingerprint": s.get("verdict_fingerprint")}
                 for s in self.survivors
             ],
             "logs": self.log_excerpts,
@@ -1448,11 +1451,8 @@ class Ledger:
         }
 
 
-def _verdict_fingerprint(survivor):
-    """Hash one survivor's recorded verdict, short and stable."""
-    v = survivor.get("verdict")
-    if v is None:
-        return None
+def _verdict_fingerprint(v):
+    """Hash one gate verdict, short and independent of key order."""
     return hashlib.sha256(json.dumps(v, sort_keys=True, default=str).encode()).hexdigest()[:16]
 
 
