@@ -6185,6 +6185,14 @@
       "code_type": "CSS"
     },
     {
+      "id": "55-33-6",
+      "n": 55,
+      "k": 33,
+      "d": 6,
+      "tier": "ub",
+      "code_type": "stabilizer"
+    },
+    {
       "id": "55-36-3",
       "n": 55,
       "k": 36,
@@ -8359,6 +8367,14 @@
       "d": 1,
       "tier": "ub",
       "code_type": "CSS"
+    },
+    {
+      "id": "75-39-8",
+      "n": 75,
+      "k": 39,
+      "d": 8,
+      "tier": "ub",
+      "code_type": "stabilizer"
     },
     {
       "id": "76-2-12",

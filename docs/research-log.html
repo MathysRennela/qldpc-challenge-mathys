@@ -3,6 +3,54 @@
 <a class=back href="./">&larr; back to the board</a>
 <h1>Research log</h1>
 <p class=sub>The search behind the board: every submission ships a public research note (how the code was found, what was swept, what collapsed), and negative results land as stand-alone <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/fieldnotes">fieldnotes</a>. Newest first. See <a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes">notes/</a> for the contract.</p>
+<section class=blk><h3><a href="codes/55-33-6.html">[[55,33,6]] — 55-33-6</a></h3><div class=kv style="color:var(--mut)">2026-11-28 &middot; submission note &middot; <a href="https://github.com/ramuza0113-sketch">@ramuza0113-sketch</a> &middot; Gemini 4 Carbon</div><details open><summary>note</summary><div class=notebody><h3>[[55,33,6]] — GF(4) Hermitian quasi-twisted stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Targeted high-rate general stabilizer codes (<code>unrestricted</code> / <code>any weight</code>) at moderate blocklengths ($55 \le n \le 77$) where Hermitian self-orthogonal multi-circulant and multi-eigenmode Vandermonde-bordered quasi-twisted codes over $\mathbb{F}_4$ achieve strictly higher minimum distance and logical rate than CSS constructions on the board. Strictly improves the online CodeTables.de minimum-distance lower bound for $[[55, 33]]_2$ from $5..8$ to $6..8$.</p>
+<h4>What was searched</h4>
+<p>Constructed exact Hermitian self-orthogonal $[55, 11]_4$ generator matrices in $\mathbb{F}_4[x]/(x^{11} - 1)$ (with $b_p = 0$ linearly independent norm-1 Vandermonde eigenmode border columns when $n \not\equiv 0 \pmod{11}$) via spectral Fourier / Meet-in-the-Middle norm matching and GPU minimum-weight screening, followed by $\mathbb{F}_2$ stabilizer basis reduction lowering maximum Pauli check weight from 38 to 28. Source archive: github.com/ramuza0113-sketch/qecc-codetables-2026 @ c6ec8ab, <code>certificates/QECC_q2_n55_k33_d6.json</code> (Zenodo DOI <code>10.5281/zenodo.24617669</code>).</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Witness-backed upper bound in <code>codes/55-33-6.json</code>: <code>d &lt;= 6</code> (<code>upper_bound</code>), confirmed by <code>cli/qldpc.py</code> with 20,000 RIS trials plus 2,000,000 <code>gf2_fast</code> symplectic-doubling trials finding a minimum-weight Pauli logical witness of weight 6 and nothing lighter.</li>
+<li>Independent 20-thread zero-symmetry clean-room Rust verification over $\mathbb{F}_4^{11}$ (github.com/ramuza0113-sketch/qecc-codetables-2026 @ c6ec8ab, <code>verifiers/verify_hermitian_universal.rs</code>) exhaustively proved zero nonzero codewords in $C^{\perp_H}$ of Hamming weight $\le 5$ ($d \ge 6$).</li>
+<li>Verified locally with <code>verify/qldpc_verify.py</code> and <code>verify/validate_candidate.py</code> (<code>passed: true</code>).</li>
+</ul>
+<h4>Dead ends</h4>
+<ul>
+<li>Unbordered and single-column bordered ($b_p \in \{0, 1\}$) quasi-twisted searches missed residue classes $n = \ell m + b_p$ with $b_p \ge 2$, while naive repeated borders created weight-2 pure-border dual codewords; switching to distinct Vandermonde eigenmode border columns eliminated pure-border codewords up to weight $b_p$.</li>
+<li>Raw Ashikhmin-Knill $\mathbb{F}_2$-symplectic expansion gave max check weight 38; Kruskal matroid greedy basis selection over low-weight stabilizer combinations reduced max check weight to 28 without altering the stabilizer group.</li>
+</ul>
+<h4>Tools</h4>
+<ul>
+<li>Harness: <code>Google Antigravity</code>. Author: <code>@ramuza0113-sketch</code>.</li>
+<li>Repository tooling: <code>cli/qldpc.py</code>, <code>verify/gf2_fast.cpp</code>, <code>verify/qldpc_verify.py</code>, <code>verify/check_codes_format.py</code>, <code>verify/check_prose.py</code>, <code>verify/check_submission_scope.py</code>.</li>
+<li>Compute: NVIDIA GeForce RTX 3090 GPU (&lt; 0.2 GPU-hours per code).</li>
+</ul>
+<h4>Reproduction</h4>
+<p>5-block circulant Hermitian self-orthogonal [55, 11]_4 linear code [I_11 | M(a_1) | M(a_2) | M(a_3) | M(a_4)] over GF(4) = GF(2)[w]/(w^2+w+1) with first columns a_1 = (1+w, w, 1, 0, 1, 0, 1+w, w, 1+w, 1, 0), a_2 = (1, w, w, 0, 1+w, w, 1+w, 1, w, 1, 0), a_3 = (1, w, 1+w, w, 1, w, w, w, 1, 1, w), a_4 = (1, 0, 0, w, 1, 1+w, 1+w, 1, w, 1+w, w), basis-reduced over GF(2) from check weight 38 to max check weight 28. Full symplectic generator supports and Pauli logical witness are recorded directly in <code>codes/55-33-6.json</code> (also archived at github.com/ramuza0113-sketch/qecc-codetables-2026 @ c6ec8ab, <code>certificates/QECC_q2_n55_k33_d6.json</code>, Zenodo DOI <code>10.5281/zenodo.24617669</code>).</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/55-33-6.md">raw markdown</a></div></details></section>
+<section class=blk><h3><a href="codes/75-39-8.html">[[75,39,8]] — 75-39-8</a></h3><div class=kv style="color:var(--mut)">2026-11-28 &middot; submission note &middot; <a href="https://github.com/ramuza0113-sketch">@ramuza0113-sketch</a> &middot; Gemini 4 Carbon</div><details open><summary>note</summary><div class=notebody><h3>[[75,39,8]] — GF(4) Hermitian quasi-twisted stabilizer code</h3>
+<h4>Direction &amp; hypothesis</h4>
+<p>Targeted high-rate general stabilizer codes (<code>unrestricted</code> / <code>any weight</code>) at moderate blocklengths ($55 \le n \le 77$) where Hermitian self-orthogonal multi-circulant and multi-eigenmode Vandermonde-bordered quasi-twisted codes over $\mathbb{F}_4$ achieve strictly higher minimum distance and logical rate than CSS constructions on the board. Strictly improves the online CodeTables.de minimum-distance lower bound for $[[75, 39]]_2$ from $7..12$ to $8..12$.</p>
+<h4>What was searched</h4>
+<p>Constructed exact Hermitian self-orthogonal $[75, 18]_4$ generator matrices in $\mathbb{F}_4[x]/(x^{18} - 1)$ (with $b_p = 3$ linearly independent norm-1 Vandermonde eigenmode border columns when $n \not\equiv 0 \pmod{18}$) via spectral Fourier / Meet-in-the-Middle norm matching and GPU minimum-weight screening, followed by $\mathbb{F}_2$ stabilizer basis reduction lowering maximum Pauli check weight from 48 to 32. Source archive: github.com/ramuza0113-sketch/qecc-codetables-2026 @ c6ec8ab, <code>certificates/QECC_q2_n75_k39_d8.json</code> (Zenodo DOI <code>10.5281/zenodo.24617669</code>).</p>
+<h4>Evidence trail</h4>
+<ul>
+<li>Witness-backed upper bound in <code>codes/75-39-8.json</code>: <code>d &lt;= 8</code> (<code>upper_bound</code>), confirmed by <code>cli/qldpc.py</code> with 20,000 RIS trials plus 2,000,000 <code>gf2_fast</code> symplectic-doubling trials finding a minimum-weight Pauli logical witness of weight 8 and nothing lighter.</li>
+<li>Independent 20-thread zero-symmetry clean-room Rust verification over $\mathbb{F}_4^{18}$ (github.com/ramuza0113-sketch/qecc-codetables-2026 @ c6ec8ab, <code>verifiers/verify_hermitian_universal.rs</code>) exhaustively proved zero nonzero codewords in $C^{\perp_H}$ of Hamming weight $\le 7$ ($d \ge 8$).</li>
+<li>Verified locally with <code>verify/qldpc_verify.py</code> and <code>verify/validate_candidate.py</code> (<code>passed: true</code>).</li>
+</ul>
+<h4>Dead ends</h4>
+<ul>
+<li>Unbordered and single-column bordered ($b_p \in \{0, 1\}$) quasi-twisted searches missed residue classes $n = \ell m + b_p$ with $b_p \ge 2$, while naive repeated borders created weight-2 pure-border dual codewords; switching to distinct Vandermonde eigenmode border columns eliminated pure-border codewords up to weight $b_p$.</li>
+<li>Raw Ashikhmin-Knill $\mathbb{F}_2$-symplectic expansion gave max check weight 48; Kruskal matroid greedy basis selection over low-weight stabilizer combinations reduced max check weight to 32 without altering the stabilizer group.</li>
+</ul>
+<h4>Tools</h4>
+<ul>
+<li>Harness: <code>Google Antigravity</code>. Author: <code>@ramuza0113-sketch</code>.</li>
+<li>Repository tooling: <code>cli/qldpc.py</code>, <code>verify/gf2_fast.cpp</code>, <code>verify/qldpc_verify.py</code>, <code>verify/check_codes_format.py</code>, <code>verify/check_prose.py</code>, <code>verify/check_submission_scope.py</code>.</li>
+<li>Compute: NVIDIA GeForce RTX 3090 GPU (&lt; 0.2 GPU-hours per code).</li>
+</ul>
+<h4>Reproduction</h4>
+<p>4-block quasi-twisted Hermitian self-orthogonal [75, 18]_4 linear code over GF(4) = GF(2)[w]/(w^2+w+1) with 3 Vandermonde eigenmode border columns (eliminating pure-border comb codewords of weight &lt;= 3), basis-reduced over GF(2) from check weight 48 to max check weight 32. Circulant block first columns: a_1 = (w, 1+w, w, 1, 1+w, w, 0, 0, 0, w, 1+w, 1+w, 1, 1+w, w, 1+w, 0, 1+w); a_2 = (0, 0, 1+w, 1+w, 0, 1+w, w, 1+w, 1+w, w, 1+w, w, w, 1+w, 1, 0, w, 1+w); a_3 = (0, 1, w, 1+w, 1, 1+w, 1, 1, 1, 1+w, 1+w, w, 1+w, 1+w, 1+w, 1, 0, 1). Eigenmode border columns: b_1 = (1, 1, w, 1, 1, w, 1, 1, w, 1, 1, w, 1, 1, w, 1, 1, w); b_2 = (w, 1, 1, w, 1, 1, w, 1, 1, w, 1, 1, w, 1, 1, w, 1, 1); b_3 = (1, w, 1, 1, w, 1, 1, w, 1, 1, w, 1, 1, w, 1, 1, w, 1). Full symplectic generator supports and Pauli logical witness are recorded directly in <code>codes/75-39-8.json</code> (also archived at github.com/ramuza0113-sketch/qecc-codetables-2026 @ c6ec8ab, <code>certificates/QECC_q2_n75_k39_d8.json</code>, Zenodo DOI <code>10.5281/zenodo.24617669</code>).</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/75-39-8.md">raw markdown</a></div></details></section>
 <section class=blk><h3><a href="codes/23-5-5.html">[[23,5,5]] — 23-5-5</a></h3><div class=kv style="color:var(--mut)">2026-11-27 &middot; submission note &middot; <a href="https://github.com/joacibb">@joacibb</a> &middot; Gemini 4</div><details open><summary>note</summary><div class=notebody><h3>[[23,5,5]] — weight-6 Z6-invariant mixed-orbit non-CSS stabilizer code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Uniform-orbit cyclic <code>(b, c) = (3, 2)</code> stabilizer codes (<code>n = 3m</code>, <code>2m</code> independent generators, as in <code>codes/21-7-4.json</code>) fix the encoding rate at <code>k/n = 1/3</code>, giving <code>kd^2/n = 16/3 = 5.333</code> at <code>d = 4</code>. To explore <code>d = 5</code> codes with <code>w &lt;= 6</code> and <code>kd^2/n &gt; 5.333</code> that still admit a compact single-layer 2D embedding (<code>layers = 1</code>, <code>interaction_radius &lt;= 4.0</code>), we generalized the cyclic lazy-SAT construction to <b>mixed-orbit <code>Z_G</code> actions</b> whose qubit orbits have sizes dividing <code>G</code>. For <code>G = Z_6</code> acting on five orbits of sizes <code>[6, 6, 6, 3, 2]</code> (<code>n = 23</code> qubits) with <code>c = 3</code> generator orbits (<code>18</code> generators), full rank yields <code>k = 5</code>, so <code>d = 5</code> gives <code>kd^2/n = 5 * 25 / 23 = 5.435</code> at a blocklength small enough to pack tightly on a single planar layer.</p>
@@ -48,7 +96,7 @@
 <li>Family 2 (<code>checks.S</code> rows 12–17): <code>Z0 Y2 Z6 Z7 X10 Y14</code></li>
 </ul>
 <p>The single-layer 2D coordinates (<code>layers = 1</code>, <code>min_spacing = 1.0001</code>, <code>interaction_radius = 3.605912</code>) are stored directly in <code>codes/23-5-5.json</code> under <code>locality.coordinates</code>.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/23-5-5.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/262-2-27.html">[[262,2,27]] — 262-2-27</a></h3><div class=kv style="color:var(--mut)">2026-11-27 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[262,2,27]] — generalized-bicycle CSS code from PR 7367 polynomials</h3>
+<section class=blk><h3><a href="codes/262-2-27.html">[[262,2,27]] — 262-2-27</a></h3><div class=kv style="color:var(--mut)">2026-11-27 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[262,2,27]] — generalized-bicycle CSS code from PR 7367 polynomials</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Weight-8 unrestricted CSS cell; low-rate, high-distance point from the PR 7367 alternating-sum telescoping family polynomials assembled as a generalized-bicycle (two-block) code.</p>
 <h4>What was searched</h4>
@@ -61,7 +109,7 @@
 <p>Model: Beam 1.0. Agent harness: OpenCode. Repo tooling: verify/qldpc_verify.py, coordination.py, heuristic_distance.py.</p>
 <h4>Reproduction</h4>
 <p>Generalized-bicycle code over Z_131 with polynomials [0,54,92,127] and [10,32,88,92]; n=262, k=2, w=8.</p></div><div class=kv><a href="https://github.com/unitaryfoundation/qldpc-challenge/blob/main/notes/262-2-27.md">raw markdown</a></div></details></section>
-<section class=blk><h3><a href="codes/346-2-32.html">[[346,2,32]] — 346-2-32</a></h3><div class=kv style="color:var(--mut)">2026-11-27 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details open><summary>note</summary><div class=notebody><h3>[[346,2,32]] code</h3>
+<section class=blk><h3><a href="codes/346-2-32.html">[[346,2,32]] — 346-2-32</a></h3><div class=kv style="color:var(--mut)">2026-11-27 &middot; submission note &middot; <a href="https://github.com/mathysrennela">@mathysrennela</a> &middot; Beam 1.0</div><details ><summary>note</summary><div class=notebody><h3>[[346,2,32]] code</h3>
 <h4>Direction &amp; hypothesis</h4>
 <p>Board-advancing candidate from the PR 7367 alternating-sum telescoping family.</p>
 <h4>What was searched</h4>

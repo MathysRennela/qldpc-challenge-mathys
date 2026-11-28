@@ -1128,7 +1128,8 @@
   "novelty": "known_parameters",
   "references": [
    "https://qecdb.org/codes/672e147545661c824c3fba8b (isomorphic record; research/provenance/derived.json)"
-  ]
+  ],
+  "notes": " Circuit fault distance corrected on 2026-11-26 by @FarLab: both memory circuits have an undetected logical fault set of weight 5 in their committed detector error models (claimed 6). The Z set was found by Sisyphus (sisyphus-qec 0.2.1, github.com/varunmenon1310/sisyphus) in the sweep recorded in research/audits/sisyphus_circuit_sweep-2026-11-25.json (60 s per basis), run by Claude Fable 5.2 (Claude Code) for @FarLab; the X set by the verify workflow's own refutation gate on this pull request (RIS on ker(H_dem), seed 45284475), recorded by @vprusso on 2026-11-28; and re-verified in the committed detector error model with verify/circuit_tools.witness_errors. Each value is an upper bound from a randomized search; no lower bound is proved."
  },
  "locality": {
   "coordinates": [
@@ -1438,27 +1439,25 @@
  "circuit": {
   "d_circ": {
    "Z": {
-    "value": 6,
+    "value": 5,
     "confidence": "upper_bound",
     "witness": [
-     71080,
-     71088,
-     71106,
-     71110,
-     71115,
-     71139
+     83,
+     763,
+     1115,
+     2719,
+     3475
     ]
    },
    "X": {
-    "value": 6,
+    "value": 5,
     "confidence": "upper_bound",
     "witness": [
-     45594,
-     45598,
-     45711,
-     45714,
-     46318,
-     46325
+     52024,
+     52046,
+     52175,
+     52201,
+     68363
     ]
    }
   },
