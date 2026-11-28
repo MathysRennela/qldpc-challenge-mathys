@@ -939,10 +939,11 @@ def audit_wl_match(doc, dedup, *, root=None):
         out_dir = os.path.join(root, "research", "candidates", "equivalence")
         os.makedirs(out_dir, exist_ok=True)
         slug = os.path.splitext(os.path.basename(str(dedup["match"])))[0]
-        path = equivalence.save_record(
-            record, os.path.join(out_dir, f"candidate-vs-{slug}{equivalence.RECORD_SUFFIX}"))
-        print(f"  permutation audit against {dedup['match']}: {record.get('verdict')} "
-              f"({record.get('reason') or record.get('found_by')}); record -> {path}")
+        path = equivalence.save_record(record, os.path.join(out_dir, f"candidate-vs-{slug}{equivalence.RECORD_SUFFIX}"))
+        print(
+            f"  permutation audit against {dedup['match']}: {record.get('verdict')} "
+            f"({record.get('reason') or record.get('found_by')}); record -> {path}"
+        )
     except OSError as e:
         print(f"  note: equivalence record not written ({e})")
     return dedup
@@ -1972,7 +1973,11 @@ def cmd_submit(args):
         if args.note_file:
             with open(args.note_file, encoding="utf-8") as f:
                 todos = [i + 1 for i, line in enumerate(f) if re.search(r"\bTODO\b", line)]
-            where = f"{args.note_file} still has TODO placeholders (lines {', '.join(map(str, todos[:10]))})" if todos else ""
+            where = (
+                f"{args.note_file} still has TODO placeholders (lines {', '.join(map(str, todos[:10]))})"
+                if todos
+                else ""
+            )
         elif stub_here:
             where = "no --note-file given, and --open-pr would ship the auto-staged TODO stub"
         else:
@@ -2073,8 +2078,7 @@ def cmd_submit(args):
     # run is writing into the board's own directory the dedup is told to skip it:
     # the question the equivalence box asks is whether some OTHER entry already
     # carries this code, and the file this run just added is not an answer to it.
-    args._dedup = audit_wl_match(doc, board_dedup(
-        report, exclude=_self_entry_name(args.out, out)))
+    args._dedup = audit_wl_match(doc, board_dedup(report, exclude=_self_entry_name(args.out, out)))
     title = pr_title(n, k, d, _descriptor(args))
     body_file = write_pr_body(slug, pr_body(doc, report, args, out, note_out))
     branch = f"submit-{slug}"
@@ -2253,6 +2257,64 @@ def open_pr(
 # search; an --open-pr failure stops the batch, because the files it wrote are
 # then in the working tree unfiled and the next PR must not carry them.
 
+FAMILY_CHOICES = (
+    "bivariate-bicycle",
+    "generalized-bicycle",
+    "2bga-coset",
+    "hypergraph-product",
+    "lifted-product",
+    "balanced-product",
+    "quantum-tanner",
+    "tile",
+    "topological",
+    "other",
+)
+MODEL_MAX_LENGTH = 80  # schema/code.schema.json provenance.model
+HARNESS_MAX_LENGTH = 120  # schema/code.schema.json provenance.harness
+
+
+def validate_batch_flags(args):
+    """Refuse a shared flag every candidate would fail on, before any search is paid for (issue #7558).
+
+    ``--family`` must be one of the vocabulary ``submit`` accepts; ``--model``
+    must name a version (a digit in every comma-separated member, the
+    verifier's ``model_version_specified`` rule) and never ``human``, which
+    claims a person produced a code the batch is filing from a search;
+    ``--harness`` is a free string within the schema's length. Raises
+    SystemExit with the allowed set so the failure is a usage record.
+    """
+    if args.family and args.family not in FAMILY_CHOICES:
+        raise SystemExit(
+            f"--family {args.family!r} is not a family tag submit accepts; allowed: {', '.join(FAMILY_CHOICES)}"
+        )
+    model = (args.model or "").strip()
+    if model:
+        if model.lower() == "human":
+            raise SystemExit(
+                "--model human: a batch files codes a search produced; omit --model or name the model and version"
+            )
+        if len(model) > MODEL_MAX_LENGTH:
+            raise SystemExit(f"--model is longer than {MODEL_MAX_LENGTH} characters, the schema's limit")
+        members = [m.strip() for m in model.split(",") if m.strip()]
+        if not all(any(ch.isdigit() for ch in m) for m in members):
+            raise SystemExit(
+                f"--model {model!r} names no version; the verifier refuses a bare model name "
+                "(give e.g. 'Claude Opus 4.8', or omit the flag)"
+            )
+    harness = (args.harness or "").strip()
+    if args.harness and not harness:
+        raise SystemExit("--harness is blank; omit it or name the harness")
+    if len(harness) > HARNESS_MAX_LENGTH:
+        raise SystemExit(f"--harness is longer than {HARNESS_MAX_LENGTH} characters, the schema's limit")
+
+
+def shell_words(argv):
+    """Return ``argv`` as one shell-quoted command line, so a message a reader copies runs as written (issue #7560)."""
+    import shlex
+
+    return shlex.join(str(a) for a in argv)
+
+
 BATCH_DROPPED = ("duplicate", "parameter-tie")
 BATCH_OK = ("filed", "written", "dry-run") + BATCH_DROPPED
 _BATCH_REFUSAL_STAGES = ("verify", "frontier", "peer-audit", "revision", "structure")
@@ -2419,7 +2481,7 @@ def _batch_run_submit(args, row):
     try:
         sub_args = build_parser().parse_args(argv)
     except SystemExit as e:
-        return 2, {"error": {"stage": "usage", "message": f"submit {' '.join(argv[1:])}: exit {e.code}"}}
+        return 2, {"error": {"stage": "usage", "message": f"./qldpc {shell_words(argv)}: exit {e.code}"}}
     try:
         rc = cmd_submit(sub_args)
     except SystemExit as e:
@@ -2458,6 +2520,7 @@ def cmd_submit_batch(args):
     res = _result(args)
     res["stage"] = "load"
     args.authors = validate_authors(args.authors, args.anonymous)
+    validate_batch_flags(args)
     paths = _batch_paths(args.candidates)
     if not paths:
         raise SystemExit("submit-batch: no candidate files (.npz or .json) found in " + ", ".join(args.candidates))
@@ -2557,7 +2620,9 @@ def cmd_submit_batch(args):
                     "stage": "slug",
                     "message": f"slug {slug} was already used in this batch by {filed_slugs[slug]} "
                     "(a distinct code with the same n, k, d)",
-                    "hint": f"./qldpc submit {row['path']} ... --slug {slug}-b",
+                    "hint": shell_words(
+                        ["./qldpc"] + _batch_submit_argv(args, row["path"])[:2] + ["...", "--slug", f"{slug}-b"]
+                    ),
                 },
             )
             continue
@@ -4115,7 +4180,10 @@ def cmd_preflight(args):
             try:
                 r = _sp.run(
                     ["git", "remote", "get-url", "origin"],
-                    check=True, capture_output=True, text=True, cwd=_ROOT,
+                    check=True,
+                    capture_output=True,
+                    text=True,
+                    cwd=_ROOT,
                 )
                 origin_url = (r.stdout or "").strip()
             except Exception:
@@ -4134,10 +4202,15 @@ def cmd_preflight(args):
                 raise SystemExit(2)
             base = "origin/main"
     # verify the base ref exists before degrading behavior on it
-    if not _sp.run(
-        ["git", "rev-parse", "--verify", "--quiet", base],
-        cwd=_ROOT, capture_output=True, check=False,
-    ).returncode == 0:
+    if (
+        not _sp.run(
+            ["git", "rev-parse", "--verify", "--quiet", base],
+            cwd=_ROOT,
+            capture_output=True,
+            check=False,
+        ).returncode
+        == 0
+    ):
         print("ERROR: base ref '%s' not found; fetch or pass --base-ref <ref>." % base, file=sys.stderr)
         raise SystemExit(2)
 
@@ -4250,18 +4323,7 @@ def build_parser():
     s.add_argument("--name", default="")
     s.add_argument(
         "--family",
-        choices=[
-            "bivariate-bicycle",
-            "generalized-bicycle",
-            "2bga-coset",
-            "hypergraph-product",
-            "lifted-product",
-            "balanced-product",
-            "quantum-tanner",
-            "tile",
-            "topological",
-            "other",
-        ],
+        choices=list(FAMILY_CHOICES),
         help="construction family tag (a filter, not a ranking; track membership is computed from H and the layout)",
     )
     s.add_argument(

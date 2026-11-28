@@ -200,3 +200,41 @@ def test_the_top_level_help_lists_submit_batch_as_a_json_subcommand(capsys):
         qldpc.main(["--help"])
     out = capsys.readouterr().out
     assert "submit-batch" in out
+
+
+def test_shared_flags_are_validated_before_any_candidate_work(tmp_path, capsys):
+    a = _npz(tmp_path, "12-4-2")
+    out = str(tmp_path / "codes")
+    rc = qldpc.main(
+        ["submit-batch", a, "--authors", "@me", "--out", out, "--json", "--family", "pair-partition-cpm", *FAST]
+    )
+    record, _ = _record(capsys)
+    assert rc == 2 and record["error"]["class"] == "usage"
+    assert "pair-partition-cpm" in record["error"]["message"] and "bivariate-bicycle" in record["error"]["message"]
+    assert not os.path.exists(out)  # nothing was searched or written
+    for flags, needle in (
+        (["--model", "Claude"], "names no version"),
+        (["--model", "human"], "omit --model"),
+        (["--harness", "  "], "blank"),
+    ):
+        rc = qldpc.main(["submit-batch", a, "--authors", "@me", "--out", out, "--json", *flags, *FAST])
+        record, _ = _record(capsys)
+        assert rc == 2 and needle in record["error"]["message"], flags
+    assert (
+        qldpc.validate_batch_flags(
+            qldpc.build_parser().parse_args(
+                ["submit-batch", a, "--authors", "@me", "--model", "Beam 1.0, GLM-5.3-Flash", "--harness", "OpenCode"]
+            )
+        )
+        is None
+    )
+
+
+def test_commands_in_messages_are_shell_quoted():
+    assert (
+        qldpc.shell_words(["./qldpc", "submit", "a b.npz", "--model", "Beam 1.0"])
+        == "./qldpc submit 'a b.npz' --model 'Beam 1.0'"
+    )
+    args = qldpc.build_parser().parse_args(["submit-batch", "x y.npz", "--authors", "@me", "--model", "Beam 1.0"])
+    argv = qldpc._batch_submit_argv(args, "x y.npz")
+    assert "'x y.npz'" in qldpc.shell_words(argv) and "'Beam 1.0'" in qldpc.shell_words(argv)
