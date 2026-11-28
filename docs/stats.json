@@ -1,6 +1,6 @@
 {
-  "verified_codes": 4007,
-  "css_codes": 3566,
+  "verified_codes": 4008,
+  "css_codes": 3567,
   "stabilizer_codes": 441,
   "certified_exact": 2667,
   "tracks": 12,
@@ -8,20 +8,20 @@
   "best_geometric_efficiency": 1.7555,
   "provenance": {
     "no_match": 2550,
-    "literature": 489,
-    "not_derived": 106,
     "parameters_only": 421,
+    "literature": 489,
+    "not_derived": 107,
     "method": "isomorphism against the literature index",
     "caveat": "no_match means the index holds no match, not that the code is unpublished: two sparse generating sets of one stabilizer group can have non-isomorphic Tanner graphs"
   },
   "novelty": {
-    "unknown": 2941,
+    "unknown": 2942,
     "known_parameters": 968,
     "new_parameters": 98
   },
   "novelty_audited": 1066,
   "board_screen": {
-    "not_screened": 1128,
+    "not_screened": 1129,
     "distinct": 2401,
     "review": 37,
     "reference_entries": 771,
@@ -170,7 +170,7 @@
         "top1_share": 0.278,
         "top2_share": 0.402,
         "hhi": 0.109,
-        "members": 2390,
+        "members": 2391,
         "leader": {
           "slug": "136-34-12",
           "family": "other",
@@ -434,7 +434,7 @@
         "top1_share": 0.304,
         "top2_share": 0.409,
         "hhi": 0.119,
-        "members": 3566,
+        "members": 3567,
         "leader": {
           "slug": "682-142-85",
           "family": "generalized-bicycle",
