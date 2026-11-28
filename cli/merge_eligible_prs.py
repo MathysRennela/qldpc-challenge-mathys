@@ -10,6 +10,10 @@ Scope is one entry per PR: the unit the board files under a slug is
 `codes/<slug>.json` plus `notes/<slug>.md`, so a PR carrying several code
 records is a batch to read rather than one to merge, and it is reported and
 skipped.
+
+Exception: a PR whose every changed code record is a first-layout addition
+(`locality` block added to an existing entry, with nothing else changed) is a
+layout sweep and is merged as one unit.
 """
 
 import argparse
@@ -140,6 +144,45 @@ def too_many_codes_reason(code_paths: list[str]) -> str | None:
         f"{len(code_paths)} code records in one PR ({', '.join(code_paths)}); "
         "auto-merge covers one code and its note per PR, so a maintainer reviews this one"
     )
+
+
+def is_first_layout_addition(repo: str, path: str, head_sha: str, base: str) -> bool:
+    """True when path changes only by adding a first locality block."""
+    try:
+        base_doc = _cached_read_code_document(repo, path, base)
+        head_doc = _cached_read_code_document(repo, path, head_sha)
+    except GitHubCLIError:
+        return False
+    if not isinstance(base_doc, dict) or not isinstance(head_doc, dict):
+        return False
+    if "locality" in base_doc or "locality" not in head_doc:
+        return False
+    for key in (set(base_doc) | set(head_doc)) - {"locality", "name", "schema_version", "provenance"}:
+        if base_doc.get(key) != head_doc.get(key):
+            return False
+    base_prov = base_doc.get("provenance") if isinstance(base_doc.get("provenance"), dict) else {}
+    head_prov = head_doc.get("provenance") if isinstance(head_doc.get("provenance"), dict) else {}
+    for key in set(base_prov) | set(head_prov):
+        if key == "notes":
+            continue
+        if base_prov.get(key) != head_prov.get(key):
+            return False
+    old_notes, new_notes = str(base_prov.get("notes") or ""), str(head_prov.get("notes") or "")
+    return new_notes.startswith(old_notes)
+
+
+is_layout_addition = is_first_layout_addition
+layout_addition = is_first_layout_addition
+first_layout_addition = is_first_layout_addition
+
+
+def all_layout_additions(repo: str, code_paths: list[str], head_sha: str, base: str) -> bool:
+    return bool(code_paths) and all(is_first_layout_addition(repo, path, head_sha, base) for path in code_paths)
+
+
+all_layouts = all_layout_additions
+bulk_layout_eligible = all_layout_additions
+is_bulk_layout = all_layout_additions
 
 
 def metadata_error(document: Any) -> str | None:
@@ -347,7 +390,10 @@ def evaluate_pr(repo: str, pr: dict[str, Any], base: str) -> Evaluation:
             # Blocked on scope, but still read every record: a batch PR's author
             # needs the same provenance feedback a single-entry PR gets.
             too_many = too_many_codes_reason(code_paths)
-            if too_many:
+            # A PR that only adds first `locality` blocks to existing entries
+            # (a layout sweep) is a bulk submission we do want to merge as one
+            # unit, so the one-code-per-PR scope rule does not apply to it.
+            if too_many and not all_layout_additions(repo, code_paths, head_sha, base):
                 result.reasons.append(too_many)
             added = {item.get("filename") for item in files if item.get("status") == "added"}
             # a distance revision renames the record, so its base entry lives
