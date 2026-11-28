@@ -7,10 +7,10 @@
   "best_kd2_over_n": 1504.33,
   "best_geometric_efficiency": 1.7555,
   "provenance": {
-    "no_match": 2551,
+    "no_match": 2550,
     "parameters_only": 421,
+    "not_derived": 103,
     "literature": 489,
-    "not_derived": 102,
     "method": "isomorphism against the literature index",
     "caveat": "no_match means the index holds no match, not that the code is unpublished: two sparse generating sets of one stabilizer group can have non-isomorphic Tanner graphs"
   },
@@ -21,8 +21,8 @@
   },
   "novelty_audited": 1064,
   "board_screen": {
-    "distinct": 2401,
     "not_screened": 1125,
+    "distinct": 2401,
     "review": 37,
     "reference_entries": 771,
     "method": "fingerprint and Weisfeiler-Leman signature against the board's seeded and literature entries",
@@ -30,15 +30,15 @@
   },
   "family_concentration": {
     "global": {
-      "records": 1717,
+      "records": 1720,
       "families": 15,
       "untagged": 469,
       "untagged_share": 0.273,
       "top": [
         {
           "family": "generalized-bicycle",
-          "records": 520,
-          "share": 0.303
+          "records": 523,
+          "share": 0.304
         },
         {
           "family": "bivariate-bicycle",
@@ -46,8 +46,8 @@
           "share": 0.105
         }
       ],
-      "top1_share": 0.303,
-      "top2_share": 0.408,
+      "top1_share": 0.304,
+      "top2_share": 0.409,
       "hhi": 0.119
     },
     "cells": {
@@ -415,15 +415,15 @@
         "moved": false
       },
       "unrestricted~weight-any": {
-        "records": 1717,
+        "records": 1720,
         "families": 15,
         "untagged": 469,
         "untagged_share": 0.273,
         "top": [
           {
             "family": "generalized-bicycle",
-            "records": 520,
-            "share": 0.303
+            "records": 523,
+            "share": 0.304
           },
           {
             "family": "bivariate-bicycle",
@@ -431,8 +431,8 @@
             "share": 0.105
           }
         ],
-        "top1_share": 0.303,
-        "top2_share": 0.408,
+        "top1_share": 0.304,
+        "top2_share": 0.409,
         "hhi": 0.119,
         "members": 3563,
         "leader": {
